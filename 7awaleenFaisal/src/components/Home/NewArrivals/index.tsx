@@ -1,10 +1,20 @@
+"use client";
+
 import React from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import ProductItem from "@/components/Common/ProductItem";
 import shopData from "@/components/Shop/shopData";
+import { useGetstoresQuery } from "@/redux/features/Api.slice";
+import PreLoader from "@/components/Common/PreLoader";
+import Error from "@/components/Error";
 
 const NewArrival = () => {
+  const { data: stores, error, isLoading } = useGetstoresQuery();
+  if (error) {
+    return <Error />;
+  }
   return (
     <section className="overflow-hidden pt-15">
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
@@ -45,13 +55,16 @@ const NewArrival = () => {
             View All
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-7.5 gap-y-9">
-          {/* <!-- New Arrivals item --> */}
-          {shopData.map((item, key) => (
-            <ProductItem item={item} key={key} />
-          ))}
-        </div>
+        {isLoading ? (
+          <PreLoader />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-7.5 gap-y-9">
+            {/* <!-- New Arrivals item --> */}
+            {stores.map((item, key) => (
+              <ProductItem item={item} key={key} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

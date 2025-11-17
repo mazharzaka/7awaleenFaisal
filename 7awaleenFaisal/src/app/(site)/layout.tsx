@@ -15,6 +15,7 @@ import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import PreLoader from "@/components/Common/PreLoader";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
@@ -29,7 +30,11 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body>
+      <body
+        data-new-gr-c-s-check-loaded="14.1261.0"
+        data-gr-ext-installed=""
+        cz-shortcut-listen="true"
+      >
         {loading ? (
           <PreLoader />
         ) : (
@@ -50,6 +55,7 @@ export default function RootLayout({
             </ReduxProvider>
             <ScrollToTop />
             <Footer />
+            <Toaster />
           </>
         )}
       </body>

@@ -15,9 +15,9 @@ export const menuData: Menu[] = [
   },
   {
     id: 3,
-    title: "Contact",
+    title: "AddStores",
     newTab: false,
-    path: "/contact",
+    path: "/AddStores",
   },
   {
     id: 6,

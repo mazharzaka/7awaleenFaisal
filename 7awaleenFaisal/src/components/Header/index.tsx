@@ -5,16 +5,18 @@ import CustomSelect from "./CustomSelect";
 import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
 import { useAppSelector } from "@/redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
+import { logout } from "@/redux/features/Auth.slice";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
   const { openCartModal } = useCartModalContext();
+  const usedispatch = useDispatch();
 
   const product = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
@@ -157,7 +159,10 @@ const Header = () => {
             <span className="hidden xl:block w-px h-7.5 bg-gray-4"></span>
 
             <div className="flex w-full lg:w-auto justify-between items-center gap-5">
-              <div className="flex items-center gap-5">
+              <div
+                className="flex items-center gap-5"
+                onClick={() => usedispatch(logout())}
+              >
                 <Link href="/signin" className="flex items-center gap-2.5">
                   <svg
                     width="24"
@@ -185,7 +190,7 @@ const Header = () => {
                       account
                     </span>
                     <p className="font-medium text-custom-sm text-dark">
-                      Sign In
+                      log out
                     </p>
                   </div>
                 </Link>

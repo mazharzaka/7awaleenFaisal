@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const CustomSelect = ({ options }) => {
+const CustomSelect = ({ options, onChange, width = "200px" }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
@@ -9,7 +9,9 @@ const CustomSelect = ({ options }) => {
   };
 
   const handleOptionClick = (option) => {
+    console.log(option);
     setSelectedOption(option);
+    onChange(option);
     toggleDropdown();
   };
 
@@ -31,7 +33,10 @@ const CustomSelect = ({ options }) => {
   }, []);
 
   return (
-    <div className="dropdown-content custom-select relative" style={{ width: "200px" }}>
+    <div
+      className="dropdown-content custom-select relative"
+      style={{ width: width }}
+    >
       <div
         className={`select-selected whitespace-nowrap ${
           isOpen ? "select-arrow-active" : ""
@@ -41,7 +46,7 @@ const CustomSelect = ({ options }) => {
         {selectedOption.label}
       </div>
       <div className={`select-items ${isOpen ? "" : "select-hide"}`}>
-        {options.slice(1, -1).map((option, index) => (
+        {options.map((option, index) => (
           <div
             key={index}
             onClick={() => handleOptionClick(option)}

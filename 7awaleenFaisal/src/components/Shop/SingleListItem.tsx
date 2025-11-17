@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { Product } from "@/types/product";
+import { Product } from "@/types/stores";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
 import { updateQuickView } from "@/redux/features/quickView-slice";
 import { addItemToCart } from "@/redux/features/cart-slice";
