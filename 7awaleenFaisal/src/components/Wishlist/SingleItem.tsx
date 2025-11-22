@@ -15,12 +15,7 @@ const SingleItem = ({ item }) => {
   };
 
   const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        ...item,
-        quantity: 1,
-      })
-    );
+    console.log("now");
   };
 
   return (
@@ -57,7 +52,12 @@ const SingleItem = ({ item }) => {
         <div className="flex items-center justify-between gap-5">
           <div className="w-full flex items-center gap-5.5">
             <div className="flex items-center justify-center rounded-[5px] bg-gray-2 max-w-[80px] w-full h-17.5">
-              <Image src={item.imgs?.thumbnails[0]} alt="product" width={200} height={200} />
+              <Image
+                src={item.imgs?.thumbnails[0]}
+                alt="product"
+                width={200}
+                height={200}
+              />
             </div>
 
             <div>
@@ -107,7 +107,7 @@ const SingleItem = ({ item }) => {
           onClick={() => handleAddToCart()}
           className="inline-flex text-dark hover:text-white bg-gray-1 border border-gray-3 py-2.5 px-6 rounded-md ease-out duration-200 hover:bg-blue hover:border-gray-3"
         >
-          Add to Cart
+          Buy Now
         </button>
       </div>
     </div>

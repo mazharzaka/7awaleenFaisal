@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import React, { createContext, useContext, useState } from "react";
 
 interface ModalContextType {
   isModalOpen: boolean;
-  openModal: () => void;
+  openModal: (id: string) => void;
   closeModal: () => void;
+  id: string;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -19,9 +20,10 @@ export const useModalContext = () => {
 
 export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
+  const [id, setId] = useState("");
+  const openModal = (id: string) => {
     setIsModalOpen(true);
+    setId(id);
   };
 
   const closeModal = () => {
@@ -29,8 +31,8 @@ export const ModalProvider = ({ children }) => {
   };
 
   return (
-    <ModalContext.Provider value={{ isModalOpen, openModal, closeModal }}>
+    <ModalContext.Provider value={{ isModalOpen, openModal, id, closeModal }}>
       {children}
     </ModalContext.Provider>
   );
-}; 
+};

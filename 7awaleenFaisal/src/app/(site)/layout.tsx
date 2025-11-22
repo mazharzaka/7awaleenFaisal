@@ -8,7 +8,7 @@ import Footer from "../../components/Footer";
 import { ModalProvider } from "../context/QuickViewModalContext";
 import { CartModalProvider } from "../context/CartSidebarModalContext";
 import { ReduxProvider } from "@/redux/provider";
-import QuickViewModal from "@/components/Common/QuickViewModal";
+import QuickViewModal from "@/components/Common/[id]/QuickViewModal";
 import CartSidebarModal from "@/components/Common/CartSidebarModal";
 import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import PreviewSliderModal from "@/components/Common/PreviewSlider";
@@ -16,6 +16,8 @@ import PreviewSliderModal from "@/components/Common/PreviewSlider";
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import PreLoader from "@/components/Common/PreLoader";
 import { Toaster } from "react-hot-toast";
+import BuyNowModal from "@/components/Common/BuyNowModal";
+import { BuyNowProvider } from "../context/BuyNowContext";
 
 export default function RootLayout({
   children,
@@ -42,14 +44,16 @@ export default function RootLayout({
             <ReduxProvider>
               <CartModalProvider>
                 <ModalProvider>
-                  <PreviewSliderProvider>
-                    <Header />
-                    {children}
-
-                    <QuickViewModal />
-                    <CartSidebarModal />
-                    <PreviewSliderModal />
-                  </PreviewSliderProvider>
+                  <BuyNowProvider>
+                    <PreviewSliderProvider>
+                      <Header />
+                      {children}
+                      <BuyNowModal />
+                      <QuickViewModal />
+                      <CartSidebarModal />
+                      <PreviewSliderModal />
+                    </PreviewSliderProvider>
+                  </BuyNowProvider>
                 </ModalProvider>
               </CartModalProvider>
             </ReduxProvider>

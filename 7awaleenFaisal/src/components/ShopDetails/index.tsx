@@ -128,13 +128,6 @@ const ShopDetails = () => {
                           />
                         </svg>
                       </button>
-
-                      <Image
-                        src={product.imgs?.previews[previewImg]}
-                        alt="products-details"
-                        width={400}
-                        height={400}
-                      />
                     </div>
                   </div>
 

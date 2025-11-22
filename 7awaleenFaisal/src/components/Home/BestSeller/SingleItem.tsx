@@ -9,9 +9,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { addItemToWishlist } from "@/redux/features/wishlist-slice";
 import { IProductDocument } from "@/types/product";
+import { useBuyNowContext } from "@/app/context/BuyNowContext";
 
 const SingleItem = ({ item }: { item: IProductDocument }) => {
   const { openModal } = useModalContext();
+  const { openBuyNow } = useBuyNowContext();
   const dispatch = useDispatch<AppDispatch>();
 
   // update the QuickView state
@@ -81,12 +83,17 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           </div>
 
           <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
-            <Link href="/shop-details"> {item.name} </Link>
+            <Link href="/shop-details"> {item.name} vcgh</Link>
           </h3>
 
           <span className="flex items-center justify-center gap-2 font-medium text-lg">
             <span className="text-dark">${item.finalPrice}</span>
-            <span className="text-dark-4 line-through">${item.price}</span>
+            {item.sale !== 0 && (
+              <>
+                <span className="text-dark-4 line-through">${item.price}</span>
+                <span className="text-red-dark ">{item.sale}%</span>
+              </>
+            )}
           </span>
         </div>
 
@@ -102,8 +109,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
         <div className="absolute right-0 bottom-0 translate-x-full u-w-full flex flex-col gap-2 p-5.5 ease-linear duration-300 group-hover:translate-x-0">
           <button
             onClick={() => {
-              // handleQuickViewUpdate();
-              openModal();
+              openModal(item.id);
             }}
             aria-label="button for quick view"
             id="bestOne"
@@ -133,7 +139,9 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           </button>
 
           <button
-            // onClick={() => handleAddToCart()}
+            onClick={() => {
+              openBuyNow(item.id);
+            }}
             aria-label="button for add to cart"
             id="addCartOne"
             className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue"

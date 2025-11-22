@@ -7,10 +7,15 @@ import SingleListItem from "../Shop/SingleListItem";
 import CustomSelect from "../ShopWithSidebar/CustomSelect";
 
 import shopData from "../Shop/shopData";
+import { useGetproductsQuery } from "@/redux/features/Api.slice";
+import Error from "../Error";
 
 const ShopWithoutSidebar = () => {
   const [productStyle, setProductStyle] = useState("grid");
-
+  const { data: products, error, isLoading } = useGetproductsQuery();
+  if (error) {
+    return <Error />;
+  }
   const options = [
     { label: "Latest Products", value: "0" },
     { label: "Best Selling", value: "1" },
@@ -129,7 +134,7 @@ const ShopWithoutSidebar = () => {
                     : "flex flex-col gap-7.5"
                 }`}
               >
-                {shopData.map((item, key) =>
+                {products?.map((item, key) =>
                   productStyle === "grid" ? (
                     <SingleGridItem item={item} key={key} />
                   ) : (

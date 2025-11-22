@@ -24,13 +24,13 @@ const HeroCarousal = () => {
       className="hero-carousel"
     >
       <SwiperSlide>
-        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row">
-          <div className="max-w-[394px] py-10 sm:py-15 lg:py-24.5 pl-4 sm:pl-7.5 lg:pl-12.5">
+        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row w-full h-screen bg-[url('/images/hero/7ede04cd-6c4c-4fdb-95f1-6b00486609f1.jpg')] bg-cover bg-center ">
+          {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-24.5 pl-4 sm:pl-7.5 lg:pl-12.5">
             <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
               <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">
-                30%
+                10%
               </span>
-              <span className="block text-dark text-sm sm:text-custom-1 sm:leading-[24px]">
+              <span className="block text-white font-bold text-sm sm:text-custom-1 sm:leading-[24px]">
                 Sale
                 <br />
                 Off
@@ -42,7 +42,8 @@ const HeroCarousal = () => {
             </h1>
 
             <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at ipsum at risus euismod lobortis in
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at
+              ipsum at risus euismod lobortis in
             </p>
 
             <a
@@ -51,22 +52,13 @@ const HeroCarousal = () => {
             >
               Shop Now
             </a>
-          </div>
-
-          <div>
-            <Image
-              src="/images/hero/hero-01.png"
-              alt="headphone"
-              width={351}
-              height={358}
-            />
-          </div>
+          </div> */}
         </div>
       </SwiperSlide>
       <SwiperSlide>
         {" "}
-        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row">
-          <div className="max-w-[394px] py-10 sm:py-15 lg:py-26 pl-4 sm:pl-7.5 lg:pl-12.5">
+        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row h-screen bg-[url('/images/hero/56a08085-0b41-4ce1-9a11-c357c90676ef.jpg')] bg-cover bg-center">
+          {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-26 pl-4 sm:pl-7.5 lg:pl-12.5">
             <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
               <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">
                 30%
@@ -93,16 +85,16 @@ const HeroCarousal = () => {
             >
               Shop Now
             </a>
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <Image
               src="/images/hero/hero-01.png"
               alt="headphone"
               width={351}
               height={358}
             />
-          </div>
+          </div> */}
         </div>
       </SwiperSlide>
     </Swiper>

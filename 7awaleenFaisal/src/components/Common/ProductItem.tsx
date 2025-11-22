@@ -1,25 +1,22 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Store } from "@/types/stores";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
-import { updateQuickView } from "@/redux/features/quickView-slice";
-import { addItemToCart } from "@/redux/features/cart-slice";
-import { addItemToWishlist } from "@/redux/features/wishlist-slice";
-import { updateproductDetails } from "@/redux/features/product-details";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
 import Link from "next/link";
 
 const ProductItem = ({ item }: { item: Store }) => {
   const { openModal } = useModalContext();
-
+  const [name, setName] = useState("");
+  const handleBuyNow = (e) => {
+    console.log(name);
+  };
   return (
     <div className="group">
       <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-[#F6F7FB] min-h-[270px] mb-4">
         <Image src={item.imageURL} alt="" width={300} height={300} />
 
-        <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
+        {/* <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
           <button
             // onClick={() => {
             //   openModal();
@@ -56,7 +53,7 @@ const ProductItem = ({ item }: { item: Store }) => {
             // onClick={() => handleAddToCart()}
             className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
           >
-            Add to cart
+            Buy Now
           </button>
 
           <button
@@ -81,7 +78,7 @@ const ProductItem = ({ item }: { item: Store }) => {
               />
             </svg>
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex items-center gap-2.5 mb-2">

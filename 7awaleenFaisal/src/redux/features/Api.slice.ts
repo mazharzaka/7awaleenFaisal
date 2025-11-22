@@ -20,6 +20,9 @@ export const apiSlice = createApi({
     getproducts: builder.query<IProductDocument[], void>({
       query: () => "/product",
     }),
+    getproduct: builder.query<IProductDocument, string>({
+      query: (id: string) => `/product/${id}`,
+    }),
     login: builder.mutation({
       query: (credentials) => ({
         url: "/user/login",
@@ -47,6 +50,7 @@ export const apiSlice = createApi({
 export const {
   useGetstoresQuery,
   useGetproductsQuery,
+  useGetproductQuery,
   useLoginMutation,
   useAddstoreMutation,
   useAddProdectMutation,
