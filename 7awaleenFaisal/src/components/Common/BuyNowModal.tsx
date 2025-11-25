@@ -1,24 +1,42 @@
 import React from "react";
 import PreLoader from "./PreLoader";
 import { useBuyNowContext } from "@/app/context/BuyNowContext";
+import {
+  useGetproductQuery,
+  useGeustOrderMutation,
+} from "@/redux/features/Api.slice";
+import toast from "react-hot-toast";
 
 function BuyNowModal() {
   const { closeBuyNow, isBuyNowOpen, id } = useBuyNowContext();
+  const { data: product, isLoading, error } = useGetproductQuery(id);
+  const [geustOrder] = useGeustOrderMutation();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
+    const form = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
+    const formObject: any = {};
 
-    const formObject = {};
     formData.forEach((value, key) => {
-      if (!isNaN(value) && value.trim() !== "") {
-        formObject[key] = Number(value);
+      if (typeof value === "string") {
+        formObject[key] =
+          !isNaN(Number(value)) && value.trim() !== "" ? Number(value) : value;
       } else {
-        formObject[key] = value;
+        formObject[key] = value; // File
       }
     });
 
+    try {
+      const response = await geustOrder(formObject);
+      response.error
+        ? toast.error("حصل خطأ حاول مرة تانية يا بطل 😓")
+        : toast.success("تم ارسال الطلب بنجاح 🎉");
+      window.open(response.data.whatsappLink, "_blank");
+    } catch (err) {
+      console.error("Error submitting order:", err);
+    }
     console.log(formObject);
   };
   return (
@@ -119,7 +137,7 @@ function BuyNowModal() {
                 name="price"
                 // onChange={(e) => setData({ ...data, price: e.target.value })}
                 className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
-                value={50}
+                value={product?.price}
               />
             </div>
             <div>
@@ -131,7 +149,19 @@ function BuyNowModal() {
                 name="product"
                 className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
                 // onChange={(e) => setData({ ...data, price: e.target.value })}
-                value="jghj"
+                value={product?.name}
+              />
+            </div>
+            <div>
+              <label htmlFor="price" className="block mb-2">
+                productId <span className="text-red-500">*</span>
+              </label>
+              <input
+                // type="number"
+                name="productId"
+                className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                // onChange={(e) => setData({ ...data, price: e.target.value })}
+                value={product?.id}
               />
             </div>
             {/* Category */}

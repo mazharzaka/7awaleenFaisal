@@ -29,13 +29,6 @@ const QuickViewModal = () => {
 
   // add to cart
   const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        ...product,
-        quantity,
-      })
-    );
-
     closeModal();
   };
 
@@ -97,7 +90,7 @@ const QuickViewModal = () => {
               <div className="max-w-[526px] w-full">
                 <div className="flex gap-5">
                   {/* <div className="flex flex-col gap-5">
-                    {product.imgs.thumbnails?.map((img, key) => (
+                    {product?.imgs.thumbnails?.map((img, key) => (
                       <button
                         onClick={() => setActivePreview(key)}
                         key={key}
@@ -157,7 +150,7 @@ const QuickViewModal = () => {
                 </span>
 
                 <h3 className="font-semibold text-xl xl:text-heading-5 text-dark mb-4">
-                  {product.name}
+                  {product?.name}
                 </h3>
 
                 <div className="flex flex-wrap items-center gap-5 mb-6">
@@ -308,7 +301,7 @@ const QuickViewModal = () => {
                   </div>
                 </div>
 
-                <p>{product.desc}</p>
+                <p>{product?.desc}</p>
 
                 <div className="flex flex-wrap justify-between gap-5 mt-6 mb-7.5">
                   <div>
@@ -318,15 +311,15 @@ const QuickViewModal = () => {
 
                     <span className="flex items-center gap-2">
                       <span className="font-semibold text-dark text-xl xl:text-heading-4">
-                        ${product.finalPrice}
+                        ${product?.finalPrice}
                       </span>
-                      {product.sale !== 0 && (
+                      {product?.sale !== 0 && (
                         <>
                           <span className="text-dark-4 line-through">
-                            ${product.price}
+                            ${product?.price}
                           </span>
                           <span className="text-red-dark ">
-                            {product.sale}%
+                            {product?.sale}%
                           </span>
                         </>
                       )}

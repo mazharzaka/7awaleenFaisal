@@ -25,42 +25,30 @@ const SingleOrder = ({ orderItem, smallView }: any) => {
         <div className="items-center justify-between border-t border-gray-3 py-5 px-7.5 hidden md:flex">
           <div className="min-w-[111px]">
             <p className="text-custom-sm text-red">
-              #{orderItem.orderId.slice(-8)}
+              #{orderItem._id.slice(-8)}
             </p>
           </div>
           <div className="min-w-[175px]">
-            <p className="text-custom-sm text-dark">{orderItem.createdAt}</p>
+            <p className="text-custom-sm text-dark">{orderItem.updatedAt}</p>
           </div>
-
-          <div className="min-w-[128px]">
-            <p
-              className={`inline-block text-custom-sm  py-0.5 px-2.5 rounded-[30px] capitalize ${
-                orderItem.status === "delivered"
-                  ? "text-green bg-green-light-6"
-                  : orderItem.status === "on-hold"
-                  ? "text-red bg-red-light-6"
-                  : orderItem.status === "processing"
-                  ? "text-yellow bg-yellow-light-4"
-                  : "Unknown Status"
-              }`}
-            >
-              {orderItem.status}
+          <div className="min-w-[213px]">
+            <p className="text-custom-sm text-dark">
+              {orderItem.productId.price}
             </p>
+          </div>
+          <div className="min-w-[213px]">
+            <p className="text-custom-sm text-dark">{orderItem.quantity}</p>
+          </div>
+          <div className="min-w-[213px]">
+            <p className="text-custom-sm text-dark">{orderItem.finalPrice}</p>
           </div>
 
           <div className="min-w-[213px]">
-            <p className="text-custom-sm text-dark">{orderItem.title}</p>
+            <p className="text-custom-sm text-dark">{orderItem.name}</p>
           </div>
 
           <div className="min-w-[113px]">
-            <p className="text-custom-sm text-dark">{orderItem.total}</p>
-          </div>
-
-          <div className="flex gap-5 items-center">
-            <OrderActions
-              toggleDetails={toggleDetails}
-              toggleEdit={toggleEdit}
-            />
+            <p className="text-custom-sm text-dark">{orderItem.phone}</p>
           </div>
         </div>
       )}

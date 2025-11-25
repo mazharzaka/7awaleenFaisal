@@ -17,6 +17,11 @@ export const apiSlice = createApi({
     getstores: builder.query<Store[], void>({
       query: () => "/store",
     }),
+    getGeustOrder: builder.query<any, void>({
+      query: () => ({
+        url: "/order/guest",
+      }),
+    }),
     getproducts: builder.query<IProductDocument[], void>({
       query: () => "/product",
     }),
@@ -44,6 +49,14 @@ export const apiSlice = createApi({
         body: credentials,
       }),
     }),
+
+    geustOrder: builder.mutation({
+      query: (credentials) => ({
+        url: "/order/guest",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
@@ -53,5 +66,7 @@ export const {
   useGetproductQuery,
   useLoginMutation,
   useAddstoreMutation,
+  useGetGeustOrderQuery,
   useAddProdectMutation,
+  useGeustOrderMutation,
 } = apiSlice;

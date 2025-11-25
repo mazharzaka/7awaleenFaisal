@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "@/types/stores";
 
 type InitialState = {
-  value: Product;
+  value: any;
 };
 
 const initialState = {
