@@ -2,11 +2,11 @@ import { Store } from "@/types/stores";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "@/redux/store";
 import { IProductDocument } from "@/types/product";
-
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://7awaleenfaisal-back-production.up.railway.app",
+    baseUrl: baseUrl,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) headers.set("authorization", `Bearer ${token}`);
