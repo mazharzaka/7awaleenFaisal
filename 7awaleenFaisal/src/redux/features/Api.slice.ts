@@ -6,7 +6,7 @@ import { IProductDocument } from "@/types/product";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://7awaleenfaisal-back-production.up.railway.app",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) headers.set("authorization", `Bearer ${token}`);
