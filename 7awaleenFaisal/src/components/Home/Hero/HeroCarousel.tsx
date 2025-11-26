@@ -21,10 +21,10 @@ const HeroCarousal = () => {
         clickable: true,
       }}
       modules={[Autoplay, Pagination]}
-      className="hero-carousel"
+      className="hero-carousel h-[18vh] sm:h-[28vh] lg:h-screen"
     >
       <SwiperSlide>
-        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row w-full h-screen bg-[url('/images/hero/d550c9f2-b26b-40ae-9da3-f5a073d0b395.jpg')] bg-cover bg-center ">
+        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row w-full sm:h-[28vh] h-[18vh] lg:h-screen bg-[url('/images/hero/d550c9f2-b26b-40ae-9da3-f5a073d0b395.jpg')] bg-cover bg-center ">
           {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-24.5 pl-4 sm:pl-7.5 lg:pl-12.5">
             <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
               <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">
@@ -56,7 +56,7 @@ const HeroCarousal = () => {
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row w-full h-screen bg-[url('/images/hero/7ede04cd-6c4c-4fdb-95f1-6b00486609f1.jpg')] bg-cover bg-center ">
+        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row w-full sm:h-[28vh] h-[18vh] lg:h-screen bg-[url('/images/hero/7ede04cd-6c4c-4fdb-95f1-6b00486609f1.jpg')] bg-cover bg-center ">
           {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-24.5 pl-4 sm:pl-7.5 lg:pl-12.5">
             <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
               <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">
@@ -89,7 +89,7 @@ const HeroCarousal = () => {
       </SwiperSlide>
       <SwiperSlide>
         {" "}
-        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row h-screen bg-[url('/images/hero/56a08085-0b41-4ce1-9a11-c357c90676ef.jpg')] bg-cover bg-center">
+        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row sm:h-[28vh] h-[18vh] lg:h-screen bg-[url('/images/hero/56a08085-0b41-4ce1-9a11-c357c90676ef.jpg')] bg-cover bg-center">
           {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-26 pl-4 sm:pl-7.5 lg:pl-12.5">
             <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
               <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">

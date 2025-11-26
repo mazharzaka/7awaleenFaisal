@@ -1,6 +1,7 @@
 import React from "react";
 import { Wishlist } from "@/components/Wishlist";
 import { Metadata } from "next";
+import ProtectedComponent from "@/app/context/Protected";
 
 export const metadata: Metadata = {
   title: "Wishlist Page | NextCommerce Nextjs E-commerce template",
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 const WishlistPage = () => {
   return (
     <main>
-      <Wishlist />
+      <ProtectedComponent>
+        <Wishlist />
+      </ProtectedComponent>
     </main>
   );
 };

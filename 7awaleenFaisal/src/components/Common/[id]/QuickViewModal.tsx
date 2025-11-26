@@ -10,9 +10,12 @@ import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
 import { updateproductDetails } from "@/redux/features/product-details";
 import { useGetproductQuery } from "@/redux/features/Api.slice";
 import PreLoader from "../PreLoader";
+import { useBuyNowContext } from "@/app/context/BuyNowContext";
 
 const QuickViewModal = () => {
   const { isModalOpen, closeModal, id } = useModalContext();
+  const { openBuyNow } = useBuyNowContext();
+
   const { openPreviewModal } = usePreviewSlider();
   const [quantity, setQuantity] = useState(1);
   const { data: product, isLoading, error } = useGetproductQuery(id);
@@ -30,6 +33,8 @@ const QuickViewModal = () => {
   // add to cart
   const handleAddToCart = () => {
     closeModal();
+
+    openBuyNow(id);
   };
 
   useEffect(() => {
@@ -402,7 +407,7 @@ const QuickViewModal = () => {
                     className={`inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark
                   `}
                   >
-                    Add to Cart
+                    Buy Now
                   </button>
 
                   <button

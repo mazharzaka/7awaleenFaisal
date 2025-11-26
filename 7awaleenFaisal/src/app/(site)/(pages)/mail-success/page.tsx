@@ -2,6 +2,7 @@ import React from "react";
 import MailSuccess from "@/components/MailSuccess";
 
 import { Metadata } from "next";
+import ProtectedComponent from "@/app/context/Protected";
 export const metadata: Metadata = {
   title: "Mail Success Page | NextCommerce Nextjs E-commerce template",
   description: "This is Mail Success Page for NextCommerce Template",
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 const MailSuccessPage = () => {
   return (
     <main>
-      <MailSuccess />
+      <ProtectedComponent>
+        <MailSuccess />
+      </ProtectedComponent>
     </main>
   );
 };

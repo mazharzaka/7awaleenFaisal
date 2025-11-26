@@ -8,10 +8,12 @@ import { AppDispatch } from "@/redux/store";
 import Link from "next/link";
 import Image from "next/image";
 import { IProductDocument } from "@/types/product";
-import { useRouter } from "next/router";
+import { useBuyNowContext } from "@/app/context/BuyNowContext";
 
 const SingleListItem = ({ item }: { item: IProductDocument }) => {
   const { openModal } = useModalContext();
+  const { openBuyNow } = useBuyNowContext();
+
   const dispatch = useDispatch<AppDispatch>();
   // update the QuickView state
   const handleQuickViewUpdate = () => {
@@ -80,7 +82,9 @@ const SingleListItem = ({ item }: { item: IProductDocument }) => {
             </button>
 
             <button
-              onClick={() => handleAddToCart()}
+              onClick={() => {
+                openBuyNow(item.id);
+              }}
               className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
             >
               Buy Now
