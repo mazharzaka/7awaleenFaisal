@@ -24,6 +24,38 @@ const HeroCarousal = () => {
       className="hero-carousel"
     >
       <SwiperSlide>
+        <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row w-full h-screen bg-[url('/images/hero/d550c9f2-b26b-40ae-9da3-f5a073d0b395.jpg')] bg-cover bg-center ">
+          {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-24.5 pl-4 sm:pl-7.5 lg:pl-12.5">
+            <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
+              <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">
+                10%
+              </span>
+              <span className="block text-white font-bold text-sm sm:text-custom-1 sm:leading-[24px]">
+                Sale
+                <br />
+                Off
+              </span>
+            </div>
+
+            <h1 className="font-semibold text-dark text-xl sm:text-3xl mb-3">
+              <a href="#">True Wireless Noise Cancelling Headphone</a>
+            </h1>
+
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at
+              ipsum at risus euismod lobortis in
+            </p>
+
+            <a
+              href="#"
+              className="inline-flex font-medium text-white text-custom-sm rounded-md bg-dark py-3 px-9 ease-out duration-200 hover:bg-blue mt-10"
+            >
+              Shop Now
+            </a>
+          </div> */}
+        </div>
+      </SwiperSlide>
+      <SwiperSlide>
         <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row w-full h-screen bg-[url('/images/hero/7ede04cd-6c4c-4fdb-95f1-6b00486609f1.jpg')] bg-cover bg-center ">
           {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-24.5 pl-4 sm:pl-7.5 lg:pl-12.5">
             <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
