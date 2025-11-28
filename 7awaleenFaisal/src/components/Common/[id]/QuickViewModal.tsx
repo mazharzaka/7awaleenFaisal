@@ -11,7 +11,6 @@ import { updateproductDetails } from "@/redux/features/product-details";
 import { useGetproductQuery } from "@/redux/features/Api.slice";
 import PreLoader from "../PreLoader";
 import { useBuyNowContext } from "@/app/context/BuyNowContext";
-import ReactImageMagnify from "react-image-magnify";
 const QuickViewModal = () => {
   const { isModalOpen, closeModal, id } = useModalContext();
   const { openBuyNow } = useBuyNowContext();
