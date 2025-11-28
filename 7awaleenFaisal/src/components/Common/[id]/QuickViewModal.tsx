@@ -163,8 +163,8 @@ const QuickViewModal = () => {
                           },
                           largeImage: {
                             src: imgSrc,
-                            width: 700, // صورة HD للزووم
-                            height: 700,
+                            width: 800, // صورة HD للزووم
+                            height: 800,
                           },
                           enlargedImageContainerDimensions: {
                             width: "100%", // حجم صورة الزووم
