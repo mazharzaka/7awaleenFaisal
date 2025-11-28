@@ -1,6 +1,6 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import "swiper/css/navigation";
 import "swiper/css";
 import Image from "next/image";
@@ -12,7 +12,9 @@ const PreviewSliderModal = () => {
   const { closePreviewModal, isModalPreviewOpen } = usePreviewSlider();
 
   const data = useAppSelector((state) => state.productDetailsReducer.value);
-
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
   const sliderRef = useRef(null);
 
   const handlePrev = useCallback(() => {
@@ -96,16 +98,19 @@ const PreviewSliderModal = () => {
       </div>
 
       <Swiper ref={sliderRef} slidesPerView={1} spaceBetween={20}>
-        <SwiperSlide>
-          <div className="flex justify-center items-center">
-            <Image
-              src={"/images/products/product-2-bg-1.png"}
-              alt={"product image"}
-              width={450}
-              height={450}
-            />
-          </div>
-        </SwiperSlide>
+        {Array.isArray(data) &&
+          data.map((item: string, index: number) => (
+            <SwiperSlide key={index}>
+              <div className="flex justify-center items-center">
+                <Image
+                  src={item}
+                  alt={"product image"}
+                  width={350}
+                  height={350}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </div>
   );

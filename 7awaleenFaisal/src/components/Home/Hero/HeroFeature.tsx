@@ -4,23 +4,23 @@ import Image from "next/image";
 const featureData = [
   {
     img: "/images/icons/icon-01.svg",
-    title: "Free Shipping",
-    description: "For all orders $200",
+    title: "شحن مجاني",
+    description: "لكل الطلبات بقيمة 200$ أو أكثر",
   },
   {
     img: "/images/icons/icon-02.svg",
-    title: "1 & 1 Returns",
-    description: "Cancellation after 1 day",
+    title: "استرجاع 1 مقابل 1",
+    description: "الإلغاء بعد يوم واحد",
   },
   {
     img: "/images/icons/icon-03.svg",
-    title: "100% Secure Payments",
-    description: "Gurantee secure payments",
+    title: "مدفوعات آمنة 100%",
+    description: "ضمان الدفع الآمن",
   },
   {
     img: "/images/icons/icon-04.svg",
-    title: "24/7 Dedicated Support",
-    description: "Anywhere & anytime",
+    title: "دعم مخصص 24/7",
+    description: "في أي مكان وفي أي وقت",
   },
 ];
 

@@ -1,4 +1,5 @@
 "use client";
+import { set } from "mongoose";
 import React, { createContext, useContext, useState } from "react";
 
 interface ModalContextType {
@@ -27,6 +28,7 @@ export const ModalProvider = ({ children }) => {
   };
 
   const closeModal = () => {
+    setId("");
     setIsModalOpen(false);
   };
 

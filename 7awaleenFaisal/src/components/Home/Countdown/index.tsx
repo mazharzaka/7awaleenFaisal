@@ -32,14 +32,14 @@ const CounDown = () => {
         <div className="relative overflow-hidden z-1 rounded-lg bg-[#D0E9F3] p-4 sm:p-7.5 lg:p-10 xl:p-15">
           <div className="max-w-[422px] w-full">
             <span className="block font-medium text-custom-1 text-blue mb-2.5">
-              Don’t Miss!!
+              لا تفوت الفرصة!!
             </span>
 
             <h2 className="font-bold text-dark text-xl lg:text-heading-4 xl:text-heading-3 mb-3">
-              Enhance Your Music Experience
+              حسّن تجربتك الموسيقية مع خصم حصري على سماعات Havit H206d
             </h2>
 
-            <p>The Havit H206d is a wired PC headphone.</p>
+            <p>سماعة Havit H206d سلكية للكمبيوتر.</p>
 
             {/* <!-- Countdown timer --> */}
             <div
@@ -115,14 +115,14 @@ const CounDown = () => {
           <Image
             src="/images/countdown/countdown-bg.png"
             alt="bg shapes"
-            className="hidden sm:block absolute right-0 bottom-0 -z-1"
+            className="hidden sm:block absolute left-0 bottom-0 -z-1"
             width={737}
             height={482}
           />
           <Image
             src="/images/countdown/countdown-01.png"
             alt="product"
-            className="hidden lg:block absolute right-4 xl:right-33 bottom-4 xl:bottom-10 -z-1"
+            className="hidden lg:block absolute left-4 xl:left-33 bottom-4 xl:bottom-10 -z-1"
             width={411}
             height={376}
           />

@@ -8,6 +8,7 @@ import Image from "next/image";
 import "swiper/css/navigation";
 import "swiper/css";
 import SingleItem from "./SingleItem";
+import { Autoplay } from "swiper/modules";
 
 const Testimonials = () => {
   const sliderRef = useRef(null);
@@ -40,7 +41,7 @@ const Testimonials = () => {
                   Testimonials
                 </span>
                 <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
-                  User Feedbacks
+                  اراء عملائنا
                 </h2>
               </div>
 
@@ -101,6 +102,11 @@ const Testimonials = () => {
                   slidesPerView: 3,
                 },
               }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
             >
               {testimonialsData.map((item, key) => (
                 <SwiperSlide key={key}>

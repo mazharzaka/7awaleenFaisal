@@ -23,9 +23,7 @@ export const productDetails = createSlice({
   reducers: {
     updateproductDetails: (_, action) => {
       return {
-        value: {
-          ...action.payload,
-        },
+        value: action.payload,
       };
     },
   },

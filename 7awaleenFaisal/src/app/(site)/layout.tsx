@@ -31,7 +31,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en" dir="rtl" suppressHydrationWarning={true}>
       <body
         data-new-gr-c-s-check-loaded="14.1261.0"
         data-gr-ext-installed=""

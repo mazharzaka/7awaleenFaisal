@@ -8,6 +8,7 @@ import {
   useAddstoreMutation,
 } from "@/redux/features/Api.slice";
 import toast from "react-hot-toast";
+import { set } from "mongoose";
 
 const AddStores = () => {
   const [addstore] = useAddstoreMutation();
@@ -16,7 +17,7 @@ const AddStores = () => {
     label: "المحلات",
     value: "1",
   });
-
+  const [display, setDisplay] = useState(false);
   const [data, setData] = useState<any>({
     productImage: null,
     name: "",
@@ -30,6 +31,7 @@ const AddStores = () => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setDisplay(true);
     try {
       const formdata = new FormData(e.currentTarget);
       console.log(formdata);
@@ -49,9 +51,13 @@ const AddStores = () => {
 
       console.log(fd);
       const res = await addstore(fd);
-      res.error
-        ? toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!")
-        : toast.success("كده اتضاف يسطا ربنا يقويك 💪!");
+      if (res.error) {
+        toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
+      } else {
+        e.currentTarget?.reset();
+        setDisplay(false);
+        toast.success("كده اتضاف يسطا ربنا يقويك 💪!");
+      }
     } catch (err) {
       console.log("Error:", err);
       toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
@@ -59,9 +65,13 @@ const AddStores = () => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setDisplay(true);
+
     try {
       const formData = new FormData();
-      formData.append("productImage", data.productImage); // الصورة
+      for (let i = 0; i < data.productImage.length; i++) {
+        formData.append("productImage", data.productImage[i]);
+      }
       formData.append("name", data.name);
       formData.append("desc", data.desc);
       formData.append("price", data.price);
@@ -73,9 +83,13 @@ const AddStores = () => {
       const res = await addProdect(formData);
       console.log(res);
 
-      res.error
-        ? toast.error("حصل خطأ يخول حاول تاني 🖕 او قولي 🤬💥!")
-        : toast.success("كده اتضاف يسطا ربنا يقويك 💪!");
+      if (res.error) {
+        toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
+      } else {
+        setDisplay(false);
+
+        toast.success("كده اتضاف يسطا ربنا يقويك 💪!");
+      }
     } catch (err) {
       console.log("Error:", err);
       toast.error("حصل خطأ يخول حاول تاني 🖕 او قولي 🤬💥!");
@@ -217,9 +231,10 @@ const AddStores = () => {
                 </div> */}
                   <button
                     type="submit"
+                    disabled={display}
                     className="inline-flex font-medium w-full  justify-center text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
                   >
-                    انقري ايتها العاهره
+                    {display ? "Processing..." : "انقري ايتها العاهره"}
                   </button>
                 </form>
               ) : (
@@ -373,17 +388,18 @@ const AddStores = () => {
                       type="file"
                       name="productImage"
                       onChange={(e) =>
-                        setData({ ...data, productImage: e.target.files?.[0] })
+                        setData({ ...data, productImage: e.target.files })
                       }
+                      multiple
                       className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
                     />
                   </div>
-
                   <button
                     type="submit"
+                    disabled={display}
                     className="inline-flex font-medium w-full  justify-center text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
                   >
-                    انقري ايتها العاهره
+                    {display ? "Processing..." : "انقري ايتها العاهره"}
                   </button>
                 </form>
               )}

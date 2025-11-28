@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 
 import { useModalContext } from "@/app/context/QuickViewModalContext";
 import { AppDispatch, useAppSelector } from "@/redux/store";
@@ -11,7 +11,7 @@ import { updateproductDetails } from "@/redux/features/product-details";
 import { useGetproductQuery } from "@/redux/features/Api.slice";
 import PreLoader from "../PreLoader";
 import { useBuyNowContext } from "@/app/context/BuyNowContext";
-
+import ReactImageMagnify from "react-image-magnify";
 const QuickViewModal = () => {
   const { isModalOpen, closeModal, id } = useModalContext();
   const { openBuyNow } = useBuyNowContext();
@@ -20,12 +20,25 @@ const QuickViewModal = () => {
   const [quantity, setQuantity] = useState(1);
   const { data: product, isLoading, error } = useGetproductQuery(id);
   const dispatch = useDispatch<AppDispatch>();
+  const [imgSrc, setImgSrc] = useState<string>("");
+  const [activePreview, setActivePreview] = useState(0);
+  useEffect(() => {
+    if (
+      isLoading ||
+      !product ||
+      !Array.isArray(product.imageURL) ||
+      product.imageURL.length === 0
+    ) {
+      return;
+    }
 
-  // get the product data
+    const imgSrc = product.imageURL[activePreview] ?? product.imageURL[0];
 
+    setImgSrc(imgSrc);
+  }, [activePreview, product, isLoading]);
   // preview modal
   const handlePreviewSlider = () => {
-    dispatch(updateproductDetails(product));
+    dispatch(updateproductDetails(product?.imageURL));
 
     openPreviewModal();
   };
@@ -62,10 +75,12 @@ const QuickViewModal = () => {
         isModalOpen ? "z-99999" : "hidden"
       } fixed top-0 left-0 overflow-y-auto no-scrollbar w-full h-screen sm:py-20 xl:py-25 2xl:py-[230px] bg-dark/70 sm:px-8 px-4 py-5`}
     >
-      {isLoading ? (
-        <PreLoader />
-      ) : (
-        <div className="flex items-center justify-center ">
+      <div className="flex items-center justify-center ">
+        {isLoading || product?.imageURL === undefined ? (
+          <div className="w-full max-w-[1100px] rounded-xl shadow-3 flex justify-center items-center bg-white p-7.5 relative modal-content">
+            <div className="h-16 w-16 animate-spin rounded-full border-4 border-solid border-blue border-t-transparent"></div>
+          </div>
+        ) : (
           <div className="w-full max-w-[1100px] rounded-xl shadow-3 bg-white p-7.5 relative modal-content">
             <button
               onClick={() => {
@@ -94,25 +109,26 @@ const QuickViewModal = () => {
             <div className="flex flex-wrap items-center gap-12.5">
               <div className="max-w-[526px] w-full">
                 <div className="flex gap-5">
-                  {/* <div className="flex flex-col gap-5">
-                    {product?.imgs.thumbnails?.map((img, key) => (
-                      <button
-                        onClick={() => setActivePreview(key)}
-                        key={key}
-                        className={`flex items-center justify-center w-20 h-20 overflow-hidden rounded-lg bg-gray-1 ease-out duration-200 hover:border-2 hover:border-blue ${
-                          activePreview === key && "border-2 border-blue"
-                        }`}
-                      >
-                        <Image
-                          src={img || ""}
-                          alt="thumbnail"
-                          width={61}
-                          height={61}
-                          className="aspect-square"
-                        />
-                      </button>
-                    ))}
-                  </div> */}
+                  <div className="flex flex-col gap-5">
+                    {Array.isArray(product?.imageURL) &&
+                      product?.imageURL?.map((img: string, key: number) => (
+                        <button
+                          onClick={() => setActivePreview(key)}
+                          key={key}
+                          className={`flex items-center justify-center w-20 h-20 overflow-hidden rounded-lg bg-gray-1 ease-out duration-200 hover:border-2 hover:border-blue ${
+                            activePreview === key && "border-2 border-blue"
+                          }`}
+                        >
+                          <Image
+                            src={img || ""}
+                            alt="thumbnail"
+                            width={61}
+                            height={61}
+                            className="aspect-square"
+                          />
+                        </button>
+                      ))}
+                  </div>
 
                   <div className="relative z-1 overflow-hidden flex items-center justify-center w-full sm:min-h-[508px] bg-gray-1 rounded-lg border border-gray-3">
                     <div>
@@ -138,11 +154,28 @@ const QuickViewModal = () => {
                         </svg>
                       </button>
 
-                      <Image
-                        src={product?.imageURL}
-                        alt="products-details"
-                        width={400}
-                        height={400}
+                      <ReactImageMagnify
+                        {...{
+                          smallImage: {
+                            alt: "products-details",
+                            isFluidWidth: true,
+                            src: imgSrc,
+                          },
+                          largeImage: {
+                            src: imgSrc,
+                            width: 700, // صورة HD للزووم
+                            height: 700,
+                          },
+                          enlargedImageContainerDimensions: {
+                            width: "100%", // حجم صورة الزووم
+                            height: "100%",
+                          },
+                          enlargedImageContainerStyle: {
+                            zIndex: 999,
+                            overflow: "visible",
+                            left: "50%",
+                          },
+                        }}
                       />
                     </div>
                   </div>
@@ -306,7 +339,7 @@ const QuickViewModal = () => {
                   </div>
                 </div>
 
-                <p>{product?.desc}</p>
+                <p className="h-80 overflow-auto">{product?.desc}</p>
 
                 <div className="flex flex-wrap justify-between gap-5 mt-6 mb-7.5">
                   <div>
@@ -434,8 +467,8 @@ const QuickViewModal = () => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

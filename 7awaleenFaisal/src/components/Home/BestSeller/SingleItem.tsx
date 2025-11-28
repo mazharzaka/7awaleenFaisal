@@ -42,7 +42,12 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
   // };
 
   return (
-    <div className="group">
+    <div
+      className="group"
+      onClick={() => {
+        openModal(item.id);
+      }}
+    >
       <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] min-h-[403px]">
         <div className="text-center px-4 py-7.5">
           <div className="flex items-center justify-center gap-2.5 mb-2">
@@ -83,26 +88,38 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           </div>
 
           <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
-            <Link href="/shop-details"> {item.name} vcgh</Link>
+            <Link href="/shop-details">
+              {" "}
+              {item.name.length > 60
+                ? item.name.substring(0, 60) + "..."
+                : item.name}{" "}
+            </Link>
           </h3>
 
-          <span className="flex items-center justify-center gap-2 font-medium text-lg">
-            <span className="text-dark">${item.finalPrice}</span>
-            {item.sale !== 0 && (
-              <>
-                <span className="text-dark-4 line-through">${item.price}</span>
-                <span className="text-red-dark ">{item.sale}%</span>
-              </>
+          <div className="flex items-center flex-col justify-center gap-2 font-medium text-lg">
+            {item.sale && (
+              <div className="text-red-dark ">خصم يصل الي {item.sale}%</div>
             )}
-          </span>
+            <div>
+              <span className="text-dark">
+                <span className="text-xs">EGP</span>
+                {item.finalPrice}
+              </span>
+              {item.sale && (
+                <span className="text-dark-4 text-xs line-through ml-2">
+                  <span className="text-xs">EGP</span> {item.price}
+                </span>
+              )}
+            </div>
+          </div>
         </div>
 
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center relative items-center w-50 h-50 mx-auto">
           <Image
-            src={item.imageURL || "/images/default-product.png"}
+            src={item.imageURL[0] || "/images/default-product.png"}
             alt={item.name}
-            width={200}
-            height={150}
+            layout="fill"
+            objectFit="contain"
           />
         </div>
 
@@ -139,7 +156,8 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           </button>
 
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               openBuyNow(item.id);
             }}
             aria-label="button for add to cart"

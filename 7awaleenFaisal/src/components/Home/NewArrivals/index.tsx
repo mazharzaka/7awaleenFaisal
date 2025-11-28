@@ -44,7 +44,7 @@ const NewArrival = () => {
               This Week’s
             </span>
             <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
-              New Arrivals
+              محلاتنا
             </h2>
           </div>
 
