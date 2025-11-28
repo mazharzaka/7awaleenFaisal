@@ -4,9 +4,7 @@ import "../css/euclid-circular-a-font.css";
 import "../css/style.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
-export const revalidate = 0;
+
 import { ModalProvider } from "../context/QuickViewModalContext";
 import { CartModalProvider } from "../context/CartSidebarModalContext";
 import { ReduxProvider } from "@/redux/provider";
