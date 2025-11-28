@@ -154,7 +154,7 @@ const QuickViewModal = () => {
                         </svg>
                       </button>
 
-                      <ReactImageMagnify
+                      {/* <ReactImageMagnify
                         {...{
                           smallImage: {
                             alt: "products-details",
@@ -175,7 +175,13 @@ const QuickViewModal = () => {
                             overflow: "visible",
                             left: "50%",
                           },
-                        }}
+                        }} */}
+                      {/* /> */}
+                      <Image
+                        src={imgSrc}
+                        alt={product?.name}
+                        width={800}
+                        height={800}
                       />
                     </div>
                   </div>
