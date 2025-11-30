@@ -5,7 +5,7 @@ const Discount = () => {
     <div className="lg:max-w-[670px] w-full">
       <form>
         {/* <!-- coupon box --> */}
-        <div className="bg-white shadow-1 rounded-[10px]">
+        <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-[10px]">
           <div className="border-b border-gray-3 py-5 px-4 sm:px-5.5">
             <h3 className="">Have any discount code?</h3>
           </div>
@@ -18,7 +18,7 @@ const Discount = () => {
                   name="coupon"
                   id="coupon"
                   placeholder="Enter coupon code"
-                  className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                  className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                 />
               </div>
 

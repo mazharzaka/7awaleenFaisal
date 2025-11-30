@@ -110,7 +110,7 @@ const ShopDetails = () => {
                       <button
                         onClick={handlePreviewSlider}
                         aria-label="button for zoom"
-                        className="gallery__Image w-11 h-11 rounded-[5px] bg-gray-1 shadow-1 flex items-center justify-center ease-out duration-200 text-dark hover:text-blue absolute top-4 lg:top-6 right-4 lg:right-6 z-50"
+                        className="gallery__Image w-11 h-11 rounded-[5px] bg-gray-1 shadow-1 flex items-center justify-center ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue absolute top-4 lg:top-6 right-4 lg:right-6 z-50"
                       >
                         <svg
                           className="fill-current"
@@ -157,7 +157,7 @@ const ShopDetails = () => {
                 {/* <!-- product content --> */}
                 <div className="max-w-[539px] w-full">
                   <div className="flex items-center justify-between mb-3">
-                    <h2 className="font-semibold text-xl sm:text-2xl xl:text-custom-3 text-dark">
+                    <h2 className="font-semibold text-xl sm:text-2xl xl:text-custom-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                       {product.title}
                     </h2>
 
@@ -309,7 +309,7 @@ const ShopDetails = () => {
                   </div>
 
                   <h3 className="font-medium text-custom-1 mb-4.5">
-                    <span className="text-sm sm:text-base text-dark">
+                    <span className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                       Price: ${product.price}
                     </span>
                     <span className="line-through">
@@ -369,7 +369,9 @@ const ShopDetails = () => {
                       {/* <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Color:</h4>
+                          <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                            Color:
+                          </h4>
                         </div>
 
                         <div className="flex items-center gap-2.5">
@@ -407,7 +409,9 @@ const ShopDetails = () => {
                       {/* <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Storage:</h4>
+                          <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                            Storage:
+                          </h4>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -475,7 +479,9 @@ const ShopDetails = () => {
                       {/* // <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Type:</h4>
+                          <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                            Type:
+                          </h4>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -543,7 +549,9 @@ const ShopDetails = () => {
                       {/* // <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Sim:</h4>
+                          <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                            Sim:
+                          </h4>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -699,7 +707,7 @@ const ShopDetails = () => {
           <section className="overflow-hidden bg-gray-2 py-20">
             <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
               {/* <!--== tab header start ==--> */}
-              <div className="flex flex-wrap items-center bg-white rounded-[10px] shadow-1 gap-5 xl:gap-12.5 py-4.5 px-4 sm:px-6">
+              <div className="flex flex-wrap items-center bg-white  dark:bg-[#121212]   rounded-[10px] shadow-1 gap-5 xl:gap-12.5 py-4.5 px-4 sm:px-6">
                 {tabs.map((item, key) => (
                   <button
                     key={key}
@@ -707,7 +715,7 @@ const ShopDetails = () => {
                     className={`font-medium lg:text-lg ease-out duration-200 hover:text-blue relative before:h-0.5 before:bg-blue before:absolute before:left-0 before:bottom-0 before:ease-out before:duration-200 hover:before:w-full ${
                       activeTab === item.id
                         ? "text-blue before:w-full"
-                        : "text-dark before:w-0"
+                        : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  before:w-0"
                     }`}
                   >
                     {item.title}
@@ -725,7 +733,7 @@ const ShopDetails = () => {
                   }`}
                 >
                   <div className="max-w-[670px] w-full">
-                    <h2 className="font-medium text-2xl text-dark mb-7">
+                    <h2 className="font-medium text-2xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-7">
                       Specifications:
                     </h2>
 
@@ -749,7 +757,7 @@ const ShopDetails = () => {
                   </div>
 
                   <div className="max-w-[447px] w-full">
-                    <h2 className="font-medium text-2xl text-dark mb-7">
+                    <h2 className="font-medium text-2xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-7">
                       Care & Maintenance:
                     </h2>
 
@@ -773,27 +781,33 @@ const ShopDetails = () => {
               {/* <!-- tab content two start --> */}
               <div>
                 <div
-                  className={`rounded-xl bg-white shadow-1 p-4 sm:p-6 mt-10 ${
+                  className={`rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6 mt-10 ${
                     activeTab === "tabTwo" ? "block" : "hidden"
                   }`}
                 >
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">Brand</p>
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                        Brand
+                      </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">Apple</p>
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                        Apple
+                      </p>
                     </div>
                   </div>
 
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">Model</p>
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                        Model
+                      </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         iPhone 14 Plus
                       </p>
                     </div>
@@ -802,12 +816,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Display Size
                       </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         6.7 inches
                       </p>
                     </div>
@@ -816,12 +830,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Display Type
                       </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Super Retina XDR OLED, HDR10, Dolby Vision, 800 nits
                         (HBM), 1200 nits (peak)
                       </p>
@@ -831,12 +845,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Display Resolution
                       </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         1284 x 2778 pixels, 19.5:9 ratio
                       </p>
                     </div>
@@ -845,10 +859,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">Chipset</p>
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                        Chipset
+                      </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Apple A15 Bionic (5 nm)
                       </p>
                     </div>
@@ -857,10 +873,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">Memory</p>
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                        Memory
+                      </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         128GB 6GB RAM | 256GB 6GB RAM | 512GB 6GB RAM
                       </p>
                     </div>
@@ -869,12 +887,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Main Camera
                       </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         12MP + 12MP | 4K@24/25/30/60fps, stereo sound rec.
                       </p>
                     </div>
@@ -883,12 +901,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Selfie Camera
                       </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         12 MP | 4K@24/25/30/60fps, 1080p@25/30/60/120fps,
                         gyro-EIS
                       </p>
@@ -898,12 +916,12 @@ const ShopDetails = () => {
                   {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Battery Info
                       </p>
                     </div>
                     <div className="w-full">
-                      <p className="text-sm sm:text-base text-dark">
+                      <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                         Li-Ion 4323 mAh, non-removable | 15W wireless (MagSafe),
                         7.5W wireless (Qi)
                       </p>
@@ -921,13 +939,13 @@ const ShopDetails = () => {
                   }`}
                 >
                   <div className="max-w-[570px] w-full">
-                    <h2 className="font-medium text-2xl text-dark mb-9">
+                    <h2 className="font-medium text-2xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-9">
                       03 Review for this product
                     </h2>
 
                     <div className="flex flex-col gap-6">
                       {/* <!-- review item --> */}
-                      <div className="rounded-xl bg-white shadow-1 p-4 sm:p-6">
+                      <div className="rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
                             <div className="w-12.5 h-12.5 rounded-full overflow-hidden">
@@ -941,7 +959,7 @@ const ShopDetails = () => {
                             </div>
 
                             <div>
-                              <h3 className="font-medium text-dark">
+                              <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                                 Davis Dorwart
                               </h3>
                               <p className="text-custom-sm">
@@ -1033,7 +1051,7 @@ const ShopDetails = () => {
                           </div>
                         </div>
 
-                        <p className="text-dark mt-6">
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mt-6">
                           “Lorem ipsum dolor sit amet, adipiscing elit. Donec
                           malesuada justo vitaeaugue suscipit beautiful
                           vehicula’’
@@ -1041,7 +1059,7 @@ const ShopDetails = () => {
                       </div>
 
                       {/* <!-- review item --> */}
-                      <div className="rounded-xl bg-white shadow-1 p-4 sm:p-6">
+                      <div className="rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
                             <div className="w-12.5 h-12.5 rounded-full overflow-hidden">
@@ -1055,7 +1073,7 @@ const ShopDetails = () => {
                             </div>
 
                             <div>
-                              <h3 className="font-medium text-dark">
+                              <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                                 Davis Dorwart
                               </h3>
                               <p className="text-custom-sm">
@@ -1147,7 +1165,7 @@ const ShopDetails = () => {
                           </div>
                         </div>
 
-                        <p className="text-dark mt-6">
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mt-6">
                           “Lorem ipsum dolor sit amet, adipiscing elit. Donec
                           malesuada justo vitaeaugue suscipit beautiful
                           vehicula’’
@@ -1155,7 +1173,7 @@ const ShopDetails = () => {
                       </div>
 
                       {/* <!-- review item --> */}
-                      <div className="rounded-xl bg-white shadow-1 p-4 sm:p-6">
+                      <div className="rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
                             <div className="w-12.5 h-12.5 rounded-full overflow-hidden">
@@ -1169,7 +1187,7 @@ const ShopDetails = () => {
                             </div>
 
                             <div>
-                              <h3 className="font-medium text-dark">
+                              <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                                 Davis Dorwart
                               </h3>
                               <p className="text-custom-sm">
@@ -1261,7 +1279,7 @@ const ShopDetails = () => {
                           </div>
                         </div>
 
-                        <p className="text-dark mt-6">
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mt-6">
                           “Lorem ipsum dolor sit amet, adipiscing elit. Donec
                           malesuada justo vitaeaugue suscipit beautiful
                           vehicula’’
@@ -1272,7 +1290,7 @@ const ShopDetails = () => {
 
                   <div className="max-w-[550px] w-full">
                     <form>
-                      <h2 className="font-medium text-2xl text-dark mb-3.5">
+                      <h2 className="font-medium text-2xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-3.5">
                         Add a Review
                       </h2>
 
@@ -1367,7 +1385,7 @@ const ShopDetails = () => {
                         </div>
                       </div>
 
-                      <div className="rounded-xl bg-white shadow-1 p-4 sm:p-6">
+                      <div className="rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6">
                         <div className="mb-5">
                           <label htmlFor="comments" className="block mb-2.5">
                             Comments
@@ -1378,14 +1396,14 @@ const ShopDetails = () => {
                             id="comments"
                             rows={5}
                             placeholder="Your comments"
-                            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                           ></textarea>
 
                           <span className="flex items-center justify-between mt-2.5">
-                            <span className="text-custom-sm text-dark-4">
+                            <span className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4">
                               Maximum
                             </span>
-                            <span className="text-custom-sm text-dark-4">
+                            <span className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4">
                               0/250
                             </span>
                           </span>
@@ -1402,7 +1420,7 @@ const ShopDetails = () => {
                               name="name"
                               id="name"
                               placeholder="Your name"
-                              className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                              className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                             />
                           </div>
 
@@ -1416,7 +1434,7 @@ const ShopDetails = () => {
                               name="email"
                               id="email"
                               placeholder="Your email"
-                              className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                              className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                             />
                           </div>
                         </div>

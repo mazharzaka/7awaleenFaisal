@@ -20,10 +20,12 @@ const EditOrder = ({ order, toggleModal }: any) => {
 
   return (
     <div className="w-full px-10">
-      <p className="pb-2 font-medium text-dark">Order Status</p>
+      <p className="pb-2 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+        Order Status
+      </p>
       <div className="w-full">
         <select
-          className="w-full rounded-[10px] border border-gray-3 bg-gray-1 text-dark py-3.5 px-5 text-custom-sm"
+          className="w-full rounded-[10px] border border-gray-3 bg-gray-1  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  py-3.5 px-5 text-custom-sm"
           name="status"
           id="status"
           required

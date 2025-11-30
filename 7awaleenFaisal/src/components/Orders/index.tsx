@@ -31,27 +31,41 @@ const Orders = () => {
               {ordersData.length > 0 && (
                 <div className="items-center justify-between py-4.5 px-7.5 hidden md:flex ">
                   <div className="min-w-[111px]">
-                    <p className="text-custom-sm text-dark">Order</p>
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      Order
+                    </p>
                   </div>
                   <div className="min-w-[175px]">
-                    <p className="text-custom-sm text-dark">Date</p>
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      Date
+                    </p>
                   </div>
                   <div className="min-w-[175px]">
-                    <p className="text-custom-sm text-dark">Price</p>
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      Price
+                    </p>
                   </div>
                   <div className="min-w-[175px]">
-                    <p className="text-custom-sm text-dark">qty</p>
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      qty
+                    </p>
                   </div>
                   <div className="min-w-[175px]">
-                    <p className="text-custom-sm text-dark">finalPrice</p>
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      finalPrice
+                    </p>
                   </div>
 
                   <div className="min-w-[213px]">
-                    <p className="text-custom-sm text-dark">Name</p>
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      Name
+                    </p>
                   </div>
 
                   <div className="min-w-[113px]">
-                    <p className="text-custom-sm text-dark">Phone</p>
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      Phone
+                    </p>
                   </div>
                 </div>
               )}

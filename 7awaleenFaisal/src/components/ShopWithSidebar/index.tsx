@@ -110,14 +110,14 @@ const ShopWithSidebar = () => {
             <div
               className={`sidebar-content fixed xl:z-1 z-9999 left-0 top-0 xl:translate-x-0 xl:static max-w-[310px] xl:max-w-[270px] w-full ease-out duration-200 ${
                 productSidebar
-                  ? "translate-x-0 bg-white p-5 h-screen overflow-y-auto"
+                  ? "translate-x-0 bg-white  dark:bg-[#121212]   p-5 h-screen overflow-y-auto"
                   : "-translate-x-full"
               }`}
             >
               <button
                 onClick={() => setProductSidebar(!productSidebar)}
                 aria-label="button for product sidebar toggle"
-                className={`xl:hidden absolute -right-12.5 sm:-right-8 flex items-center justify-center w-8 h-8 rounded-md bg-white shadow-1 ${
+                className={`xl:hidden absolute -right-12.5 sm:-right-8 flex items-center justify-center w-8 h-8 rounded-md bg-white  dark:bg-[#121212]   shadow-1 ${
                   stickyMenu
                     ? "lg:top-20 sm:top-34.5 top-35"
                     : "lg:top-24 sm:top-39 top-37"
@@ -149,7 +149,7 @@ const ShopWithSidebar = () => {
               <form onSubmit={(e) => e.preventDefault()}>
                 <div className="flex flex-col gap-6">
                   {/* <!-- filter box --> */}
-                  <div className="bg-white shadow-1 rounded-lg py-4 px-5">
+                  <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-lg py-4 px-5">
                     <div className="flex items-center justify-between">
                       <p>Filters:</p>
                       <button className="text-blue">Clean All</button>
@@ -177,14 +177,17 @@ const ShopWithSidebar = () => {
 
             {/* // <!-- Content Start --> */}
             <div className="xl:max-w-[870px] w-full">
-              <div className="rounded-lg bg-white shadow-1 pl-3 pr-2.5 py-2.5 mb-6">
+              <div className="rounded-lg bg-white  dark:bg-[#121212]   shadow-1 pl-3 pr-2.5 py-2.5 mb-6">
                 <div className="flex items-center justify-between">
                   {/* <!-- top bar left --> */}
                   <div className="flex flex-wrap items-center gap-4">
                     <CustomSelect options={options} />
 
                     <p>
-                      Showing <span className="text-dark">9 of 50</span>{" "}
+                      Showing{" "}
+                      <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                        9 of 50
+                      </span>{" "}
                       Products
                     </p>
                   </div>
@@ -197,7 +200,7 @@ const ShopWithSidebar = () => {
                       className={`${
                         productStyle === "grid"
                           ? "bg-blue border-blue text-white"
-                          : "text-dark bg-gray-1 border-gray-3"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  bg-gray-1 border-gray-3"
                       } flex items-center justify-center w-10.5 h-9 rounded-[5px] border ease-out duration-200 hover:bg-blue hover:border-blue hover:text-white`}
                     >
                       <svg
@@ -241,7 +244,7 @@ const ShopWithSidebar = () => {
                       className={`${
                         productStyle === "list"
                           ? "bg-blue border-blue text-white"
-                          : "text-dark bg-gray-1 border-gray-3"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  bg-gray-1 border-gray-3"
                       } flex items-center justify-center w-10.5 h-9 rounded-[5px] border ease-out duration-200 hover:bg-blue hover:border-blue hover:text-white`}
                     >
                       <svg
@@ -290,7 +293,7 @@ const ShopWithSidebar = () => {
 
               {/* <!-- Products Pagination Start --> */}
               <div className="flex justify-center mt-15">
-                <div className="bg-white shadow-1 rounded-md p-2">
+                <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-md p-2">
                   <ul className="flex items-center">
                     <li>
                       <button

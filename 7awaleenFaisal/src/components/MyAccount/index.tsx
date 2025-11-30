@@ -25,7 +25,7 @@ const MyAccount = () => {
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="flex flex-col xl:flex-row gap-7.5">
             {/* <!--== user dashboard menu start ==--> */}
-            <div className="xl:max-w-[370px] w-full bg-white rounded-xl shadow-1">
+            <div className="xl:max-w-[370px] w-full bg-white  dark:bg-[#121212]   rounded-xl shadow-1">
               <div className="flex xl:flex-col">
                 <div className="hidden lg:flex flex-wrap items-center gap-5 py-6 px-4 sm:px-7.5 xl:px-9 border-r xl:border-r-0 xl:border-b border-gray-3">
                   <div className="max-w-[64px] w-full h-16 rounded-full overflow-hidden">
@@ -38,7 +38,7 @@ const MyAccount = () => {
                   </div>
 
                   <div>
-                    <p className="font-medium text-dark mb-0.5">
+                    <p className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-0.5">
                       James Septimus
                     </p>
                     <p className="text-custom-xs">Member Since Sep 2020</p>
@@ -52,7 +52,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "dashboard"
                           ? "text-white bg-blue"
-                          : "text-dark-2 bg-gray-1"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -95,7 +95,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "orders"
                           ? "text-white bg-blue"
-                          : "text-dark-2 bg-gray-1"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -133,7 +133,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "downloads"
                           ? "text-white bg-blue"
-                          : "text-dark-2 bg-gray-1"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -161,7 +161,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "addresses"
                           ? "text-white bg-blue"
-                          : "text-dark-2 bg-gray-1"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -191,7 +191,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "account-details"
                           ? "text-white bg-blue"
-                          : "text-dark-2 bg-gray-1"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -223,7 +223,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "logout"
                           ? "text-white bg-blue"
-                          : "text-dark-2 bg-gray-1"
+                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -256,11 +256,11 @@ const MyAccount = () => {
             {/* <!-- dashboard tab content start --> */}
 
             <div
-              className={`xl:max-w-[770px] w-full bg-white rounded-xl shadow-1 py-9.5 px-4 sm:px-7.5 xl:px-10 ${
+              className={`xl:max-w-[770px] w-full bg-white  dark:bg-[#121212]   rounded-xl shadow-1 py-9.5 px-4 sm:px-7.5 xl:px-10 ${
                 activeTab === "dashboard" ? "block" : "hidden"
               }`}
             >
-              <p className="text-dark">
+              <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                 Hello Annie (not Annie?
                 <a
                   href="#"
@@ -281,7 +281,7 @@ const MyAccount = () => {
 
           <!-- orders tab content start --> */}
             <div
-              className={`xl:max-w-[770px] w-full bg-white rounded-xl shadow-1 ${
+              className={`xl:max-w-[770px] w-full bg-white  dark:bg-[#121212]   rounded-xl shadow-1 ${
                 activeTab === "orders" ? "block" : "hidden"
               }`}
             >
@@ -291,7 +291,7 @@ const MyAccount = () => {
 
           <!-- downloads tab content start --> */}
             <div
-              className={`xl:max-w-[770px] w-full bg-white rounded-xl shadow-1 py-9.5 px-4 sm:px-7.5 xl:px-10 ${
+              className={`xl:max-w-[770px] w-full bg-white  dark:bg-[#121212]   rounded-xl shadow-1 py-9.5 px-4 sm:px-7.5 xl:px-10 ${
                 activeTab === "downloads" ? "block" : "hidden"
               }`}
             >
@@ -305,14 +305,14 @@ const MyAccount = () => {
                 activeTab === "addresses" ? "flex" : "hidden"
               }`}
             >
-              <div className="xl:max-w-[370px] w-full bg-white shadow-1 rounded-xl">
+              <div className="xl:max-w-[370px] w-full bg-white  dark:bg-[#121212]   shadow-1 rounded-xl">
                 <div className="flex items-center justify-between py-5 px-4 sm:pl-7.5 sm:pr-6 border-b border-gray-3">
-                  <p className="font-medium text-xl text-dark">
+                  <p className="font-medium text-xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                     Shipping Address
                   </p>
 
                   <button
-                    className="text-dark ease-out duration-200 hover:text-blue"
+                    className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue"
                     onClick={openAddressModal}
                   >
                     <svg
@@ -437,14 +437,14 @@ const MyAccount = () => {
                 </div>
               </div>
 
-              <div className="xl:max-w-[370px] w-full bg-white shadow-1 rounded-xl">
+              <div className="xl:max-w-[370px] w-full bg-white  dark:bg-[#121212]   shadow-1 rounded-xl">
                 <div className="flex items-center justify-between py-5 px-4 sm:pl-7.5 sm:pr-6 border-b border-gray-3">
-                  <p className="font-medium text-xl text-dark">
+                  <p className="font-medium text-xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                     Billing Address
                   </p>
 
                   <button
-                    className="text-dark ease-out duration-200 hover:text-blue"
+                    className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue"
                     onClick={openAddressModal}
                   >
                     <svg
@@ -578,7 +578,7 @@ const MyAccount = () => {
               }`}
             >
               <form>
-                <div className="bg-white shadow-1 rounded-xl p-4 sm:p-8.5">
+                <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-xl p-4 sm:p-8.5">
                   <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
                     <div className="w-full">
                       <label htmlFor="firstName" className="block mb-2.5">
@@ -591,7 +591,7 @@ const MyAccount = () => {
                         id="firstName"
                         placeholder="Jhon"
                         value="Jhon"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
 
@@ -606,7 +606,7 @@ const MyAccount = () => {
                         id="lastName"
                         placeholder="Deo"
                         value="Deo"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
                   </div>
@@ -617,13 +617,13 @@ const MyAccount = () => {
                     </label>
 
                     <div className="relative">
-                      <select className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
+                      <select className="w-full bg-gray-1 rounded-md border border-gray-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
                         <option value="0">Australia</option>
                         <option value="1">America</option>
                         <option value="2">England</option>
                       </select>
 
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-dark-4">
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4">
                         <svg
                           className="fill-current"
                           width="16"
@@ -656,11 +656,11 @@ const MyAccount = () => {
                   section and in reviews
                 </p>
 
-                <p className="font-medium text-xl sm:text-2xl text-dark mb-7">
+                <p className="font-medium text-xl sm:text-2xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-7">
                   Password Change
                 </p>
 
-                <div className="bg-white shadow-1 rounded-xl p-4 sm:p-8.5">
+                <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-xl p-4 sm:p-8.5">
                   <div className="mb-5">
                     <label htmlFor="oldPassword" className="block mb-2.5">
                       Old Password
@@ -671,7 +671,7 @@ const MyAccount = () => {
                       name="oldPassword"
                       id="oldPassword"
                       autoComplete="on"
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                   </div>
 
@@ -685,7 +685,7 @@ const MyAccount = () => {
                       name="newPassword"
                       id="newPassword"
                       autoComplete="on"
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                   </div>
 
@@ -702,7 +702,7 @@ const MyAccount = () => {
                       name="confirmNewPassword"
                       id="confirmNewPassword"
                       autoComplete="on"
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                   </div>
 

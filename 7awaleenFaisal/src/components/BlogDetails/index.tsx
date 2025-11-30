@@ -33,7 +33,7 @@ const BlogDetails = () => {
               </a>
             </span>
 
-            <h2 className="font-medium text-dark text-xl lg:text-2xl xl:text-custom-4xl mb-4">
+            <h2 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-xl lg:text-2xl xl:text-custom-4xl mb-4">
               What information is needed for shipping?
             </h2>
 
@@ -60,7 +60,7 @@ const BlogDetails = () => {
             </p>
 
             <div className="mt-7.5">
-              <h3 className="font-medium text-dark text-lg xl:text-[26px] xl:leading-[34px] mb-6">
+              <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-lg xl:text-[26px] xl:leading-[34px] mb-6">
                 Digital marketplace for Ui/Ux designers.
               </h3>
 
@@ -74,8 +74,8 @@ const BlogDetails = () => {
               </ul>
             </div>
 
-            <div className="rounded-xl bg-white pt-7.5 pb-6 px-4 sm:px-7.5 my-7.5">
-              <p className="italic text-dark text-center">
+            <div className="rounded-xl bg-white  dark:bg-[#121212]   pt-7.5 pb-6 px-4 sm:px-7.5 my-7.5">
+              <p className="italic  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-center">
                 ‘‘Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                 do eiusmod incididunt utionals labore et dolore magna aliqua
                 quis fermentum,,
@@ -95,7 +95,9 @@ const BlogDetails = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-dark text-custom-sm">Jhon Drineo</h4>
+                  <h4 className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-custom-sm">
+                    Jhon Drineo
+                  </h4>
                   <p className="text-custom-xs">Entroprenor</p>
                 </div>
               </a>
@@ -136,7 +138,7 @@ const BlogDetails = () => {
                 <ul className="flex flex-wrap items-center gap-3.5">
                   <li>
                     <a
-                      className="inline-flex hover:text-white border border-gray-3 bg-white py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
+                      className="inline-flex hover:text-white border border-gray-3 bg-white  dark:bg-[#121212]   py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
                       href="#"
                     >
                       Desktop
@@ -145,7 +147,7 @@ const BlogDetails = () => {
 
                   <li>
                     <a
-                      className="inline-flex hover:text-white border border-gray-3 bg-white py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
+                      className="inline-flex hover:text-white border border-gray-3 bg-white  dark:bg-[#121212]   py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
                       href="#"
                     >
                       Macbook
@@ -154,7 +156,7 @@ const BlogDetails = () => {
 
                   <li>
                     <a
-                      className="inline-flex hover:text-white border border-gray-3 bg-white py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
+                      className="inline-flex hover:text-white border border-gray-3 bg-white  dark:bg-[#121212]   py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
                       href="#"
                     >
                       PC

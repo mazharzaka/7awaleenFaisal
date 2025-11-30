@@ -10,7 +10,7 @@ const Footer = () => {
         {/* <!-- footer menu start --> */}
         <div className="flex flex-wrap xl:flex-nowrap gap-10 xl:gap-19 xl:justify-between pt-17.5 xl:pt-22.5 pb-10 xl:pb-15">
           <div className="max-w-[330px] w-full">
-            <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
+            <h2 className="mb-7.5 text-custom-1 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
               Help & Support
             </h2>
 
@@ -197,7 +197,7 @@ const Footer = () => {
           </div>
 
           <div className="w-full sm:w-auto">
-            <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
+            <h2 className="mb-7.5 text-custom-1 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
               Account
             </h2>
 
@@ -231,7 +231,7 @@ const Footer = () => {
           </div>
 
           <div className="w-full sm:w-auto">
-            <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
+            <h2 className="mb-7.5 text-custom-1 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
               Quick Link
             </h2>
 
@@ -265,7 +265,7 @@ const Footer = () => {
           </div>
 
           <div className="w-full sm:w-auto">
-            <h2 className="mb-7.5 text-custom-1 font-medium text-dark lg:text-right">
+            <h2 className="mb-7.5 text-custom-1 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  lg:text-right">
               Download App
             </h2>
 
@@ -337,7 +337,7 @@ const Footer = () => {
       <div className="py-5 xl:py-7.5 bg-gray-1">
         <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
           <div className="flex gap-5 flex-wrap items-center justify-between">
-            <p className="text-dark font-medium">
+            <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  font-medium">
               &copy; {year}. All rights reserved by PimjoLabs.
             </p>
 

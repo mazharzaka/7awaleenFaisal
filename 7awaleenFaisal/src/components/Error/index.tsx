@@ -9,7 +9,7 @@ const Error = () => {
       <Breadcrumb title={"Error"} pages={["error"]} />
       <section className="overflow-hidden py-20 bg-gray-2">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-          <div className="bg-white rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
+          <div className="bg-white  dark:bg-[#121212]   rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
             <div className="text-center">
               <Image
                 src="/images/404.svg"
@@ -19,7 +19,7 @@ const Error = () => {
                 height={190}
               />
 
-              <h2 className="font-medium text-dark text-xl sm:text-2xl mb-3">
+              <h2 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-xl sm:text-2xl mb-3">
                 Sorry, the page can’t be found
               </h2>
 

@@ -28,7 +28,7 @@ const Checkout = () => {
                 <Shipping />
 
                 {/* <!-- others note box --> */}
-                <div className="bg-white shadow-1 rounded-[10px] p-4 sm:p-8.5 mt-7.5">
+                <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-[10px] p-4 sm:p-8.5 mt-7.5">
                   <div>
                     <label htmlFor="notes" className="block mb-2.5">
                       Other Notes (optional)
@@ -39,7 +39,7 @@ const Checkout = () => {
                       id="notes"
                       rows={5}
                       placeholder="Notes about your order, e.g. speacial notes for delivery."
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     ></textarea>
                   </div>
                 </div>
@@ -48,9 +48,9 @@ const Checkout = () => {
               {/* // <!-- checkout right --> */}
               <div className="max-w-[455px] w-full">
                 {/* <!-- order list box --> */}
-                <div className="bg-white shadow-1 rounded-[10px]">
+                <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-[10px]">
                   <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-                    <h3 className="font-medium text-xl text-dark">
+                    <h3 className="font-medium text-xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                       Your Order
                     </h3>
                   </div>
@@ -59,10 +59,12 @@ const Checkout = () => {
                     {/* <!-- title --> */}
                     <div className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
-                        <h4 className="font-medium text-dark">Product</h4>
+                        <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                          Product
+                        </h4>
                       </div>
                       <div>
-                        <h4 className="font-medium text-dark text-right">
+                        <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-right">
                           Subtotal
                         </h4>
                       </div>
@@ -71,50 +73,68 @@ const Checkout = () => {
                     {/* <!-- product item --> */}
                     <div className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
-                        <p className="text-dark">iPhone 14 Plus , 6/128GB</p>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                          iPhone 14 Plus , 6/128GB
+                        </p>
                       </div>
                       <div>
-                        <p className="text-dark text-right">$899.00</p>
-                      </div>
-                    </div>
-
-                    {/* <!-- product item --> */}
-                    <div className="flex items-center justify-between py-5 border-b border-gray-3">
-                      <div>
-                        <p className="text-dark">Asus RT Dual Band Router</p>
-                      </div>
-                      <div>
-                        <p className="text-dark text-right">$129.00</p>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-right">
+                          $899.00
+                        </p>
                       </div>
                     </div>
 
                     {/* <!-- product item --> */}
                     <div className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
-                        <p className="text-dark">Havit HV-G69 USB Gamepad</p>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                          Asus RT Dual Band Router
+                        </p>
                       </div>
                       <div>
-                        <p className="text-dark text-right">$29.00</p>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-right">
+                          $129.00
+                        </p>
                       </div>
                     </div>
 
                     {/* <!-- product item --> */}
                     <div className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
-                        <p className="text-dark">Shipping Fee</p>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                          Havit HV-G69 USB Gamepad
+                        </p>
                       </div>
                       <div>
-                        <p className="text-dark text-right">$15.00</p>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-right">
+                          $29.00
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* <!-- product item --> */}
+                    <div className="flex items-center justify-between py-5 border-b border-gray-3">
+                      <div>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                          Shipping Fee
+                        </p>
+                      </div>
+                      <div>
+                        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-right">
+                          $15.00
+                        </p>
                       </div>
                     </div>
 
                     {/* <!-- total --> */}
                     <div className="flex items-center justify-between pt-5">
                       <div>
-                        <p className="font-medium text-lg text-dark">Total</p>
+                        <p className="font-medium text-lg  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                          Total
+                        </p>
                       </div>
                       <div>
-                        <p className="font-medium text-lg text-dark text-right">
+                        <p className="font-medium text-lg  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-right">
                           $1072.00
                         </p>
                       </div>

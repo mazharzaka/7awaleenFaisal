@@ -21,7 +21,7 @@ const NewArrival = () => {
         {/* <!-- section title --> */}
         <div className="mb-7 flex items-center justify-between">
           <div>
-            <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
+            <span className="flex items-center gap-2.5 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-1.5">
               <svg
                 width="20"
                 height="20"
@@ -43,14 +43,14 @@ const NewArrival = () => {
               </svg>
               This Week’s
             </span>
-            <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
+            <h2 className="font-semibold text-xl xl:text-heading-5  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
               محلاتنا
             </h2>
           </div>
 
           <Link
             href="/shop-with-sidebar"
-            className="inline-flex font-medium text-custom-sm py-2.5 px-7 rounded-md border-gray-3 border bg-gray-1 text-dark ease-out duration-200 hover:bg-dark hover:text-white hover:border-transparent"
+            className="inline-flex font-medium text-custom-sm py-2.5 px-7 rounded-md border-gray-3 border bg-gray-1  text-dark  ease-out duration-200 hover:bg-dark hover:text-white hover:border-transparent"
           >
             View All
           </Link>

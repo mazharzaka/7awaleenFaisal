@@ -46,13 +46,13 @@ function BuyNowModal() {
       } fixed top-0 left-0 overflow-y-auto no-scrollbar w-full h-screen sm:py-20 xl:py-25 2xl:py-[230px] bg-dark/50 sm:px-8 px-4 py-5`}
     >
       <div className="flex items-center justify-center ">
-        <div className="w-full max-w-[1100px] rounded-xl shadow-3 bg-white p-7.5 relative modal-content">
+        <div className="w-full max-w-[1100px]  rounded-xl shadow-3 bg-white  dark:bg-[#121212]   p-12.5 relative modal-content">
           <button
             onClick={() => {
               closeBuyNow();
             }}
             aria-label="button for close modal"
-            className="absolute top-0 right-0 sm:top-6 sm:right-6 flex items-center justify-center w-10 h-10 rounded-full ease-in duration-150 bg-meta text-body hover:text-dark"
+            className="absolute top-0 left-0 mb-1 sm:top-6 sm:left-6 flex items-center justify-center w-10 h-10 rounded-full ease-in duration-150 bg-meta text-body hover: dark:text-dark  "
           >
             <svg
               className="fill-current"
@@ -71,11 +71,11 @@ function BuyNowModal() {
             </svg>
           </button>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5  mb-1">
             {/* Name */}
             <div>
               <label htmlFor="name" className="block mb-2">
-                Name <span className="text-red-500">*</span>
+                الاسم <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -88,7 +88,7 @@ function BuyNowModal() {
             <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
               <div className="w-full">
                 <label htmlFor="phone" className="block mb-2.5">
-                  Phone
+                  رقم الموبايل <span className="text-red-500">*</span>
                 </label>
 
                 <input
@@ -96,12 +96,12 @@ function BuyNowModal() {
                   name="phone"
                   id="phone"
                   placeholder="Phone Number"
-                  className="rounded-md border border-gray-3  placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                  className="rounded-md border border-gray-3  placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                 />
               </div>
               <div className="w-full">
                 <label htmlFor="quantity" className="block mb-2.5">
-                  quantity
+                  الكمية
                 </label>
 
                 <input
@@ -109,14 +109,14 @@ function BuyNowModal() {
                   name="quantity"
                   id="quantity"
                   placeholder="quantity"
-                  className="rounded-md border border-gray-3  placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                  className="rounded-md border border-gray-3  placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                 />
               </div>
             </div>
             {/* Description */}
             <div>
               <label htmlFor="desc" className="block mb-2">
-                Note <span className="text-red-500">*</span>
+                ملاحظات <span className="text-red-500">*</span>
               </label>
               <textarea
                 name="note"
@@ -130,7 +130,7 @@ function BuyNowModal() {
             {/* Price */}
             <div>
               <label htmlFor="price" className="block mb-2">
-                Price <span className="text-red-500">*</span>
+                السعر <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
@@ -142,7 +142,7 @@ function BuyNowModal() {
             </div>
             <div>
               <label htmlFor="price" className="block mb-2">
-                productName <span className="text-red-500">*</span>
+                اسم المنتج <span className="text-red-500">*</span>
               </label>
               <input
                 // type="number"
@@ -154,7 +154,7 @@ function BuyNowModal() {
             </div>
             <div>
               <label htmlFor="price" className="block mb-2">
-                productId <span className="text-red-500">*</span>
+                رقم المنتج <span className="text-red-500">*</span>
               </label>
               <input
                 // type="number"
@@ -170,7 +170,7 @@ function BuyNowModal() {
               type="submit"
               className="inline-flex font-medium w-full  justify-center text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
             >
-              Buy Now
+              اشتري الان
             </button>
           </form>
         </div>

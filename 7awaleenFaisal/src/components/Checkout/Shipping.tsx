@@ -4,10 +4,10 @@ const Shipping = () => {
   const [dropdown, setDropdown] = useState(false);
 
   return (
-    <div className="bg-white shadow-1 rounded-[10px] mt-7.5">
+    <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-[10px] mt-7.5">
       <div
         onClick={() => setDropdown(!dropdown)}
-        className="cursor-pointer flex items-center gap-2.5 font-medium text-lg text-dark py-5 px-5.5"
+        className="cursor-pointer flex items-center gap-2.5 font-medium text-lg  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  py-5 px-5.5"
       >
         Ship to a different address?
         <svg
@@ -38,13 +38,13 @@ const Shipping = () => {
           </label>
 
           <div className="relative">
-            <select className="w-full bg-gray-1 rounded-md border border-gray-3 text-dark-4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
+            <select className="w-full bg-gray-1 rounded-md border border-gray-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
               <option value="0">Australia</option>
               <option value="1">America</option>
               <option value="2">England</option>
             </select>
 
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-dark-4">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4">
               <svg
                 className="fill-current"
                 width="16"
@@ -74,7 +74,7 @@ const Shipping = () => {
             type="text"
             name="address"
             placeholder="House number and street name"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
 
           <div className="mt-5">
@@ -82,7 +82,7 @@ const Shipping = () => {
               type="text"
               name="address"
               placeholder="Apartment, suite, unit, etc. (optional)"
-              className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+              className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
             />
           </div>
         </div>
@@ -95,7 +95,7 @@ const Shipping = () => {
           <input
             type="text"
             name="town"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
 
@@ -107,7 +107,7 @@ const Shipping = () => {
           <input
             type="text"
             name="country"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
 
@@ -119,7 +119,7 @@ const Shipping = () => {
           <input
             type="text"
             name="phone"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
 
@@ -131,7 +131,7 @@ const Shipping = () => {
           <input
             type="email"
             name="email"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
       </div>

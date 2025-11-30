@@ -1,13 +1,13 @@
 import React from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import BlogItem from "../Blog/BlogItem";
-import blogData from "../BlogGrid/blogData"; 
-import SearchForm from "../Blog/SearchForm"; 
+import blogData from "../BlogGrid/blogData";
+import SearchForm from "../Blog/SearchForm";
 import LatestPosts from "../Blog/LatestPosts";
 import LatestProducts from "../Blog/LatestProducts";
 import Categories from "../Blog/Categories";
-import shopData from "../Shop/shopData"; 
- 
+import shopData from "../Shop/shopData";
+
 const BlogGridWithSidebar = () => {
   const categories = [
     {
@@ -53,7 +53,7 @@ const BlogGridWithSidebar = () => {
 
               {/* <!-- Blog Pagination Start --> */}
               <div className="flex justify-center mt-15">
-                <div className="bg-white shadow-1 rounded-md p-2">
+                <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-md p-2">
                   <ul className="flex items-center">
                     <li>
                       <button
@@ -185,9 +185,11 @@ const BlogGridWithSidebar = () => {
               <Categories categories={categories} />
 
               {/* <!-- Tags box --> */}
-              <div className="shadow-1 bg-white rounded-xl mt-7.5">
+              <div className="shadow-1 bg-white  dark:bg-[#121212]   rounded-xl mt-7.5">
                 <div className="px-4 sm:px-6 py-4.5 border-b border-gray-3">
-                  <h2 className="font-medium text-lg text-dark">Tags</h2>
+                  <h2 className="font-medium text-lg  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                    Tags
+                  </h2>
                 </div>
 
                 <div className="p-4 sm:p-6">

@@ -35,7 +35,7 @@ const Categories = () => {
           {/* <!-- section title --> */}
           <div className="mb-10 flex items-center justify-between">
             <div>
-              <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
+              <span className="flex items-center gap-2.5 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-1.5">
                 <svg
                   width="20"
                   height="20"
@@ -72,7 +72,7 @@ const Categories = () => {
                 </svg>
                 Categories
               </span>
-              <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
+              <h2 className="font-semibold text-xl xl:text-heading-5  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                 فئاتنا
               </h2>
             </div>

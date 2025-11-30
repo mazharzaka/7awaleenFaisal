@@ -4,18 +4,20 @@ import React, { useState } from "react";
 const SizeDropdown = () => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
   return (
-    <div className="bg-white shadow-1 rounded-lg">
+    <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-lg">
       <div
         onClick={() => setToggleDropdown(!toggleDropdown)}
         className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${
           toggleDropdown && "shadow-filter"
         }`}
       >
-        <p className="text-dark">Size</p>
+        <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+          Size
+        </p>
         <button
           onClick={() => setToggleDropdown(!toggleDropdown)}
           aria-label="button for size dropdown"
-          className={`text-dark ease-out duration-200 ${
+          className={` text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 ${
             toggleDropdown && "rotate-180"
           }`}
         >

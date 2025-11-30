@@ -8,9 +8,9 @@ const Signup = () => {
       <Breadcrumb title={"Signup"} pages={["Signup"]} />
       <section className="overflow-hidden py-20 bg-gray-2">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-          <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
+          <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-7.5 xl:p-11">
             <div className="text-center mb-11">
-              <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
+              <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-1.5">
                 Create an Account
               </h2>
               <p>Enter your detail below</p>
@@ -83,7 +83,9 @@ const Signup = () => {
 
             <span className="relative z-1 block font-medium text-center mt-4.5">
               <span className="block absolute -z-1 left-0 top-1/2 h-px w-full bg-gray-3"></span>
-              <span className="inline-block px-3 bg-white">Or</span>
+              <span className="inline-block px-3 bg-white  dark:bg-[#121212]  ">
+                Or
+              </span>
             </span>
 
             <div className="mt-5.5">
@@ -98,7 +100,7 @@ const Signup = () => {
                     name="name"
                     id="name"
                     placeholder="Enter your full name"
-                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
 
@@ -112,7 +114,7 @@ const Signup = () => {
                     name="email"
                     id="email"
                     placeholder="Enter your email address"
-                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
 
@@ -127,7 +129,7 @@ const Signup = () => {
                     id="password"
                     placeholder="Enter your password"
                     autoComplete="on"
-                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
 
@@ -142,7 +144,7 @@ const Signup = () => {
                     id="re-type-password"
                     placeholder="Re-type your password"
                     autoComplete="on"
-                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
 
@@ -157,7 +159,7 @@ const Signup = () => {
                   Already have an account?
                   <Link
                     href="/signin"
-                    className="text-dark ease-out duration-200 hover:text-blue pl-2"
+                    className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue pl-2"
                   >
                     Sign in Now
                   </Link>

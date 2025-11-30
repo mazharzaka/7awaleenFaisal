@@ -104,6 +104,13 @@ const config: Config = {
       ...defaultTheme.screens,
     },
     extend: {
+      colors: {
+        darkBg: "#121212", // خلفية عامة في Dark Mode
+        primaryText: "#E0E0E0", // نص أساسي
+        secondaryText: "#B0B0B0", // نص ثانوي
+        borderDark: "#444444", // حدود / dividers
+        accent: "#888888", // عناصر accent
+      },
       fontSize: {
         "2xs": ["10px", "17px"],
         "heading-1": ["60px", "72px"],

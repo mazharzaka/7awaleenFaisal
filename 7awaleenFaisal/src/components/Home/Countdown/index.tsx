@@ -35,12 +35,13 @@ const CounDown = () => {
               لا تفوت الفرصة!!
             </span>
 
-            <h2 className="font-bold text-dark text-xl lg:text-heading-4 xl:text-heading-3 mb-3">
+            <h2 className="font-bold  text-dark   text-xl lg:text-heading-4 xl:text-heading-3 mb-3">
               حسّن تجربتك الموسيقية مع خصم حصري على سماعات Havit H206d
             </h2>
 
-            <p>سماعة Havit H206d سلكية للكمبيوتر.</p>
-
+            <p className="dark:text-dark ">
+              سماعة Havit H206d سلكية للكمبيوتر.
+            </p>
             {/* <!-- Countdown timer --> */}
             <div
               className="flex flex-wrap gap-6 mt-6"
@@ -50,13 +51,13 @@ const CounDown = () => {
               {/* <!-- timer day --> */}
               <div>
                 <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
+                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  rounded-lg flex items-center justify-center bg-white  dark:bg-[#121212]   shadow-2 px-4 mb-2"
                   x-text="days"
                 >
                   {" "}
                   {days < 10 ? "0" + days : days}{" "}
                 </span>
-                <span className="block text-custom-sm text-dark text-center">
+                <span className="block text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-center">
                   Days
                 </span>
               </div>
@@ -64,13 +65,13 @@ const CounDown = () => {
               {/* <!-- timer hours --> */}
               <div>
                 <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
+                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  rounded-lg flex items-center justify-center bg-white  dark:bg-[#121212]   shadow-2 px-4 mb-2"
                   x-text="hours"
                 >
                   {" "}
                   {hours < 10 ? "0" + hours : hours}{" "}
                 </span>
-                <span className="block text-custom-sm text-dark text-center">
+                <span className="block text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-center">
                   Hours
                 </span>
               </div>
@@ -78,12 +79,12 @@ const CounDown = () => {
               {/* <!-- timer minutes --> */}
               <div>
                 <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
+                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  rounded-lg flex items-center justify-center bg-white  dark:bg-[#121212]   shadow-2 px-4 mb-2"
                   x-text="minutes"
                 >
                   {minutes < 10 ? "0" + minutes : minutes}{" "}
                 </span>
-                <span className="block text-custom-sm text-dark text-center">
+                <span className="block text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-center">
                   Minutes
                 </span>
               </div>
@@ -91,12 +92,12 @@ const CounDown = () => {
               {/* <!-- timer seconds --> */}
               <div>
                 <span
-                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl text-dark rounded-lg flex items-center justify-center bg-white shadow-2 px-4 mb-2"
+                  className="min-w-[64px] h-14.5 font-semibold text-xl lg:text-3xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  rounded-lg flex items-center justify-center bg-white  dark:bg-[#121212]   shadow-2 px-4 mb-2"
                   x-text="seconds"
                 >
                   {seconds < 10 ? "0" + seconds : seconds}{" "}
                 </span>
-                <span className="block text-custom-sm text-dark text-center">
+                <span className="block text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-center">
                   Seconds
                 </span>
               </div>

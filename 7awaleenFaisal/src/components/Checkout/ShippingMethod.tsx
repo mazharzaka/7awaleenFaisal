@@ -4,9 +4,11 @@ import Image from "next/image";
 const ShippingMethod = () => {
   const [shippingMethod, setShippingMethod] = useState("free");
   return (
-    <div className="bg-white shadow-1 rounded-[10px] mt-7.5">
+    <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-[10px] mt-7.5">
       <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-        <h3 className="font-medium text-xl text-dark">Shipping Method</h3>
+        <h3 className="font-medium text-xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+          Shipping Method
+        </h3>
       </div>
 
       <div className="p-4 sm:p-8.5">
@@ -68,7 +70,9 @@ const ShippingMethod = () => {
                 </div>
 
                 <div className="border-l border-gray-4 pl-4">
-                  <p className="font-semibold text-dark">$10.99</p>
+                  <p className="font-semibold  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                    $10.99
+                  </p>
                   <p className="text-custom-xs">Standard Shipping</p>
                 </div>
               </div>
@@ -108,7 +112,9 @@ const ShippingMethod = () => {
                 </div>
 
                 <div className="border-l border-gray-4 pl-4">
-                  <p className="font-semibold text-dark">$12.50</p>
+                  <p className="font-semibold  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                    $12.50
+                  </p>
                   <p className="text-custom-xs">Standard Shipping</p>
                 </div>
               </div>

@@ -5,26 +5,34 @@ const OrderDetails = ({ orderItem }: any) => {
     <>
       <div className="items-center justify-between py-4.5 px-7.5 hidden md:flex ">
         <div className="min-w-[113px]">
-          <p className="text-custom-sm text-dark">Order</p>
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+            Order
+          </p>
         </div>
         <div className="min-w-[113px]">
-          <p className="text-custom-sm text-dark">Date</p>
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+            Date
+          </p>
         </div>
 
         <div className="min-w-[113px]">
-          <p className="text-custom-sm text-dark">Status</p>
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+            Status
+          </p>
         </div>
 
         {/* <div className="min-w-[113px]">
-          <p className="text-custom-sm text-dark">Title</p>
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">Title</p>
         </div> */}
 
         <div className="min-w-[113px]">
-          <p className="text-custom-sm text-dark">Total</p>
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+            Total
+          </p>
         </div>
 
         {/* <div className="min-w-[113px]">
-          <p className="text-custom-sm text-dark">Action</p>
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">Action</p>
         </div> */}
       </div>
 
@@ -35,7 +43,7 @@ const OrderDetails = ({ orderItem }: any) => {
           </p>
         </div>
         <div className="min-w-[175px]">
-          <p className="text-custom-sm text-dark">
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
             {orderItem.createdAt}
           </p>
         </div>
@@ -57,11 +65,11 @@ const OrderDetails = ({ orderItem }: any) => {
         </div>
 
         {/* <div className="min-w-[213px]">
-          <p className="text-custom-sm text-dark">{orderItem.orderTitle}</p>
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">{orderItem.orderTitle}</p>
         </div> */}
 
         <div className="min-w-[113px]">
-          <p className="text-custom-sm text-dark">
+          <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
             {orderItem.total}
           </p>
         </div>

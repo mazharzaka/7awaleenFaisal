@@ -116,7 +116,7 @@ const AddStores = () => {
             />
           </div>
           <div className="flex flex-col xl:flex-row gap-7.5">
-            <div className="w-full bg-white rounded-xl shadow-1 p-4 sm:p-7.5 xl:p-10">
+            <div className="w-full bg-white  dark:bg-[#121212]   rounded-xl shadow-1 p-4 sm:p-7.5 xl:p-10">
               {selectedOption.value === "1" ? (
                 <form onSubmit={onSubmit}>
                   <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
@@ -130,7 +130,7 @@ const AddStores = () => {
                         name="name"
                         id="name"
                         placeholder="الاسم المحل يخول عربي او انجليزي "
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
 
@@ -144,7 +144,7 @@ const AddStores = () => {
                         name="category"
                         id="category"
                         placeholder="النوع يسطا فوق حاول يبقا نفس الحاجه عشان الدتا بيز متشخرش "
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
                   </div>
@@ -159,7 +159,7 @@ const AddStores = () => {
                         name="address"
                         id="address"
                         placeholder="اكتب العنوان بحاجه مميزه عشان نعرف نوصله"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
                   </div>
@@ -198,7 +198,7 @@ const AddStores = () => {
                         name="phone"
                         id="phone"
                         placeholder="اهم حاجه يبقي شغال افكرك ان حوار ده هيقشخني بعديدن لو عايزين نعمل otp"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
                     <div className="w-full">
@@ -211,7 +211,7 @@ const AddStores = () => {
                         name="rateview"
                         id="rateview"
                         placeholder="من 1الي خمسه بالله عليك "
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
                   </div>
@@ -226,7 +226,7 @@ const AddStores = () => {
                     id="message"
                     rows={5}
                     placeholder="Type your message"
-                    className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   ></textarea>
                 </div> */}
                   <button

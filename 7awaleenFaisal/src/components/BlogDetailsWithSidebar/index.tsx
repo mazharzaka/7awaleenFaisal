@@ -5,7 +5,7 @@ import LatestPosts from "../Blog/LatestPosts";
 import LatestProducts from "../Blog/LatestProducts";
 import blogData from "../BlogGrid/blogData";
 import Image from "next/image";
-import shopData from "../Shop/shopData"; 
+import shopData from "../Shop/shopData";
 
 const BlogDetailsWithSidebar = () => {
   return (
@@ -43,7 +43,7 @@ const BlogDetailsWithSidebar = () => {
                   </a>
                 </span>
 
-                <h2 className="font-medium text-dark text-xl lg:text-2xl xl:text-custom-4xl mb-4">
+                <h2 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-xl lg:text-2xl xl:text-custom-4xl mb-4">
                   What information is needed for shipping?
                 </h2>
 
@@ -72,7 +72,7 @@ const BlogDetailsWithSidebar = () => {
                 </p>
 
                 <div className="mt-7.5">
-                  <h3 className="font-medium text-dark text-lg xl:text-[26px] xl:leading-[34px] mb-6">
+                  <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-lg xl:text-[26px] xl:leading-[34px] mb-6">
                     Digital marketplace for Ui/Ux designers.
                   </h3>
 
@@ -86,8 +86,8 @@ const BlogDetailsWithSidebar = () => {
                   </ul>
                 </div>
 
-                <div className="rounded-xl bg-white pt-7.5 pb-6 px-4 sm:px-7.5 my-7.5">
-                  <p className="italic text-dark text-center">
+                <div className="rounded-xl bg-white  dark:bg-[#121212]   pt-7.5 pb-6 px-4 sm:px-7.5 my-7.5">
+                  <p className="italic  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-center">
                     ‘‘Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                     sed do eiusmod incididunt utionals labore et dolore magna
                     aliqua quis fermentum,,
@@ -107,7 +107,9 @@ const BlogDetailsWithSidebar = () => {
                     </div>
 
                     <div>
-                      <h4 className="text-dark text-custom-sm">Jhon Drineo</h4>
+                      <h4 className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-custom-sm">
+                        Jhon Drineo
+                      </h4>
                       <p className="text-custom-xs">Entroprenor</p>
                     </div>
                   </a>
@@ -150,7 +152,7 @@ const BlogDetailsWithSidebar = () => {
                     <ul className="flex flex-wrap items-center gap-3.5">
                       <li>
                         <a
-                          className="inline-flex hover:text-white border border-gray-3 bg-white py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
+                          className="inline-flex hover:text-white border border-gray-3 bg-white  dark:bg-[#121212]   py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
                           href="#"
                         >
                           Desktop
@@ -159,7 +161,7 @@ const BlogDetailsWithSidebar = () => {
 
                       <li>
                         <a
-                          className="inline-flex hover:text-white border border-gray-3 bg-white py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
+                          className="inline-flex hover:text-white border border-gray-3 bg-white  dark:bg-[#121212]   py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
                           href="#"
                         >
                           Macbook
@@ -168,7 +170,7 @@ const BlogDetailsWithSidebar = () => {
 
                       <li>
                         <a
-                          className="inline-flex hover:text-white border border-gray-3 bg-white py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
+                          className="inline-flex hover:text-white border border-gray-3 bg-white  dark:bg-[#121212]   py-2 px-4 rounded-md ease-out duration-200 hover:bg-blue hover:border-blue"
                           href="#"
                         >
                           PC
@@ -275,65 +277,65 @@ const BlogDetailsWithSidebar = () => {
               <LatestProducts products={shopData} />
 
               {/* <!-- Popular Category box --> */}
-              <div className="shadow-1 bg-white rounded-xl mt-7.5">
+              <div className="shadow-1 bg-white  dark:bg-[#121212]   rounded-xl mt-7.5">
                 <div className="px-4 sm:px-6 py-4.5 border-b border-gray-3">
-                  <h2 className="font-medium text-lg text-dark">
+                  <h2 className="font-medium text-lg  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                     Popular Category
                   </h2>
                 </div>
 
                 <div className="p-4 sm:p-6">
                   <div className="flex flex-col gap-3">
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       Desktop
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         12
                       </span>
                     </button>
 
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       Laptop
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         25
                       </span>
                     </button>
 
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       Monitor
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         23
                       </span>
                     </button>
 
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       UPS
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         09
                       </span>
                     </button>
 
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       Phone
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         54
                       </span>
                     </button>
 
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       Tablet
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         21
                       </span>
                     </button>
 
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       Watch
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         17
                       </span>
                     </button>
 
-                    <button className="group flex items-center justify-between ease-out duration-200 text-dark hover:text-blue">
+                    <button className="group flex items-center justify-between ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  hover:text-blue">
                       Mouse
                       <span className="inline-flex rounded-[30px] bg-gray-2 text-custom-xs px-1.5 ease-out duration-200 group-hover:text-white group-hover:bg-blue">
                         08
@@ -344,9 +346,11 @@ const BlogDetailsWithSidebar = () => {
               </div>
 
               {/* <!-- Tags box --> */}
-              <div className="shadow-1 bg-white rounded-xl mt-7.5">
+              <div className="shadow-1 bg-white  dark:bg-[#121212]   rounded-xl mt-7.5">
                 <div className="px-4 sm:px-6 py-4.5 border-b border-gray-3">
-                  <h2 className="font-medium text-lg text-dark">Tags</h2>
+                  <h2 className="font-medium text-lg  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                    Tags
+                  </h2>
                 </div>
 
                 <div className="p-4 sm:p-6">

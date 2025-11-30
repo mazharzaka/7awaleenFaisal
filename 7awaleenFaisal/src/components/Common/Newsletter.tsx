@@ -35,7 +35,7 @@ const Newsletter = () => {
                     name="email"
                     id="email"
                     placeholder="Enter your email"
-                    className="w-full bg-gray-1 border border-gray-3 outline-none rounded-md placeholder:text-dark-4 py-3 px-5"
+                    className="w-full bg-gray-1 border border-gray-3 outline-none rounded-md placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4 py-3 px-5"
                   />
                   <button
                     type="submit"

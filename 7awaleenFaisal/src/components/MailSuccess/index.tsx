@@ -8,13 +8,13 @@ const MailSuccess = () => {
       <Breadcrumb title={"MailSuccess"} pages={["MailSuccess"]} />
       <section className="overflow-hidden py-20 bg-gray-2">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-          <div className="bg-white rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
+          <div className="bg-white  dark:bg-[#121212]   rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
             <div className="text-center">
               <h2 className="font-bold text-blue text-4xl lg:text-[45px] lg:leading-[57px] mb-5">
                 Successful!
               </h2>
 
-              <h3 className="font-medium text-dark text-xl sm:text-2xl mb-3">
+              <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-xl sm:text-2xl mb-3">
                 Your message sent successfully
               </h3>
 

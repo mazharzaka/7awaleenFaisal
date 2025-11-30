@@ -35,6 +35,24 @@ export default function RootLayout({
 
   return (
     <html lang="en" dir="rtl" suppressHydrationWarning={true}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        if (
+          localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      `,
+          }}
+        />
+      </head>
+
       <body
         data-new-gr-c-s-check-loaded="14.1261.0"
         data-gr-ext-installed=""

@@ -48,7 +48,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
         openModal(item.id);
       }}
     >
-      <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] min-h-[403px]">
+      <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] dark:bg-[#282828] min-h-[403px]">
         <div className="text-center px-4 py-7.5">
           <div className="flex items-center justify-center gap-2.5 mb-2">
             <div className="flex items-center gap-1">
@@ -87,7 +87,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
             {/* <p className="text-custom-sm">({item.})</p> */}
           </div>
 
-          <h3 className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5">
+          <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue mb-1.5">
             <Link href="/shop-details">
               {" "}
               {item.name.length > 60
@@ -101,12 +101,12 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
               <div className="text-red-dark ">خصم يصل الي {item.sale}%</div>
             )}
             <div>
-              <span className="text-dark">
+              <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                 <span className="text-xs">EGP</span>
                 {item.finalPrice}
               </span>
               {item.sale && (
-                <span className="text-dark-4 text-xs line-through ml-2">
+                <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4 text-xs line-through ml-2">
                   <span className="text-xs">EGP</span> {item.price}
                 </span>
               )}
@@ -130,7 +130,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
             }}
             aria-label="button for quick view"
             id="bestOne"
-            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue"
+            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  bg-white  dark:bg-[#121212]   hover:text-white hover:bg-blue"
           >
             <svg
               className="fill-current"
@@ -162,7 +162,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
             }}
             aria-label="button for add to cart"
             id="addCartOne"
-            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue"
+            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  bg-white  dark:bg-[#121212]   hover:text-white hover:bg-blue"
           >
             <svg
               className="fill-current"
@@ -199,7 +199,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
             // }}
             aria-label="button for add to fav"
             id="addFavOne"
-            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark bg-white hover:text-white hover:bg-blue"
+            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  bg-white  dark:bg-[#121212]   hover:text-white hover:bg-blue"
           >
             <svg
               className="fill-current"

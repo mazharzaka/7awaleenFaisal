@@ -4,7 +4,7 @@ const Login = () => {
   const [dropdown, setDropdown] = useState(false);
 
   return (
-    <div className="bg-white shadow-1 rounded-[10px]">
+    <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-[10px]">
       <div
         onClick={() => setDropdown(!dropdown)}
         className={`cursor-pointer flex items-center gap-0.5 py-5 px-5.5 ${
@@ -12,7 +12,7 @@ const Login = () => {
         }`}
       >
         Returning customer?
-        <span className="flex items-center gap-2.5 pl-1 font-medium text-dark">
+        <span className="flex items-center gap-2.5 pl-1 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
           Click here to login
           <svg
             className={`${
@@ -53,7 +53,7 @@ const Login = () => {
             type="text"
             name="name"
             id="name"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
 
@@ -67,7 +67,7 @@ const Login = () => {
             name="password"
             id="password"
             autoComplete="on"
-            className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+            className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
           />
         </div>
 

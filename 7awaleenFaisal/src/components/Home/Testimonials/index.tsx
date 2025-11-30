@@ -31,7 +31,7 @@ const Testimonials = () => {
             {/* <!-- section title --> */}
             <div className="mb-10 flex items-center justify-between">
               <div>
-                <span className="flex items-center gap-2.5 font-medium text-dark mb-1.5">
+                <span className="flex items-center gap-2.5 font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-1.5">
                   <Image
                     src="/images/icons/icon-08.svg"
                     alt="icon"
@@ -40,7 +40,7 @@ const Testimonials = () => {
                   />
                   Testimonials
                 </span>
-                <h2 className="font-semibold text-xl xl:text-heading-5 text-dark">
+                <h2 className="font-semibold text-xl xl:text-heading-5  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                   اراء عملائنا
                 </h2>
               </div>

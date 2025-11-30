@@ -8,15 +8,15 @@ const PromoBanner = () => {
         {/* <!-- promo banner big --> */}
         <div className="relative z-1 overflow-hidden rounded-lg bg-[#F5F5F7] py-12.5 lg:py-17.5 xl:py-22.5 px-4 sm:px-7.5 lg:px-14 xl:px-19 mb-7.5">
           <div className="max-w-[550px] w-full">
-            <span className="block font-medium text-xl text-dark mb-3">
+            <span className="block font-medium text-xl  text-dark   mb-3">
               آيفون 14 بلس
             </span>
 
-            <h2 className="font-bold text-xl lg:text-heading-4 xl:text-heading-3 text-dark mb-5">
+            <h2 className="font-bold text-xl lg:text-heading-4 xl:text-heading-3  text-dark   mb-5">
               خصم حتى 30%
             </h2>
 
-            <p>
+            <p className="dark:text-dark ">
               خصم يصل حتى 30٪يأتي آيفون 14 بنفس المعالج الفائق السرعة الموجود في
               آيفون 13 برو، A15 Bionic مع معالج رسوميات 5 نوى، والذي يدعم جميع
               الميزات الحديثة.
@@ -26,7 +26,7 @@ const PromoBanner = () => {
               href="#"
               className="inline-flex font-medium text-custom-sm text-white bg-blue py-[11px] px-9.5 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
             >
-              Buy Now
+              اشتري الان
             </a>
           </div>
 
@@ -51,11 +51,11 @@ const PromoBanner = () => {
             />
 
             <div className="text-right">
-              <span className="block text-lg text-dark mb-1.5">
+              <span className="block text-lg  text-dark   mb-1.5">
                 Foldable Motorised Treadmill
               </span>
 
-              <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">
+              <h2 className="font-bold text-xl lg:text-heading-4  text-dark   mb-2.5">
                 Workout At Home
               </h2>
 
@@ -83,15 +83,15 @@ const PromoBanner = () => {
             />
 
             <div>
-              <span className="block text-lg text-dark mb-1.5">
+              <span className="block text-lg  text-dark   mb-1.5">
                 Apple Watch Ultra
               </span>
 
-              <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">
+              <h2 className="font-bold text-xl lg:text-heading-4  text-dark   mb-2.5">
                 خصم حتى <span className="text-orange">40%</span>
               </h2>
 
-              <p className="max-w-[285px] text-custom-sm">
+              <p className="max-w-[285px] dark:text-dark  text-custom-sm">
                 هيكل من التيتانيوم عالي الجودة يُضفي التوازن المثالي على كل شيء.
               </p>
 
@@ -99,7 +99,7 @@ const PromoBanner = () => {
                 href="#"
                 className="inline-flex font-medium text-custom-sm text-white bg-orange py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-orange-dark mt-7.5"
               >
-                Buy Now
+                اشتري الان
               </a>
             </div>
           </div>

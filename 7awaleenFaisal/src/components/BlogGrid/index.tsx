@@ -18,7 +18,7 @@ const BlogGrid = () => {
 
           {/* <!-- Blog Pagination Start --> */}
           <div className="flex justify-center mt-15">
-            <div className="bg-white shadow-1 rounded-md p-2">
+            <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-md p-2">
               <ul className="flex items-center">
                 <li>
                   <button
@@ -134,7 +134,7 @@ const BlogGrid = () => {
           </div>
           {/* <!-- Blog Pagination End --> */}
         </div>
-      </section> 
+      </section>
     </>
   );
 };
