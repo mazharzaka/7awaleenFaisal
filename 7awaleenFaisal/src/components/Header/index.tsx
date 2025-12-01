@@ -72,13 +72,16 @@ const Header = () => {
             stickyMenu ? "py-4" : "py-6"
           }`}
         >
-          <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
-            <Link className="flex-shrink-0" href="/">
+          <div className="xl:w-auto flex-col sm:flex-row w-full  flex sm:justify-between sm:items-center gap-5 sm:gap-10">
+            <Link
+              className="flex-shrink-0 border-2 rounded-[50%] overflow-hidden  border-blue-dark"
+              href="/"
+            >
               <Image
-                src="/images/logo/logo.svg"
+                src="/images/logo/logo.jpeg"
                 alt="Logo"
-                width={219}
-                height={36}
+                width={150}
+                height={150}
               />
             </Link>
 

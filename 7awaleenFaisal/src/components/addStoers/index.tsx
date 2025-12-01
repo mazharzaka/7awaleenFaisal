@@ -122,7 +122,7 @@ const AddStores = () => {
                   <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
                     <div className="w-full">
                       <label htmlFor="firstName" className="block mb-2.5">
-                        Name <span className="text-red">*</span>
+                        الاسم <span className="text-red">*</span>
                       </label>
 
                       <input
@@ -136,7 +136,7 @@ const AddStores = () => {
 
                     <div className="w-full">
                       <label htmlFor="category" className="block mb-2.5">
-                        category <span className="text-red">*</span>
+                        قسم <span className="text-red">*</span>
                       </label>
 
                       <input
@@ -151,7 +151,7 @@ const AddStores = () => {
                   <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
                     <div className="w-full">
                       <label htmlFor="address" className="block mb-2.5">
-                        address
+                        العنوان
                       </label>
 
                       <input
@@ -169,7 +169,7 @@ const AddStores = () => {
                         className="block mb-2.5 text-sm font-medium text-heading"
                         htmlFor="file_input"
                       >
-                        Upload file
+                        ارفع الصور
                       </label>
                       <input
                         className="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body"
@@ -190,7 +190,7 @@ const AddStores = () => {
                   <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
                     <div className="w-full">
                       <label htmlFor="phone" className="block mb-2.5">
-                        Phone
+                        رقم هاتف
                       </label>
 
                       <input
@@ -203,7 +203,7 @@ const AddStores = () => {
                     </div>
                     <div className="w-full">
                       <label htmlFor="rateview" className="block mb-2.5">
-                        rateview
+                        تقييم
                       </label>
 
                       <input
@@ -242,7 +242,7 @@ const AddStores = () => {
                   {/* Store ID */}
                   <div>
                     <label htmlFor="storeId" className="block mb-2">
-                      Store ID <span className="text-red-500">*</span>
+                      ربط المحل <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -259,7 +259,7 @@ const AddStores = () => {
                   {/* Name */}
                   <div>
                     <label htmlFor="name" className="block mb-2">
-                      Name <span className="text-red-500">*</span>
+                      الاسم <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -275,7 +275,7 @@ const AddStores = () => {
                   {/* Description */}
                   <div>
                     <label htmlFor="desc" className="block mb-2">
-                      Description <span className="text-red-500">*</span>
+                      الوصف <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       name="desc"
@@ -291,7 +291,7 @@ const AddStores = () => {
                   {/* Price */}
                   <div>
                     <label htmlFor="price" className="block mb-2">
-                      Price <span className="text-red-500">*</span>
+                      السعر <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="number"
@@ -307,7 +307,7 @@ const AddStores = () => {
                   {/* Sale */}
                   <div>
                     <label htmlFor="sale" className="block mb-2">
-                      Sale %
+                      خصم %
                     </label>
                     <input
                       type="number"
@@ -323,7 +323,7 @@ const AddStores = () => {
                   {/* Category */}
                   <div>
                     <label htmlFor="category" className="block mb-2">
-                      Category <span className="text-red-500">*</span>
+                      فئه <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -347,7 +347,7 @@ const AddStores = () => {
                         }
                         className="mr-2"
                       />
-                      Is Advertising
+                      ترويج للمنتج
                     </label>
                   </div>
 
@@ -367,22 +367,10 @@ const AddStores = () => {
                     />
                   </div>
 
-                  {/* Deleted */}
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        name="Isdeleted"
-                        className="mr-2"
-                      />
-                      Is Deleted
-                    </label>
-                  </div>
-
                   {/* Image */}
                   <div>
                     <label htmlFor="imageURL" className="block mb-2">
-                      Upload Image <span className="text-red-500">*</span>
+                      ارفع الصور <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="file"
