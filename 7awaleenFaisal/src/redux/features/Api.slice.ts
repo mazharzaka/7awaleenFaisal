@@ -6,7 +6,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
+    baseUrl: "http://localhost:3000",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) headers.set("authorization", `Bearer ${token}`);
@@ -24,6 +24,12 @@ export const apiSlice = createApi({
     }),
     getproducts: builder.query<IProductDocument[], void>({
       query: () => "/product",
+    }),
+    getcategories: builder.query<any, void>({
+      query: () => "/product/categories",
+    }),
+    getsubcategories: builder.query<any, string>({
+      query: (sub: string) => `/product/subcategories/?category=${sub}`,
     }),
     getproduct: builder.query<IProductDocument, string>({
       query: (id: string) => `/product/${id}`,
@@ -64,6 +70,8 @@ export const {
   useGetstoresQuery,
   useGetproductsQuery,
   useGetproductQuery,
+  useGetcategoriesQuery,
+  useGetsubcategoriesQuery,
   useLoginMutation,
   useAddstoreMutation,
   useGetGeustOrderQuery,

@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 const CustomSelect = ({ options, onChange, width = "200px" }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
-
+  useEffect(() => {
+    setSelectedOption(options[0]);
+  }, [options]);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -45,19 +47,21 @@ const CustomSelect = ({ options, onChange, width = "200px" }) => {
       >
         {selectedOption.label}
       </div>
-      <div className={`select-items ${isOpen ? "" : "select-hide"}`}>
-        {options.map((option, index) => (
-          <div
-            key={index}
-            onClick={() => handleOptionClick(option)}
-            className={`select-item ${
-              selectedOption === option ? "same-as-selected" : ""
-            }`}
-          >
-            {option.label}
-          </div>
-        ))}
-      </div>
+      {isOpen && (
+        <div className={`select-items `}>
+          {options.map((option, index) => (
+            <div
+              key={index}
+              onClick={() => handleOptionClick(option)}
+              className={`select-item ${
+                selectedOption === option ? "same-as-selected" : ""
+              }`}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

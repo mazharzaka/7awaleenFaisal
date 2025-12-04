@@ -74,15 +74,10 @@ const Header = () => {
         >
           <div className="xl:w-auto flex-col sm:flex-row w-full  flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link
-              className="flex-shrink-0 border-2 rounded-[50%] overflow-hidden  border-blue-dark"
+              className="flex-shrink-0 border-2 relative rounded-full w-13 h-13 md:w-33 md:h-33 overflow-hidden  border-blue-dark"
               href="/"
             >
-              <Image
-                src="/images/logo/logo.jpeg"
-                alt="Logo"
-                width={150}
-                height={150}
-              />
+              <Image src="/images/logo/logo.jpeg" fill alt="Logo" />
             </Link>
 
             <button

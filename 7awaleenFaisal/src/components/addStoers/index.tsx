@@ -6,6 +6,8 @@ import CustomSelect from "../Header/CustomSelect";
 import {
   useAddProdectMutation,
   useAddstoreMutation,
+  useGetcategoriesQuery,
+  useGetsubcategoriesQuery,
 } from "@/redux/features/Api.slice";
 import toast from "react-hot-toast";
 import { set } from "mongoose";
@@ -13,6 +15,13 @@ import { set } from "mongoose";
 const AddStores = () => {
   const [addstore] = useAddstoreMutation();
   const [addProdect] = useAddProdectMutation();
+  const { data: categories, isLoading } = useGetcategoriesQuery();
+  const [sub, setsub] = useState("mobile_devices");
+  const {
+    data: subcategories,
+    isLoading: subload,
+    error,
+  } = useGetsubcategoriesQuery(sub);
   const [selectedOption, setSelectedOption] = useState({
     label: "المحلات",
     value: "1",
@@ -28,6 +37,9 @@ const AddStores = () => {
     category: "",
     storeId: "",
   });
+  useEffect(() => {
+    console.log(categories);
+  }, [categories]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,6 +65,7 @@ const AddStores = () => {
       const res = await addstore(fd);
       if (res.error) {
         toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
+        setDisplay(false);
       } else {
         e.currentTarget?.reset();
         setDisplay(false);
@@ -78,6 +91,7 @@ const AddStores = () => {
       formData.append("sale", data.sale);
       formData.append("stock", data.stock);
       formData.append("category", data.category);
+      formData.append("subCategory", data.subCategory);
       formData.append("storeId", data.storeId);
       console.log(data);
       const res = await addProdect(formData);
@@ -85,6 +99,7 @@ const AddStores = () => {
 
       if (res.error) {
         toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
+        setDisplay(false);
       } else {
         setDisplay(false);
 
@@ -325,17 +340,36 @@ const AddStores = () => {
                     <label htmlFor="category" className="block mb-2">
                       فئه <span className="text-red-500">*</span>
                     </label>
-                    <input
-                      type="text"
-                      name="category"
-                      onChange={(e) =>
-                        setData({ ...data, category: e.target.value })
-                      }
-                      placeholder="ادخل النوع"
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
-                    />
-                  </div>
 
+                    {categories && (
+                      <CustomSelect
+                        onChange={(option) => {
+                          console.log(option);
+                          setsub(option.value);
+
+                          setData({ ...data, category: option.value });
+                        }}
+                        options={categories}
+                        width="100%"
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <label htmlFor="category" className="block mb-2">
+                      فئه الفرعيه <span className="text-red-500">*</span>
+                    </label>
+
+                    {subcategories && (
+                      <CustomSelect
+                        onChange={(option) => {
+                          console.log(option);
+                          setData({ ...data, subCategory: option.value });
+                        }}
+                        options={subcategories}
+                        width="100%"
+                      />
+                    )}
+                  </div>
                   {/* Advertising */}
                   <div>
                     <label className="inline-flex items-center">
