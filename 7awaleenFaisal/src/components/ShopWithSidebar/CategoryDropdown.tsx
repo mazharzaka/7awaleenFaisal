@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 
-const CategoryItem = ({ category }) => {
+const CategoryItem = ({ category, onChange }) => {
   const [selected, setSelected] = useState(false);
+  const handleCategorySelect = (value: string) => {
+    onChange(value);
+    setSelected(!selected);
+  };
   return (
     <button
       className={`${
         selected && "text-blue"
       } group flex items-center justify-between ease-out duration-200 hover:text-blue `}
-      onClick={() => setSelected(!selected)}
+      onClick={() => handleCategorySelect(category.value)}
     >
       <div className="flex items-center gap-2">
         <div
@@ -37,7 +41,7 @@ const CategoryItem = ({ category }) => {
           </svg>
         </div>
 
-        <span>{category.name}</span>
+        <span>{category.label}</span>
       </div>
 
       <span
@@ -51,9 +55,11 @@ const CategoryItem = ({ category }) => {
   );
 };
 
-const CategoryDropdown = ({ categories }) => {
+const CategoryDropdown = ({ categories, onChange }) => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
-
+  const handleCategorySelect = (value) => {
+    onChange(value);
+  };
   return (
     <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-lg">
       <div
@@ -99,8 +105,12 @@ const CategoryDropdown = ({ categories }) => {
           toggleDropdown ? "flex" : "hidden"
         }`}
       >
-        {categories.map((category, key) => (
-          <CategoryItem key={key} category={category} />
+        {categories?.map((category, key) => (
+          <CategoryItem
+            key={key}
+            category={category}
+            onChange={handleCategorySelect}
+          />
         ))}
       </div>
     </div>

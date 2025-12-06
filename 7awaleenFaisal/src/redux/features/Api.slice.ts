@@ -22,8 +22,23 @@ export const apiSlice = createApi({
         url: "/order/guest",
       }),
     }),
-    getproducts: builder.query<IProductDocument[], void>({
+    getproducts: builder.query<
+      { count: number; products: IProductDocument[] },
+      void
+    >({
       query: () => "/product",
+    }),
+    getFilteredProducts: builder.query({
+      query: ({ category, subCategory, minPrice, maxPrice }) => {
+        const params = new URLSearchParams();
+        if (category) params.append("category", category);
+        if (subCategory) params.append("subCategory", subCategory);
+        if (minPrice) params.append("minPrice", minPrice);
+        if (maxPrice) params.append("maxPrice", maxPrice);
+        console.log(params.toString());
+
+        return `/product?${params.toString()}`;
+      },
     }),
     getcategories: builder.query<any, void>({
       query: () => "/product/categories",
@@ -68,6 +83,7 @@ export const apiSlice = createApi({
 
 export const {
   useGetstoresQuery,
+  useGetFilteredProductsQuery,
   useGetproductsQuery,
   useGetproductQuery,
   useGetcategoriesQuery,

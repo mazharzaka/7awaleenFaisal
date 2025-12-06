@@ -74,18 +74,18 @@ const Header = () => {
         >
           <div className="xl:w-auto flex-col sm:flex-row w-full  flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link
-              className="flex-shrink-0 border-2 relative rounded-full w-13 h-13 md:w-33 md:h-33 overflow-hidden  border-blue-dark"
+              className="flex-shrink-0  relative rounded-full w-20 h-20 md:w-33 md:h-33 overflow-hidden  "
               href="/"
             >
-              <Image src="/images/logo/logo.jpeg" fill alt="Logo" />
+              <Image src="/images/logo/logo.jpg" fill alt="Logo" />
             </Link>
 
-            <button
+            {/* <button
               onClick={toggleTheme}
               className="px-3 py-2 rounded bg-dark-2 dark:bg-gray-700 dark:text-white"
             >
               Toggle Theme
-            </button>
+            </button> */}
             {/* <div className="max-w-[475px] w-full">
               <form>
                 <div className="flex items-center">

@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from "react";
 
-const GenderItem = ({ category }) => {
+const GenderItem = ({ category, onChange }) => {
   const [selected, setSelected] = useState(false);
   return (
     <button
       className={`${
         selected && "text-blue"
       } group flex items-center justify-between ease-out duration-200 hover:text-blue `}
-      onClick={() => setSelected(!selected)}
+      onClick={() => {
+        setSelected(!selected);
+        onChange(category.value);
+      }}
     >
       <div className="flex items-center gap-2">
         <div
@@ -36,7 +39,7 @@ const GenderItem = ({ category }) => {
           </svg>
         </div>
 
-        <span>{category.name}</span>
+        <span>{category.label}</span>
       </div>
 
       <span
@@ -44,13 +47,13 @@ const GenderItem = ({ category }) => {
           selected ? "text-white bg-blue" : "bg-gray-2"
         } inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
       >
-        {category.products}
+        {category.label}
       </span>
     </button>
   );
 };
 
-const GenderDropdown = ({ genders }) => {
+const GenderDropdown = ({ genders, onChange }) => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
 
   return (
@@ -62,7 +65,7 @@ const GenderDropdown = ({ genders }) => {
         }`}
       >
         <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-          Gender
+          subcategories
         </p>
         <button
           onClick={() => setToggleDropdown(!toggleDropdown)}
@@ -95,8 +98,8 @@ const GenderDropdown = ({ genders }) => {
           toggleDropdown ? "flex" : "hidden"
         }`}
       >
-        {genders.map((gender, key) => (
-          <GenderItem key={key} category={gender} />
+        {genders?.map((gender, key) => (
+          <GenderItem key={key} category={gender} onChange={onChange} />
         ))}
       </div>
     </div>
