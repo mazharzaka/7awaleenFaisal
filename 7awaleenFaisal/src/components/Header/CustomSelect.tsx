@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const CustomSelect = ({ options, onChange, width = "200px" }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
+  const toggleDropdown = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
   useEffect(() => {
     setSelectedOption(options[0]);
-  }, [options]);
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  }, [options, toggleDropdown]);
 
   const handleOptionClick = (option) => {
     console.log(option);

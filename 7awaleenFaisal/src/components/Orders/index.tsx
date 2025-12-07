@@ -10,10 +10,6 @@ import PreLoader from "../Common/PreLoader";
 const Orders = () => {
   const [orders, setOrders] = useState<any>([]);
   const { data, error, isLoading } = useGetGeustOrderQuery();
-  useEffect(() => {
-    console.log("test:", data);
-    console.log("error:", error);
-  }, []);
 
   if (error) {
     return <Error />;
