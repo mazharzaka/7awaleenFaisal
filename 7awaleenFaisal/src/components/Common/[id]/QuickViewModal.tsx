@@ -129,7 +129,7 @@ const QuickViewModal = () => {
                       ))}
                   </div>
 
-                  <div className="relative z-1 overflow-hidden flex items-center justify-center w-full sm:min-h-[508px] bg-gray-1 rounded-lg border border-gray-3">
+                  <div className="relative z-1 overflow-hidden w-full min-h-[500px] flex items-center justify-center w-full sm:min-h-[508px] bg-gray-1 rounded-lg border border-gray-3">
                     <div>
                       <button
                         onClick={handlePreviewSlider}
@@ -176,21 +176,18 @@ const QuickViewModal = () => {
                           },
                         }} */}
                       {/* /> */}
-                      <Image
-                        src={imgSrc}
-                        alt={product?.name}
-                        width={800}
-                        height={800}
-                      />
+                      <Image src={imgSrc} alt={product?.name} fill />
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="max-w-[445px] w-full">
-                <span className="inline-block text-custom-xs font-medium text-white py-1 px-3 bg-green mb-6.5">
-                  SALE 20% OFF
-                </span>
+                {product?.sale && (
+                  <span className="inline-block text-custom-xs font-medium text-white py-1 px-3 bg-green mb-6.5">
+                    SALE {product.sale} OFF
+                  </span>
+                )}
 
                 <h3 className="font-semibold text-xl xl:text-heading-5  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-4">
                   {product?.name}

@@ -195,7 +195,7 @@ function BuyNowModal() {
                 name="price"
                 // onChange={(e) => setData({ ...data, price: e.target.value })}
                 className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
-                value={product?.price}
+                value={product?.finalPrice}
               />
             </div>
             <div>

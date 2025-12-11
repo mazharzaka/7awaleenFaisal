@@ -10,7 +10,6 @@ import {
   useGetsubcategoriesQuery,
 } from "@/redux/features/Api.slice";
 import toast from "react-hot-toast";
-import { set } from "mongoose";
 
 const AddStores = () => {
   const [addstore] = useAddstoreMutation();
@@ -38,8 +37,12 @@ const AddStores = () => {
     storeId: "",
   });
   useEffect(() => {
-    console.log(categories);
-  }, [categories]);
+    setData({
+      ...data,
+      subCategory: subcategories ? subcategories[0].value : "",
+    });
+    console.log(data);
+  }, [sub]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

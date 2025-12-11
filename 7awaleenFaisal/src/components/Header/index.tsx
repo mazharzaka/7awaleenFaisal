@@ -74,7 +74,7 @@ const Header = () => {
         >
           <div className="xl:w-auto flex-col sm:flex-row w-full  flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link
-              className="flex-shrink-0  relative rounded-full w-20 h-20 md:w-33 md:h-33 overflow-hidden  "
+              className="flex-shrink-0  relative rounded-full w-30 h-30 md:w-33 md:h-33 overflow-hidden  "
               href="/"
             >
               <Image src="/images/logo/logo.jpg" fill alt="Logo" />
