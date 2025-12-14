@@ -56,7 +56,7 @@ const HeroCarousal = () => {
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="w-full aspect-[16/9] sm:aspect-[4/3] lg:aspect-[16/9] bg-[url('/images/hero/c1aff913-5352-46e3-86de-f3f1052e5e5a.jpg')] bg-cover bg-center ">
+        <div className="w-full aspect-[16/9] sm:aspect-[4/3] lg:aspect-[16/9] bg-[url('/images/hero/Gemini_Generated_Image_q5h1xbq5h1xbq5h1.webp')] bg-cover bg-center ">
           {/* <div className="max-w-[394px] py-10 sm:py-15 lg:py-24.5 pl-4 sm:pl-7.5 lg:pl-12.5">
             <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
               <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">
