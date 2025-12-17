@@ -21,6 +21,7 @@ import PreLoader from "@/components/Common/PreLoader";
 import { Toaster } from "react-hot-toast";
 import BuyNowModal from "@/components/Common/BuyNowModal";
 import { BuyNowProvider } from "../context/BuyNowContext";
+import WhatsApp from "@/components/Common/WhatsApp";
 
 export default function RootLayout({
   children,
@@ -79,6 +80,10 @@ export default function RootLayout({
               </CartModalProvider>
             </ReduxProvider>
             <ScrollToTop />
+            <WhatsApp
+              phoneNumber="201104998568"
+              message="اهلا بيك في وصل معاك في اي استفسار"
+            />
             <Footer />
             <Toaster />
           </>
