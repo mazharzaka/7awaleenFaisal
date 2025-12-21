@@ -71,11 +71,6 @@ const EditProdeuctForm = () => {
       formData.append("subCategory", data.subCategory || "");
       formData.append("storeId", data.storeId || "");
 
-      // للتحقق
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-
       const res = await EditProduct({ id, formData }).unwrap();
       console.log(res);
 

@@ -16,7 +16,7 @@ const ShopDetails = () => {
 
   const [activeColor, setActiveColor] = useState("blue");
   const { openPreviewModal } = usePreviewSlider();
-  const [previewImg, setPreviewImg] = useState(0);
+  const [previewImg, setPreviewImg] = useState("");
 
   const [storage, setStorage] = useState("gb128");
   const [type, setType] = useState("active");
@@ -160,7 +160,7 @@ const ShopDetails = () => {
                         onClick={() => setPreviewImg(item)}
                         key={key}
                         className={`flex items-center justify-center w-15 sm:w-25 h-15 sm:h-25 overflow-hidden rounded-lg bg-gray-2 shadow-1 ease-out duration-200 border-2 hover:border-blue ${
-                          key === previewImg
+                          item === previewImg
                             ? "border-blue"
                             : "border-transparent"
                         }`}

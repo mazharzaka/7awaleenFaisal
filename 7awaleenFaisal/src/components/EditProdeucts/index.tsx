@@ -80,7 +80,10 @@ const EditProdeucts = () => {
             </thead>
             <tbody>
               {products?.products.map((item, index) => (
-                <tr className="bg-neutral-primary-soft border-b border-default">
+                <tr
+                  className="bg-neutral-primary-soft border-b border-default"
+                  key={index}
+                >
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-heading whitespace-nowrap"
