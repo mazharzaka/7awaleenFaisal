@@ -4,8 +4,8 @@ import React from "react";
 import { Metadata } from "next";
 import ProtectedComponent from "@/app/context/Protected";
 export const metadata: Metadata = {
-  title: "My Account | NextCommerce Nextjs E-commerce template",
-  description: "This is My Account page for NextCommerce Template",
+  title: "My Account | وصل ",
+  description: "This is My Account page for وصل",
   // other metadata
 };
 

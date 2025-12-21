@@ -8,6 +8,7 @@ export interface IProduct {
   price: number;
   imageURL?: string;
   category: string;
+  subCategory?: string;
   sale?: number;
   Isadvertising?: boolean;
   stock?: number;

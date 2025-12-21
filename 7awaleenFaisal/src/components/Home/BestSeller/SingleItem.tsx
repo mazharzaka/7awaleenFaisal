@@ -42,12 +42,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
   // };
 
   return (
-    <div
-      className="group"
-      onClick={() => {
-        openModal(item.id);
-      }}
-    >
+    <Link href={"/shop-details/" + item?.id} className="group">
       <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] dark:bg-[#282828] min-h-[403px]">
         <div className="text-center px-4 py-7.5">
           <div className="flex items-center justify-center gap-2.5 mb-2">
@@ -219,7 +214,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -5,9 +5,15 @@ import Image from "next/image";
 import Newsletter from "../Common/Newsletter";
 import RecentlyViewdItems from "./RecentlyViewd";
 import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
-import { useAppSelector } from "@/redux/store";
+import { useGetproductQuery } from "@/redux/features/Api.slice";
+import { useParams } from "next/navigation";
+import Error from "../Error";
+import { useBuyNowContext } from "@/app/context/BuyNowContext";
 
 const ShopDetails = () => {
+  const { id } = useParams<{ id: string }>();
+  const { openBuyNow } = useBuyNowContext();
+
   const [activeColor, setActiveColor] = useState("blue");
   const { openPreviewModal } = usePreviewSlider();
   const [previewImg, setPreviewImg] = useState(0);
@@ -18,6 +24,21 @@ const ShopDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
   const [activeTab, setActiveTab] = useState("tabOne");
+  const { data: product, isLoading, error } = useGetproductQuery(id);
+  useEffect(() => {
+    if (
+      isLoading ||
+      !product ||
+      !Array.isArray(product.imageURL) ||
+      product.imageURL.length === 0
+    ) {
+      return;
+    }
+
+    const imgSrc = product.imageURL[previewImg] ?? product.imageURL[0];
+
+    setPreviewImg(imgSrc);
+  }, [product, isLoading]);
 
   const storages = [
     {
@@ -75,29 +96,29 @@ const ShopDetails = () => {
 
   const colors = ["red", "blue", "orange", "pink", "purple"];
 
-  const alreadyExist = localStorage.getItem("productDetails");
-  const productFromStorage = useAppSelector(
-    (state) => state.productDetailsReducer.value
-  );
-
-  const product = alreadyExist ? JSON.parse(alreadyExist) : productFromStorage;
-
-  useEffect(() => {
-    localStorage.setItem("productDetails", JSON.stringify(product));
-  }, [product]);
-
   // pass the product here when you get the real data.
   const handlePreviewSlider = () => {
     openPreviewModal();
   };
-
-  console.log(product);
+  const handleAddToCart = () => {
+    openBuyNow(id);
+  };
+  if (isLoading) {
+    return (
+      <div className="w-full max-w-[1100px] rounded-xl shadow-3 flex justify-center items-center bg-white  dark:bg-[#121212]   p-7.5 relative modal-content">
+        <div className="h-16 w-16 animate-spin rounded-full border-4 border-solid border-blue border-t-transparent"></div>
+      </div>
+    );
+  }
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <>
       <Breadcrumb title={"Shop Details"} pages={["shop details"]} />
 
-      {product.title === "" ? (
+      {product?.name === "" ? (
         "Please add product"
       ) : (
         <>
@@ -129,13 +150,14 @@ const ShopDetails = () => {
                         </svg>
                       </button>
                     </div>
+                    <Image src={previewImg} alt={product?.name} fill />
                   </div>
 
                   {/* ?  &apos;border-blue &apos; :  &apos;border-transparent&apos; */}
                   <div className="flex flex-wrap sm:flex-nowrap gap-4.5 mt-6">
-                    {product.imgs?.thumbnails.map((item, key) => (
+                    {product?.imageURL.map((item, key) => (
                       <button
-                        onClick={() => setPreviewImg(key)}
+                        onClick={() => setPreviewImg(item)}
                         key={key}
                         className={`flex items-center justify-center w-15 sm:w-25 h-15 sm:h-25 overflow-hidden rounded-lg bg-gray-2 shadow-1 ease-out duration-200 border-2 hover:border-blue ${
                           key === previewImg
@@ -158,12 +180,13 @@ const ShopDetails = () => {
                 <div className="max-w-[539px] w-full">
                   <div className="flex items-center justify-between mb-3">
                     <h2 className="font-semibold text-xl sm:text-2xl xl:text-custom-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-                      {product.title}
+                      {product?.name}
                     </h2>
-
-                    <div className="inline-flex font-medium text-custom-sm text-white bg-blue rounded py-0.5 px-2.5">
-                      30% OFF
-                    </div>
+                    {product?.sale && (
+                      <div className="inline-flex font-medium text-custom-sm text-white bg-blue rounded py-0.5 px-2.5">
+                        {product?.sale} OFF
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex flex-wrap items-center gap-5.5 mb-4.5">
@@ -308,17 +331,18 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  <h3 className="font-medium text-custom-1 mb-4.5">
+                  <h3 className="font-medium text-custom-1 gap-5 flex mb-4.5">
                     <span className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                       Price: ${product.price}
                     </span>
-                    <span className="line-through">
+                    <span className="line-through text-red">
                       {" "}
-                      ${product.discountedPrice}{" "}
+                      ${product.sale}{" "}
                     </span>
                   </h3>
+                  <p className="h-80 overflow-auto">{product?.desc}</p>
 
-                  <ul className="flex flex-col gap-2">
+                  {/* <ul className="flex flex-col gap-2">
                     <li className="flex items-center gap-2.5">
                       <svg
                         width="20"
@@ -362,11 +386,10 @@ const ShopDetails = () => {
                       </svg>
                       Sales 30% Off Use Code: PROMO30
                     </li>
-                  </ul>
+                  </ul> */}
 
                   <form onSubmit={(e) => e.preventDefault()}>
-                    <div className="flex flex-col gap-4.5 border-y border-gray-3 mt-7.5 mb-9 py-9">
-                      {/* <!-- details item --> */}
+                    {/* <div className="flex flex-col gap-4.5 border-y border-gray-3 mt-7.5 mb-9 py-9">
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
                           <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -406,7 +429,6 @@ const ShopDetails = () => {
                         </div>
                       </div>
 
-                      {/* <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
                           <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -430,7 +452,6 @@ const ShopDetails = () => {
                                   onChange={() => setStorage(item.id)}
                                 />
 
-                                {/*  */}
                                 <div
                                   className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
                                     storage === item.id
@@ -476,7 +497,6 @@ const ShopDetails = () => {
                         </div>
                       </div>
 
-                      {/* // <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
                           <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -500,7 +520,6 @@ const ShopDetails = () => {
                                   onChange={() => setType(item.id)}
                                 />
 
-                                {/*  */}
                                 <div
                                   className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
                                     type === item.id
@@ -546,7 +565,6 @@ const ShopDetails = () => {
                         </div>
                       </div>
 
-                      {/* // <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
                           <h4 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -570,7 +588,6 @@ const ShopDetails = () => {
                                   onChange={() => setSim(item.id)}
                                 />
 
-                                {/*  */}
                                 <div
                                   className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
                                     sim === item.id
@@ -615,7 +632,7 @@ const ShopDetails = () => {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="flex flex-wrap items-center gap-4.5">
                       <div className="flex items-center rounded-md border border-gray-3">
@@ -644,7 +661,7 @@ const ShopDetails = () => {
                         <span className="flex items-center justify-center w-16 h-12 border-x border-gray-4">
                           {quantity}
                         </span>
-
+                        {/* 
                         <button
                           onClick={() => setQuantity(quantity + 1)}
                           aria-label="button for add product"
@@ -667,15 +684,16 @@ const ShopDetails = () => {
                               fill=""
                             />
                           </svg>
-                        </button>
+                        </button> */}
                       </div>
-
-                      <a
-                        href="#"
-                        className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                      <button
+                        disabled={quantity === 0 && true}
+                        onClick={() => handleAddToCart()}
+                        className={`inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark
+                  `}
                       >
-                        Purchase Now
-                      </a>
+                        اشتري الان
+                      </button>
 
                       <a
                         href="#"
@@ -704,9 +722,8 @@ const ShopDetails = () => {
             </div>
           </section>
 
-          <section className="overflow-hidden bg-gray-2 py-20">
+          {/* <section className="overflow-hidden bg-gray-2 py-20">
             <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-              {/* <!--== tab header start ==--> */}
               <div className="flex flex-wrap items-center bg-white  dark:bg-[#121212]   rounded-[10px] shadow-1 gap-5 xl:gap-12.5 py-4.5 px-4 sm:px-6">
                 {tabs.map((item, key) => (
                   <button
@@ -722,10 +739,7 @@ const ShopDetails = () => {
                   </button>
                 ))}
               </div>
-              {/* <!--== tab header end ==--> */}
-
-              {/* <!--== tab content start ==--> */}
-              {/* <!-- tab content one start --> */}
+     
               <div>
                 <div
                   className={`flex-col sm:flex-row gap-7.5 xl:gap-12.5 mt-12.5 ${
@@ -776,16 +790,13 @@ const ShopDetails = () => {
                   </div>
                 </div>
               </div>
-              {/* <!-- tab content one end --> */}
 
-              {/* <!-- tab content two start --> */}
               <div>
                 <div
                   className={`rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6 mt-10 ${
                     activeTab === "tabTwo" ? "block" : "hidden"
                   }`}
                 >
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -799,7 +810,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -813,7 +823,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -827,7 +836,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -842,7 +850,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -856,7 +863,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -870,7 +876,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -884,7 +889,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -898,7 +902,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -913,7 +916,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
@@ -929,9 +931,6 @@ const ShopDetails = () => {
                   </div>
                 </div>
               </div>
-              {/* <!-- tab content two end --> */}
-
-              {/* <!-- tab content three start --> */}
               <div>
                 <div
                   className={`flex-col sm:flex-row gap-7.5 xl:gap-12.5 mt-12.5 ${
@@ -944,7 +943,6 @@ const ShopDetails = () => {
                     </h2>
 
                     <div className="flex flex-col gap-6">
-                      {/* <!-- review item --> */}
                       <div className="rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
@@ -1058,7 +1056,6 @@ const ShopDetails = () => {
                         </p>
                       </div>
 
-                      {/* <!-- review item --> */}
                       <div className="rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
@@ -1172,7 +1169,6 @@ const ShopDetails = () => {
                         </p>
                       </div>
 
-                      {/* <!-- review item --> */}
                       <div className="rounded-xl bg-white  dark:bg-[#121212]   shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
@@ -1450,12 +1446,10 @@ const ShopDetails = () => {
                   </div>
                 </div>
               </div>
-              {/* <!-- tab content three end --> */}
-              {/* <!--== tab content end ==--> */}
             </div>
-          </section>
+          </section> */}
 
-          <RecentlyViewdItems />
+          {/* <RecentlyViewdItems /> */}
 
           <Newsletter />
         </>

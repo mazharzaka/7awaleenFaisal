@@ -1,16 +1,15 @@
 import React from "react";
-import MailSuccess from "@/components/MailSuccess";
 
 import { Metadata } from "next";
 import ProtectedComponent from "@/app/context/Protected";
-import EditProdeucts from "@/components/MailSuccess";
+import EditProdeucts from "@/components/EditProdeucts";
 export const metadata: Metadata = {
-  title: "Mail Success Page | NextCommerce Nextjs E-commerce template",
-  description: "This is Mail Success Page for NextCommerce Template",
+  title: "Edit Products Page | وصل ",
+  description: "This is Edit Products Page for وصل",
   // other metadata
 };
 
-const MailSuccessPage = () => {
+const EditProdeuctsPage = () => {
   return (
     <main>
       <ProtectedComponent>
@@ -20,4 +19,4 @@ const MailSuccessPage = () => {
   );
 };
 
-export default MailSuccessPage;
+export default EditProdeuctsPage;

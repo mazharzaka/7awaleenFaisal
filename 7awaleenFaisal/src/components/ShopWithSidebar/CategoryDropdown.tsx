@@ -2,43 +2,43 @@
 
 import { useState } from "react";
 
-const CategoryItem = ({ category, onChange }) => {
-  const [selected, setSelected] = useState(false);
+const CategoryItem = ({ category, selected, onChange, setSelected }) => {
   const handleCategorySelect = (value: string) => {
     onChange(value);
-    setSelected(!selected);
+    console.log(selected);
+
+    setSelected(value);
   };
   return (
-    <button
+    <label
       className={`${
-        selected && "text-blue"
-      } group flex items-center justify-between ease-out duration-200 hover:text-blue `}
-      onClick={() => handleCategorySelect(category.value)}
+        selected ? "text-blue" : ""
+      } group flex cursor-pointer items-center justify-between ease-out duration-200 hover:text-blue`}
     >
+      {/* Radio Input */}
+      <input
+        type="radio"
+        name={"category"}
+        value={category.value}
+        checked={selected === category.value}
+        onChange={() => handleCategorySelect(category.value)}
+        className="hidden"
+      />
+
       <div className="flex items-center gap-2">
+        {/* Radio Shape */}
         <div
-          className={`cursor-pointer flex items-center justify-center rounded w-4 h-4 border ${
-            selected
+          className={`flex items-center justify-center rounded-full w-4 h-4 border ${
+            selected === category.value
               ? "border-blue bg-blue"
-              : "bg-white  dark:bg-[#121212]   border-gray-3"
+              : "bg-white dark:bg-[#121212] border-gray-3"
           }`}
         >
-          <svg
-            className={selected ? "block" : "hidden"}
-            width="10"
-            height="10"
-            viewBox="0 0 10 10"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8.33317 2.5L3.74984 7.08333L1.6665 5"
-              stroke="white"
-              strokeWidth="1.94437"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <div
+            className={`w-2 h-2 rounded-full bg-white transition ${
+              selected === category.value ? "block" : "hidden"
+            }`}
+          />
         </div>
 
         <span>{category.label}</span>
@@ -46,16 +46,18 @@ const CategoryItem = ({ category, onChange }) => {
 
       <span
         className={`${
-          selected ? "text-white bg-blue" : "bg-gray-2"
+          selected === category.value ? "text-white bg-blue" : "bg-gray-2"
         } inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
       >
         {category.products}
       </span>
-    </button>
+    </label>
   );
 };
 
 const CategoryDropdown = ({ categories, onChange }) => {
+  const [selected, setSelected] = useState("");
+
   const [toggleDropdown, setToggleDropdown] = useState(true);
   const handleCategorySelect = (value) => {
     onChange(value);
@@ -109,7 +111,9 @@ const CategoryDropdown = ({ categories, onChange }) => {
           <CategoryItem
             key={key}
             category={category}
+            selected={selected}
             onChange={handleCategorySelect}
+            setSelected={setSelected}
           />
         ))}
       </div>

@@ -13,6 +13,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Products"],
   endpoints: (builder) => ({
     getstores: builder.query<Store[], void>({
       query: () => "/store",
@@ -28,6 +29,9 @@ export const apiSlice = createApi({
     >({
       query: () => "/product",
     }),
+    getadvertisedproducts: builder.query<IProductDocument[], void>({
+      query: () => "/product/advertised",
+    }),
     getFilteredProducts: builder.query({
       query: ({ category, subCategory, minPrice, maxPrice }) => {
         const params = new URLSearchParams();
@@ -39,7 +43,43 @@ export const apiSlice = createApi({
 
         return `/product?${params.toString()}`;
       },
+      providesTags: ["Products"],
     }),
+    DeleteProduct: builder.mutation({
+      query: ({ id, deleted }) => {
+        const params = new URLSearchParams();
+        if (id) params.append("id", id);
+        if (deleted) params.append("deleted", deleted);
+
+        return {
+          url: `/product?${params.toString()}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["Products"],
+    }),
+    Advertiseing: builder.mutation({
+      query: ({ id }) => {
+        const params = new URLSearchParams();
+        if (id) params.append("id", id);
+
+        return {
+          url: `/product/advertising?${params.toString()}`,
+          method: "POST",
+        };
+      },
+    }),
+    EditProduct: builder.mutation({
+      query: ({ id, formData }: { id: string; formData: FormData }) => {
+        console.log(`/product/edit/${id}`);
+        return {
+          url: `/product/edit/${id}`,
+          method: "POST",
+          body: formData,
+        };
+      },
+    }),
+
     getcategories: builder.query<any, void>({
       query: () => "/product/categories",
     }),
@@ -84,9 +124,13 @@ export const apiSlice = createApi({
 export const {
   useGetstoresQuery,
   useGetFilteredProductsQuery,
+  useGetadvertisedproductsQuery,
   useGetproductsQuery,
   useGetproductQuery,
   useGetcategoriesQuery,
+  useEditProductMutation,
+  useDeleteProductMutation,
+  useAdvertiseingMutation,
   useGetsubcategoriesQuery,
   useLoginMutation,
   useAddstoreMutation,

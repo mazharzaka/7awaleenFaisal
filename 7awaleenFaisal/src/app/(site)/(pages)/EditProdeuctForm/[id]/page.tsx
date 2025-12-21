@@ -1,22 +1,22 @@
 import React from "react";
-import { Wishlist } from "@/components/Wishlist";
+
 import { Metadata } from "next";
 import ProtectedComponent from "@/app/context/Protected";
-
+import EditProdeuctForm from "@/components/EditProdeuctForm";
 export const metadata: Metadata = {
-  title: "Wishlist Page | وصل ",
-  description: "This is Wishlist Page for وصل",
+  title: "Edit Products Page | وصل ",
+  description: "This is Edit Products Page for وصل",
   // other metadata
 };
 
-const WishlistPage = () => {
+const EditProdeuctFormPage = () => {
   return (
     <main>
       <ProtectedComponent>
-        <Wishlist />
+        <EditProdeuctForm />
       </ProtectedComponent>
     </main>
   );
 };
 
-export default WishlistPage;
+export default EditProdeuctFormPage;

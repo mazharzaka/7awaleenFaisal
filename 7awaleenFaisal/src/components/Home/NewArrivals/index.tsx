@@ -6,12 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductItem from "@/components/Common/ProductItem";
 import shopData from "@/components/Shop/shopData";
-import { useGetstoresQuery } from "@/redux/features/Api.slice";
+import { useGetadvertisedproductsQuery } from "@/redux/features/Api.slice";
 import PreLoader from "@/components/Common/PreLoader";
 import Error from "@/components/Error";
+import SingleItem from "../BestSeller/SingleItem";
 
 const NewArrival = () => {
-  const { data: stores, error, isLoading } = useGetstoresQuery();
+  const { data, error, isLoading } = useGetadvertisedproductsQuery();
   if (error) {
     return <Error />;
   }
@@ -41,10 +42,10 @@ const NewArrival = () => {
                   strokeLinecap="round"
                 />
               </svg>
-              This Week’s
+              الافضل هذا الاسبوع
             </span>
             <h2 className="font-semibold text-xl xl:text-heading-5  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-              محلاتنا
+              ابرز منتجاتنا
             </h2>
           </div>
 
@@ -60,8 +61,8 @@ const NewArrival = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-7.5 gap-y-9">
             {/* <!-- New Arrivals item --> */}
-            {stores.map((item, key) => (
-              <ProductItem item={item} key={key} />
+            {data?.map((item, key) => (
+              <SingleItem item={item} key={key} />
             ))}
           </div>
         )}
