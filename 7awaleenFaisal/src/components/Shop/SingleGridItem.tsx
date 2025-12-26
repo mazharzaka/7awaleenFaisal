@@ -150,7 +150,7 @@ const SingleGridItem = ({ item }: { item: IProductDocument }) => {
 
       <span className="flex items-center gap-2 font-medium text-lg">
         <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-          ${item.finalPrice}
+          ${item.finalPrice.toLocaleString("en-US")}
         </span>
         {item.sale !== 0 && (
           <>

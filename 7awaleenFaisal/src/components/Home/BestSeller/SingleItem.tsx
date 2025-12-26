@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
@@ -15,7 +15,9 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
   const { openModal } = useModalContext();
   const { openBuyNow } = useBuyNowContext();
   const dispatch = useDispatch<AppDispatch>();
-
+  useEffect(() => {
+    console.log("Rendered item:", item);
+  }, [item]);
   // update the QuickView state
   // const handleQuickViewUpdate = () => {
   //   dispatch(updateQuickView({ ...item }));
@@ -92,19 +94,19 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           </h3>
 
           <div className="flex items-center flex-col justify-center gap-2 font-medium text-lg">
-            {item.sale && (
+            {item.sale ? (
               <div className="text-red-dark ">خصم يصل الي {item.sale}%</div>
-            )}
+            ) : null}
             <div>
               <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                 <span className="text-xs">EGP</span>
-                {item.finalPrice}
+                {item.finalPrice.toLocaleString("en-US")}
               </span>
-              {item.sale && (
+              {item.sale ? (
                 <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4 text-xs line-through ml-2">
                   <span className="text-xs">EGP</span> {item.price}
                 </span>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
