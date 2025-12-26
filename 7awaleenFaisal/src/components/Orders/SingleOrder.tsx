@@ -45,7 +45,7 @@ const SingleOrder = ({ orderItem, smallView }: any) => {
           </div>
           <div className="min-w-[213px]">
             <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-              {orderitem.finalPrice.toLocaleString("en-US")}
+              {orderItem?.finalPrice.toLocaleString("en-US")}
             </p>
           </div>
 
