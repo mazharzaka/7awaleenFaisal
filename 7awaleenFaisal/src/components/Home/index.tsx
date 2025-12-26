@@ -7,6 +7,7 @@ import BestSeller from "./BestSeller";
 import CounDown from "./Countdown";
 import Testimonials from "./Testimonials";
 import Newsletter from "../Common/Newsletter";
+import Downto500 from "./Downto500";
 
 const Home = () => {
   return (
@@ -15,6 +16,8 @@ const Home = () => {
       <Categories />
       <Testimonials />
       <NewArrival />
+      <PromoBanner show={true} />
+      <Downto500 />
       <PromoBanner />
       <BestSeller />
       <CounDown />

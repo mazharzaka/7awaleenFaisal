@@ -70,7 +70,7 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
       ) : (
         <>
           <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28">
-            <div className="max-w-[1170px] md:flex-row flex-col  gap-7.5 xl:gap-17.5 flex w-full mx-auto px-4 sm:px-8 xl:px-0">
+            <div className="max-w-[1170px] md:flex-row flex-col  gap-7 md:gap-44 flex w-full mx-auto px-4 sm:px-8 xl:px-0">
               <div className="flex flex-col  gap-7.5 xl:gap-17.5">
                 <div
                   className="lg:max-w-[570px] w-full"
@@ -170,11 +170,11 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                   <h2 className="font-semibold text-xl sm:text-2xl xl:text-custom-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                     {product?.name}
                   </h2>
-                  {product?.sale && (
+                  {product?.sale ? (
                     <div className="inline-flex font-medium text-custom-sm text-white bg-red-dark rounded py-0.5 px-2.5">
                       {product?.sale} OFF
                     </div>
-                  )}
+                  ) : null}
                 </div>
 
                 <h3 className="font-medium text-custom-1 gap-5 flex mb-4.5">
@@ -187,7 +187,9 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                     </div>
                   ) : null}
                 </h3>
-                <p className="h-80 overflow-auto">{product?.desc}</p>
+                <p className="md:h-80 max-h-80 md:mb-0 mb-10 overflow-auto">
+                  {product?.desc}
+                </p>
 
                 {/* <ul className="flex flex-col gap-2">
                     <li className="flex items-center gap-2.5">
