@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const EditOrder = ({ order, toggleModal }: any) => {
+const EditOrder = ({ order, toggleModal, id }: any) => {
   const [currentStatus, setCurrentStatus] = useState(order?.status);
   const handleChanege = (e: any) => {
     setCurrentStatus(e.target.value);
@@ -14,6 +14,7 @@ const EditOrder = ({ order, toggleModal }: any) => {
       toast.error("Please select a status");
       return;
     }
+    console.log(order._id);
 
     toggleModal(false);
   };
@@ -31,10 +32,10 @@ const EditOrder = ({ order, toggleModal }: any) => {
           required
           onChange={handleChanege}
         >
-          <option value="processing">Processing</option>
-          <option value="on-hold">On Hold</option>
-          <option value="delivered">Delivered</option>
-          <option value="cancelled">Cancelled</option>
+          <option value="new">جديد</option>
+          <option value="contacted">تم التواصل</option>
+          <option value="done">تم التنفيذ</option>
+          <option value="rejected">مرفوض</option>
         </select>
 
         <button

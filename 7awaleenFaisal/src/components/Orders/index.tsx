@@ -63,6 +63,12 @@ const Orders = () => {
                       Phone
                     </p>
                   </div>
+
+                  <div className="min-w-[113px]">
+                    <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                      status
+                    </p>
+                  </div>
                 </div>
               )}
               {data.length > 0 ? (

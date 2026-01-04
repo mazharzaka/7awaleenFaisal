@@ -6,14 +6,14 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
+    baseUrl: "http://localhost:3000",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) headers.set("authorization", `Bearer ${token}`);
       return headers;
     },
   }),
-  tagTypes: ["Products"],
+  tagTypes: ["Products", "GuestOrder"],
   endpoints: (builder) => ({
     getstores: builder.query<Store[], void>({
       query: () => "/store",
@@ -22,6 +22,7 @@ export const apiSlice = createApi({
       query: () => ({
         url: "/order/guest",
       }),
+      providesTags: ["GuestOrder"],
     }),
     getproducts: builder.query<
       { count: number; products: IProductDocument[] },
@@ -117,6 +118,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["GuestOrder"],
     }),
   }),
 });

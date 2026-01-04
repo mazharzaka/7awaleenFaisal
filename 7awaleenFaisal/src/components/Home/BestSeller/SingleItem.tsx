@@ -1,23 +1,18 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { updateQuickView } from "@/redux/features/quickView-slice";
-import { addItemToCart } from "@/redux/features/cart-slice";
+
 import Image from "next/image";
 import Link from "next/link";
-import { addItemToWishlist } from "@/redux/features/wishlist-slice";
 import { IProductDocument } from "@/types/product";
 import { useBuyNowContext } from "@/app/context/BuyNowContext";
 
 const SingleItem = ({ item }: { item: IProductDocument }) => {
   const { openModal } = useModalContext();
   const { openBuyNow } = useBuyNowContext();
-  const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    console.log("Rendered item:", item);
-  }, [item]);
+
+  const [isHover, setIsHover] = useState(0);
+
   // update the QuickView state
   // const handleQuickViewUpdate = () => {
   //   dispatch(updateQuickView({ ...item }));
@@ -44,7 +39,12 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
   // };
 
   return (
-    <Link href={"/shop-details/" + item?.id} className="group">
+    <Link
+      href={"/shop-details/" + item?.id}
+      className="group"
+      onMouseEnter={() => setIsHover(1)}
+      onMouseLeave={() => setIsHover(0)}
+    >
       <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] dark:bg-[#282828] min-h-[403px]">
         <div className="text-center px-4 py-7.5">
           <div className="flex items-center justify-center gap-2.5 mb-2">
@@ -85,7 +85,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           </div>
 
           <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue mb-1.5">
-            <Link href="/shop-details">
+            <Link href={"/shop-details/" + item?.id}>
               {" "}
               {item.name.length > 60
                 ? item.name.substring(0, 60) + "..."
@@ -113,7 +113,7 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
 
         <div className="flex justify-center relative items-center w-50 h-50 mx-auto">
           <Image
-            src={item.imageURL[0] || "/images/default-product.png"}
+            src={item.imageURL[isHover] || "/images/default-product.png"}
             alt={item.name}
             layout="fill"
             objectFit="contain"

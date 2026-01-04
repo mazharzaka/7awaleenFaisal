@@ -30,7 +30,6 @@ const OrderModal = ({ showDetails, showEdit, toggleModal, order }: any) => {
               ></path>
             </svg>
           </button>
-
           <>
             {showDetails && <OrderDetails orderItem={order} />}
 

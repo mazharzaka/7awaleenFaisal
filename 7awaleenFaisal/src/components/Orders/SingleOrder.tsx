@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OrderActions from "./OrderActions";
 import OrderModal from "./OrderModal";
-
+import dayjs from "dayjs";
 const SingleOrder = ({ orderItem, smallView }: any) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -30,7 +30,7 @@ const SingleOrder = ({ orderItem, smallView }: any) => {
           </div>
           <div className="min-w-[175px]">
             <p className="text-custom-sm  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-              {orderItem.updatedAt}
+              {dayjs(orderItem.updatedAt).format("YYYY-MM-DD")}
             </p>
           </div>
           <div className="min-w-[213px]">
@@ -60,6 +60,28 @@ const SingleOrder = ({ orderItem, smallView }: any) => {
               {orderItem.phone}
             </p>
           </div>
+          <button className="min-w-[113px] cursor-pointer" onClick={toggleEdit}>
+            <p
+              className={`text-custom-xl  cursor-pointer ${
+                orderItem.status === "new"
+                  ? "text-blue"
+                  : orderItem.status === "contacted"
+                  ? "text-yellow"
+                  : orderItem.status === "done"
+                  ? "text-green-dark"
+                  : "text-red"
+              } dark:text-[#8b8b8b] dark:text-[#E0E0E0] `}
+            >
+              {orderItem.status}
+            </p>
+          </button>
+          <OrderModal
+            showDetails={showDetails}
+            showEdit={showEdit}
+            toggleModal={toggleModal}
+            order={orderItem}
+            id={orderItem?._id}
+          />
         </div>
       )}
 
