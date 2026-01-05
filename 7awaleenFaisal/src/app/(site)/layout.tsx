@@ -22,7 +22,7 @@ import { Toaster } from "react-hot-toast";
 import BuyNowModal from "@/components/Common/BuyNowModal";
 import { BuyNowProvider } from "../context/BuyNowContext";
 import WhatsApp from "@/components/Common/WhatsApp";
-import Snowfall from "react-snowfall";
+// import Snowfall from "react-snowfall";
 
 export default function RootLayout({
   children,
@@ -54,7 +54,7 @@ export default function RootLayout({
         data-gr-ext-installed=""
         cz-shortcut-listen="true"
       >
-        <Snowfall
+        {/* <Snowfall
           style={{
             position: "fixed",
             width: "100vw",
@@ -67,7 +67,7 @@ export default function RootLayout({
           speed={[1, 3]} // حركة مستمرة
           wind={[-0.5, 1]}
           radius={[1.5, 3]}
-        />
+        /> */}
 
         <>
           <ReduxProvider>
