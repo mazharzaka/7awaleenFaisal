@@ -2,8 +2,11 @@ import React from "react";
 
 const PreLoader = () => {
   return (
-    <div className="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white  dark:bg-[#121212]  ">
-      <div className="h-16 w-16 animate-spin rounded-full border-4 border-solid border-blue border-t-transparent"></div>
+    <div className="flex w-52 flex-col gap-4">
+      <div className="h-32 w-full rounded-lg bg-gray-2 animate-pulse"></div>
+      <div className="h-4 w-28 rounded bg-gray-2 animate-pulse"></div>
+      <div className="h-4 w-full rounded bg-gray-2 animate-pulse"></div>
+      <div className="h-4 w-full rounded bg-gray-2 animate-pulse"></div>
     </div>
   );
 };

@@ -120,6 +120,14 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["GuestOrder"],
     }),
+    geustOrderstatus: builder.mutation({
+      query: (credentials) => ({
+        url: "/order/guest/status",
+        method: "POST",
+        body: credentials,
+      }),
+      invalidatesTags: ["GuestOrder"],
+    }),
   }),
 });
 
@@ -129,6 +137,7 @@ export const {
   useGetadvertisedproductsQuery,
   useGetproductsQuery,
   useGetproductQuery,
+  useGeustOrderstatusMutation,
   useGetcategoriesQuery,
   useEditProductMutation,
   useDeleteProductMutation,

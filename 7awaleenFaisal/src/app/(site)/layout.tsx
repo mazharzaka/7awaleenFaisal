@@ -29,12 +29,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
-
   return (
     <html lang="en" dir="rtl" suppressHydrationWarning={true}>
       <head>
@@ -75,36 +69,32 @@ export default function RootLayout({
           radius={[1.5, 3]}
         />
 
-        {loading ? (
-          <PreLoader />
-        ) : (
-          <>
-            <ReduxProvider>
-              <CartModalProvider>
-                <ModalProvider>
-                  <BuyNowProvider>
-                    <PreviewSliderProvider>
-                      <Header />
+        <>
+          <ReduxProvider>
+            <CartModalProvider>
+              <ModalProvider>
+                <BuyNowProvider>
+                  <PreviewSliderProvider>
+                    <Header />
 
-                      {children}
-                      <BuyNowModal />
-                      <QuickViewModal />
-                      <CartSidebarModal />
-                      <PreviewSliderModal />
-                    </PreviewSliderProvider>
-                  </BuyNowProvider>
-                </ModalProvider>
-              </CartModalProvider>
-            </ReduxProvider>
-            <ScrollToTop />
-            <WhatsApp
-              phoneNumber="201104998568"
-              message="اهلا بيك في وصل معاك في اي استفسار"
-            />
-            <Footer />
-            <Toaster />
-          </>
-        )}
+                    {children}
+                    <BuyNowModal />
+                    <QuickViewModal />
+                    <CartSidebarModal />
+                    <PreviewSliderModal />
+                  </PreviewSliderProvider>
+                </BuyNowProvider>
+              </ModalProvider>
+            </CartModalProvider>
+          </ReduxProvider>
+          <ScrollToTop />
+          <WhatsApp
+            phoneNumber="201104998568"
+            message="اهلا بيك في وصل معاك في اي استفسار"
+          />
+          <Footer />
+          <Toaster />
+        </>
       </body>
     </html>
   );

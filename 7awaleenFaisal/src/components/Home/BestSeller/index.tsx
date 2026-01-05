@@ -6,6 +6,7 @@ import Link from "next/link";
 import shopData from "@/components/Shop/shopData";
 import { useGetproductsQuery } from "@/redux/features/Api.slice";
 import Error from "@/components/Error";
+import PreLoader from "@/components/Common/PreLoader";
 
 const BestSeller = () => {
   const { data: products, error, isLoading } = useGetproductsQuery();
@@ -32,13 +33,16 @@ const BestSeller = () => {
             </h2>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7.5">
-          {/* <!-- منتجاتنا item --> */}
-          {products?.products?.map((item, key) => (
-            <SingleItem item={item} key={key} />
-          ))}
-        </div>
+        {isLoading ? (
+          <PreLoader />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7.5">
+            {/* <!-- منتجاتنا item --> */}
+            {products?.products?.map((item, key) => (
+              <SingleItem item={item} key={key} />
+            ))}
+          </div>
+        )}
 
         <div className="text-center mt-12.5">
           <Link

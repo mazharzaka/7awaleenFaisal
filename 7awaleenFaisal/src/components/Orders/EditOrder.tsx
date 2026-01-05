@@ -1,20 +1,32 @@
+import { useGeustOrderstatusMutation } from "@/redux/features/Api.slice";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const EditOrder = ({ order, toggleModal, id }: any) => {
+  const [orderstatus] = useGeustOrderstatusMutation();
   const [currentStatus, setCurrentStatus] = useState(order?.status);
   const handleChanege = (e: any) => {
     setCurrentStatus(e.target.value);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (!currentStatus) {
       toast.error("Please select a status");
       return;
     }
-    console.log(order._id);
+    try {
+      const ordersta = await orderstatus({
+        orderId: order._id,
+        status: currentStatus,
+      });
+      toast.success("الدنيا تمام ");
+      console.log(currentStatus);
+      console.log(ordersta);
+    } catch {
+      toast.error("حصل مشكله ");
+    }
 
     toggleModal(false);
   };

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useGetFilteredProductsQuery } from "@/redux/features/Api.slice";
 import Error from "@/components/Error";
 import SingleItem from "../BestSeller/SingleItem";
+import PreLoader from "@/components/Common/PreLoader";
 
 const Downto500 = () => {
   const {
@@ -14,9 +15,6 @@ const Downto500 = () => {
     maxPrice: "500",
   });
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
   if (error) {
     return <Error />;
   }
@@ -41,13 +39,16 @@ const Downto500 = () => {
             </h2>
           </div>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7.5">
-          {/* <!-- منتجاتنا item --> */}
-          {products?.products?.map((item, key) => (
-            <SingleItem item={item} key={key} />
-          ))}
-        </div>
+        {isLoading ? (
+          <PreLoader />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7.5">
+            {/* <!-- منتجاتنا item --> */}
+            {products?.products?.map((item, key) => (
+              <SingleItem item={item} key={key} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
