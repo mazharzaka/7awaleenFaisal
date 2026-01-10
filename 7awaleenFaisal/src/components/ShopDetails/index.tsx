@@ -167,7 +167,7 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
               {/* <!-- product content --> */}
               <div className="max-w-[539px] w-full">
                 <div className="flex items-center justify-between mb-3">
-                  <h2 className="font-semibold text-xl sm:text-2xl xl:text-custom-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                  <h2 className="font-semibold text-xl sm:text-3xl xl:text-custom-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
                     {product?.name}
                   </h2>
                   {product?.sale ? (
@@ -187,9 +187,22 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                     </div>
                   ) : null}
                 </h3>
-                <p className="md:h-80 max-h-80 md:mb-0 mb-10 overflow-auto">
-                  {product?.desc}
-                </p>
+                <div className="flex flex-col ">
+                  <h3 className=" font-semibold text-xl  gap-5 flex mb-4.5">
+                    عن هذا المنتج
+                  </h3>
+                  <ul className=" md:mb-5 mb-10   list-disc px-5 space-y-2">
+                    {product?.desc
+                      ?.split(".")
+                      .map((point) => point.trim())
+                      .filter((point) => point.length > 0)
+                      .map((point, i) => (
+                        <li key={i} className="text-xl leading-relaxed">
+                          {point}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
 
                 {/* <ul className="flex flex-col gap-2">
                     <li className="flex items-center gap-2.5">

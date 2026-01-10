@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "@/redux/store";
 import { IProductDocument } from "@/types/product";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// "http://localhost:3000"
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({

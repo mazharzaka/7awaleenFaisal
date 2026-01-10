@@ -68,13 +68,13 @@ const Header = () => {
     >
       <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
         <div
-          className={`flex flex-col lg:flex-row gap-5 items-end lg:items-center xl:justify-between ease-out duration-200 ${
-            stickyMenu ? "py-4" : "py-6"
+          className={`flex flex-col lg:flex-row items-end lg:items-center xl:justify-between ease-out duration-200 ${
+            stickyMenu ? "py-4 gap-0" : "py-6 gap-5 "
           }`}
         >
           <div className="xl:w-auto flex-col sm:flex-row w-full  flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link
-              className="flex-shrink-0  relative rounded-full w-30 h-30 md:w-33 md:h-33 overflow-hidden  "
+              className="flex-shrink-0  relative rounded-full w-24 h-24 md:w-33 md:h-33 overflow-hidden  "
               href="/"
             >
               <Image src="/images/logo/logo.jpg" fill alt="Logo" />
