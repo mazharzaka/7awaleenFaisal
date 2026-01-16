@@ -128,7 +128,7 @@ const Header = () => {
               </form>
             </div> */}
           </div>
-
+          {/* 
           <div className="flex w-full lg:w-auto items-center gap-7.5">
             <div className="hidden xl:flex items-center gap-3.5">
               <svg
@@ -297,7 +297,7 @@ const Header = () => {
                 </span>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
