@@ -31,7 +31,7 @@ const AddStores = () => {
     name: "",
     desc: "",
     price: "",
-    sale: "",
+    finalPrice: "",
     stock: "",
     category: "",
     storeId: "",
@@ -82,7 +82,10 @@ const AddStores = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisplay(true);
-
+    let sale = 100 - (data.finalPrice / data.price) * 100;
+    if (sale < 1) {
+      sale = 0;
+    }
     try {
       const formData = new FormData();
       for (let i = 0; i < data.productImage.length; i++) {
@@ -91,12 +94,13 @@ const AddStores = () => {
       formData.append("name", data.name);
       formData.append("desc", data.desc);
       formData.append("price", data.price);
-      formData.append("sale", data.sale);
+      formData.append("sale", sale.toString());
       formData.append("stock", data.stock);
       formData.append("category", data.category);
       formData.append("subCategory", data.subCategory);
       formData.append("storeId", data.storeId);
-      console.log(data);
+      // console.log(sale);
+      // console.log(data);
       const res = await addProdect(formData);
       console.log(res);
 
@@ -309,7 +313,7 @@ const AddStores = () => {
                   {/* Price */}
                   <div>
                     <label htmlFor="price" className="block mb-2">
-                      السعر <span className="text-red-500">*</span>
+                      السعر قبل الخصم <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="number"
@@ -321,7 +325,20 @@ const AddStores = () => {
                       className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
                     />
                   </div>
-
+                  <div>
+                    <label htmlFor="price" className="block mb-2">
+                      السعر النهائي <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      name="finalPrice"
+                      onChange={(e) =>
+                        setData({ ...data, finalPrice: e.target.value })
+                      }
+                      placeholder="ادخل السعر"
+                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                    />
+                  </div>
                   {/* Sale */}
                   <div>
                     <label htmlFor="sale" className="block mb-2">
@@ -330,9 +347,7 @@ const AddStores = () => {
                     <input
                       type="number"
                       name="sale"
-                      onChange={(e) =>
-                        setData({ ...data, sale: e.target.value })
-                      }
+                      value={100 - (data.finalPrice / data.price) * 100}
                       placeholder="0-100%"
                       className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
                     />

@@ -71,7 +71,7 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
         <>
           <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28">
             <div className="max-w-[1170px] md:flex-row flex-col  gap-7 md:gap-44 flex w-full mx-auto px-4 sm:px-8 xl:px-0">
-              <div className="flex flex-col  gap-7.5 xl:gap-17.5">
+              <div className="flex flex-col relative  gap-7.5 xl:gap-17.5">
                 <div
                   className="lg:max-w-[570px] w-full"
                   ref={imgRef}
@@ -86,7 +86,7 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                     onMouseLeave={() => setShow(false)}
                     onMouseMove={handleMove}
                     style={{ width, height }}
-                    className=" relative lg:min-h-[400px] lg:min-w-[450px] w-[50%] rounded-lg shadow-1 bg-gray-2 p-4 sm:p-7.5  flex items-center justify-center"
+                    className="  lg:min-h-[400px] relative lg:min-w-[450px] w-[50%] rounded-lg shadow-1 bg-gray-2 p-4 sm:p-7.5  flex items-center justify-center"
                   >
                     <div>
                       <button
@@ -111,34 +111,39 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                         </svg>
                       </button>
                     </div>
-                    <Image src={previewImg} alt={product?.name} fill />
+                    <Image
+                      src={previewImg}
+                      className="relative"
+                      alt={product?.name}
+                      fill
+                    />
                     {show && (
                       <div
-                        className="absolute border-2 border-blue-500 bg-blue-300/30 pointer-events-none"
+                        className="absolute inset-8 pointer-events-none rounded"
                         style={{
-                          width: 100,
-                          height: 100,
-                          top: pos.y - 50,
-                          left: pos.x - 50,
+                          width: 400,
+                          height: "100%",
+                          backgroundImage: `url(${previewImg})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: `${width * 2}px ${height * 2}px`,
+                          backgroundPosition: `-${pos.x * 2}px -${pos.y * 2}px`,
                         }}
                       />
                     )}
                   </div>
 
-                  {/* Zoom Preview */}
-                  {show && (
+                  {/* {show && (
                     <div
-                      className="absolute inset-20 pointer-events-none rounded"
+                      className="absolute border-2 border-blue-500 bg-blue-300/30 pointer-events-none"
                       style={{
-                        width: 400,
-                        height: 400,
-                        backgroundImage: `url(${previewImg})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: `${width * 2}px ${height * 2}px`,
-                        backgroundPosition: `-${pos.x * 2}px -${pos.y * 2}px`,
+                        width: 100,
+                        height: 100,
+                        top: pos.y - 50,
+                        left: pos.x - 50,
                       }}
                     />
-                  )}
+                  )} */}
+                  {/* Zoom Preview */}
                 </div>
 
                 {/* ?  &apos;border-blue &apos; :  &apos;border-transparent&apos; */}

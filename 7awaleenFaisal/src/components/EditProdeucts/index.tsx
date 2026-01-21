@@ -56,6 +56,9 @@ const EditProdeucts = () => {
             <thead className="text-sm text-body bg-neutral-secondary-medium border-b border-t border-default-medium">
               <tr>
                 <th scope="col" className="px-6 py-3 font-medium">
+                  id
+                </th>
+                <th scope="col" className="px-6 py-3 font-medium">
                   Product name
                 </th>
                 <th scope="col" className="px-6 py-3 font-medium">
@@ -84,6 +87,12 @@ const EditProdeucts = () => {
                   className="bg-neutral-primary-soft border-b border-default"
                   key={index}
                 >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-red-dark text-heading whitespace-nowrap"
+                  >
+                    {` # ${item._id?.toString().slice(-8)}`}
+                  </th>
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-heading whitespace-nowrap"
