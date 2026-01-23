@@ -35,6 +35,7 @@ const EditProdeuctForm = () => {
     price: "",
     sale: "",
     stock: "",
+    finalPrice: "",
     category: "mobile_devices",
     storeId: "",
   });
@@ -47,25 +48,27 @@ const EditProdeuctForm = () => {
   }, [sub]);
   useEffect(() => {
     setData(product);
-    console.log(product?.category);
+    // setData({ ...data, finalPrice: data?.price / (100 - data.sale) });
+    // console.log(product?.price / (100 - product?.sale));
     product?.category && setsub(product?.category);
   }, [product]);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDisplay(true);
+    let sale = 100 - (data.finalPrice / data.price) * 100;
 
     try {
       const formData = new FormData();
       if (data.productImage) {
         data.productImage.forEach((file) =>
-          formData.append("productImage", file)
+          formData.append("productImage", file),
         );
       }
 
       formData.append("name", data.name);
       formData.append("desc", data.desc);
       formData.append("price", String(data.price));
-      formData.append("sale", String(data.sale));
+      formData.append("sale", String(sale));
       formData.append("stock", String(data.stock));
       formData.append("category", data.category || "");
       formData.append("subCategory", data.subCategory || "");
@@ -148,13 +151,12 @@ const EditProdeuctForm = () => {
                 ></textarea>
               </div>
 
-              {/* Price */}
               <div>
                 <label htmlFor="price" className="block mb-2">
-                  السعر <span className="text-red-500">*</span>
+                  السعر قبل الخصم <span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="price"
                   value={data?.price}
                   onChange={(e) => setData({ ...data, price: e.target.value })}
@@ -162,17 +164,30 @@ const EditProdeuctForm = () => {
                   className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
                 />
               </div>
-
+              <div>
+                <label htmlFor="price" className="block mb-2">
+                  السعر النهائي <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="finalPrice"
+                  onChange={(e) =>
+                    setData({ ...data, finalPrice: e.target.value })
+                  }
+                  value={data?.finalPrice}
+                  placeholder="ادخل السعر"
+                  className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                />
+              </div>
               {/* Sale */}
               <div>
                 <label htmlFor="sale" className="block mb-2">
                   خصم %
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="sale"
-                  value={data?.sale}
-                  onChange={(e) => setData({ ...data, sale: e.target.value })}
+                  value={100 - (data?.finalPrice / data?.price) * 100}
                   placeholder="0-100%"
                   className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
                 />
@@ -235,7 +250,7 @@ const EditProdeuctForm = () => {
                   Stock
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="stock"
                   value={data?.stock}
                   onChange={(e) => setData({ ...data, stock: e.target.value })}

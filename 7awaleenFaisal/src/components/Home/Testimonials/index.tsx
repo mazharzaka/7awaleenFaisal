@@ -5,28 +5,26 @@ import testimonialsData from "./testimonialsData";
 import Image from "next/image";
 
 // Import Swiper styles
-import "swiper/css/navigation";
-import "swiper/css";
 import SingleItem from "./SingleItem";
 import { Autoplay } from "swiper/modules";
 
 const Testimonials = () => {
   const sliderRef = useRef(null);
 
-  const handlePrev = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slidePrev();
-  }, []);
+  // const handlePrev = useCallback(() => {
+  //   if (!sliderRef.current) return;
+  //   sliderRef.current.swiper.slidePrev();
+  // }, []);
 
-  const handleNext = useCallback(() => {
-    if (!sliderRef.current) return;
-    sliderRef.current.swiper.slideNext();
-  }, []);
+  // const handleNext = useCallback(() => {
+  //   if (!sliderRef.current) return;
+  //   sliderRef.current.swiper.slideNext();
+  // }, []);
 
   return (
     <section className="overflow-hidden pb-16.5">
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-        <div className="">
+        <div>
           <div className="swiper testimonial-carousel common-carousel p-5">
             {/* <!-- section title --> */}
             <div className="mb-10 flex items-center justify-between">
@@ -45,7 +43,7 @@ const Testimonials = () => {
                 </h2>
               </div>
 
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <div onClick={handlePrev} className="swiper-button-prev">
                   <svg
                     className="fill-current"
@@ -81,12 +79,12 @@ const Testimonials = () => {
                     />
                   </svg>
                 </div>
-              </div>
+              </div>*/}
             </div>
 
             <Swiper
               ref={sliderRef}
-              slidesPerView={3}
+              slidesPerView={2}
               spaceBetween={20}
               breakpoints={{
                 // when window width is >= 640px
@@ -96,10 +94,6 @@ const Testimonials = () => {
                 1000: {
                   slidesPerView: 2,
                   // spaceBetween: 4,
-                },
-                // when window width is >= 768px
-                1200: {
-                  slidesPerView: 3,
                 },
               }}
               autoplay={{

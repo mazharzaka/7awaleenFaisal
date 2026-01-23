@@ -4,62 +4,13 @@ import Image from "next/image";
 
 const SingleItem = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
-    <div className="shadow-testimonial bg-white  dark:bg-[#121212]   rounded-[10px] py-7.5 px-4 sm:px-8.5 m-1">
-      <div className="flex items-center gap-1 mb-5">
-        <Image
-          src="/images/icons/icon-star.svg"
-          alt="star icon"
-          width={15}
-          height={15}
-        />
-        <Image
-          src="/images/icons/icon-star.svg"
-          alt="star icon"
-          width={15}
-          height={15}
-        />
-        <Image
-          src="/images/icons/icon-star.svg"
-          alt="star icon"
-          width={15}
-          height={15}
-        />
-        <Image
-          src="/images/icons/icon-star.svg"
-          alt="star icon"
-          width={15}
-          height={15}
-        />
-        <Image
-          src="/images/icons/icon-star.svg"
-          alt="star icon"
-          width={15}
-          height={15}
-        />
-      </div>
-
-      <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-6">
-        {testimonial.review}
-      </p>
-
-      <a href="#" className="flex items-center gap-4">
-        {/* <div className="w-12.5 h-12.5 rounded-full overflow-hidden">
-          <Image
-            src={testimonial.authorImg}
-            alt="author"
-            className="w-12.5 h-12.5 rounded-full overflow-hidden"
-            width={50}
-            height={50}
-          />
-        </div> */}
-
-        <div>
-          <h3 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-            {testimonial.authorName}
-          </h3>
-          {/* <p className="text-custom-sm">{testimonial.authorRole}</p> */}
-        </div>
-      </a>
+    <div className="shadow-testimonial bg-white  dark:bg-[#121212] h-100   rounded-[10px] py-7.5 px-4 sm:px-8.5 m-1">
+      <Image
+        src={testimonial?.authorImg}
+        alt="test"
+        className="w-full min- bg-cover rounded-3xl border-4 border-solid border-[#f2f3f8]"
+        fill
+      />
     </div>
   );
 };

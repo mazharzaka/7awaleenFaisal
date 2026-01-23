@@ -95,7 +95,9 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
 
           <div className="flex items-center flex-col justify-center gap-2 font-medium text-lg">
             {item.sale ? (
-              <div className="text-red-dark ">خصم يصل الي {item.sale}%</div>
+              <div className="text-red-dark ">
+                خصم يصل الي {Math.floor(item.sale)}%
+              </div>
             ) : null}
             <div>
               <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">

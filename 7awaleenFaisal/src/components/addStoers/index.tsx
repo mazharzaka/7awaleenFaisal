@@ -316,7 +316,7 @@ const AddStores = () => {
                       السعر قبل الخصم <span className="text-red-500">*</span>
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       name="price"
                       onChange={(e) =>
                         setData({ ...data, price: e.target.value })
@@ -330,7 +330,7 @@ const AddStores = () => {
                       السعر النهائي <span className="text-red-500">*</span>
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       name="finalPrice"
                       onChange={(e) =>
                         setData({ ...data, finalPrice: e.target.value })
@@ -345,7 +345,7 @@ const AddStores = () => {
                       خصم %
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       name="sale"
                       value={100 - (data.finalPrice / data.price) * 100}
                       placeholder="0-100%"

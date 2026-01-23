@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import Error from "../Error";
 import { useBuyNowContext } from "@/app/context/BuyNowContext";
 
-const ShopDetails = ({ width = 300, height = 400 }) => {
+const ShopDetails = ({ width = 400, height = 400 }) => {
   const { id } = useParams<{ id: string }>();
   const { openBuyNow } = useBuyNowContext();
 
@@ -35,13 +35,14 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [show, setShow] = useState(false);
 
-  const handleMove = (e: React.MouseEvent) => {
+  function handleMove(e: React.MouseEvent<HTMLDivElement>) {
     const rect = imgRef.current!.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
 
-    setPos({ x, y });
-  };
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    imgRef.current!.style.transformOrigin = `${x}% ${y}%`;
+  }
 
   // pass the product here when you get the real data.
   const handlePreviewSlider = () => {
@@ -70,25 +71,17 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
       ) : (
         <>
           <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28">
-            <div className="max-w-[1170px] md:flex-row flex-col  gap-7 md:gap-44 flex w-full mx-auto px-4 sm:px-8 xl:px-0">
-              <div className="flex flex-col relative  gap-7.5 xl:gap-17.5">
-                <div
-                  className="lg:max-w-[570px] w-full"
+            <div className="max-w-[1170px] md:flex-row flex-col  gap-10  flex w-full mx-auto px-4 sm:px-8 xl:px-0">
+              <div className="flex flex-col relative  gap-7.5 ">
+                {/* <div
+                  className="md:w-[400px] w-[300px] h-[400px]  overflow-hidden   cursor-zoom-in
+        transition-transform duration-300
+        hover:scale-150 "
                   ref={imgRef}
-                  onMouseEnter={() => setShow(true)}
-                  onMouseLeave={() => setShow(false)}
                   onMouseMove={handleMove}
-                  style={{ width, height }}
+                  // style={{ width, height }}
                 >
-                  <div
-                    ref={imgRef}
-                    onMouseEnter={() => setShow(true)}
-                    onMouseLeave={() => setShow(false)}
-                    onMouseMove={handleMove}
-                    style={{ width, height }}
-                    className="  lg:min-h-[400px] relative lg:min-w-[450px] w-[50%] rounded-lg shadow-1 bg-gray-2 p-4 sm:p-7.5  flex items-center justify-center"
-                  >
-                    <div>
+                  {/* <div>
                       <button
                         onClick={handlePreviewSlider}
                         aria-label="button for zoom"
@@ -110,14 +103,14 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                           />
                         </svg>
                       </button>
-                    </div>
-                    <Image
-                      src={previewImg}
-                      className="relative"
-                      alt={product?.name}
-                      fill
-                    />
-                    {show && (
+                    </div> 
+                  <Image
+                    src={previewImg}
+                    className="object-cover !relative"
+                    alt={product?.name}
+                    fill
+                  />
+                  {/* {show && (
                       <div
                         className="absolute inset-8 pointer-events-none rounded"
                         style={{
@@ -130,7 +123,6 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                         }}
                       />
                     )}
-                  </div>
 
                   {/* {show && (
                     <div
@@ -142,10 +134,30 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                         left: pos.x - 50,
                       }}
                     />
-                  )} */}
-                  {/* Zoom Preview */}
+                  )} 
+                  {/* Zoom Preview 
+                </div> */}
+                <div
+                  onMouseMove={handleMove}
+                  className="  md:w-[450px] w-[300px] h-[400px]  overflow-hidden cursor-zoom-in  group "
+                >
+                  <div
+                    ref={imgRef}
+                    className="
+          relative w-full h-full
+          transition-transform duration-300 ease-out
+          group-hover:scale-150
+          will-change-transform
+        "
+                  >
+                    <Image
+                      src={previewImg}
+                      alt="product"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
-
                 {/* ?  &apos;border-blue &apos; :  &apos;border-transparent&apos; */}
                 <div className="flex flex-wrap sm:flex-nowrap gap-4.5 mt-6">
                   {product?.imageURL.map((item, key) => (
@@ -177,7 +189,7 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                   </h2>
                   {product?.sale ? (
                     <div className="inline-flex font-medium text-custom-sm text-white bg-red-dark rounded py-0.5 px-2.5">
-                      {product?.sale} OFF
+                      {Math.floor(product?.sale)} OFF
                     </div>
                   ) : null}
                 </div>
@@ -188,7 +200,7 @@ const ShopDetails = ({ width = 300, height = 400 }) => {
                   </span>
                   {product?.sale ? (
                     <div className="text-red-dark ">
-                      خصم يصل الي {product?.sale}%
+                      خصم يصل الي {Math.floor(product?.sale)}%
                     </div>
                   ) : null}
                 </h3>
