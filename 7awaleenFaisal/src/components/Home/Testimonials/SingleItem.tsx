@@ -5,6 +5,8 @@ import Image from "next/image";
 const SingleItem = ({ testimonial }: { testimonial: Testimonial }) => {
   return (
     <div className="shadow-testimonial bg-white  dark:bg-[#121212] h-100   rounded-[10px] py-7.5 px-4 sm:px-8.5 m-1">
+      {/* <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none z-1 absolute bg-contain bg-no-repeat  h-127.5 w-full"></div> */}
+
       <Image
         src={testimonial?.authorImg}
         alt="test"

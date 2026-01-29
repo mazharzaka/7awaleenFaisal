@@ -45,8 +45,10 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
       onMouseEnter={() => setIsHover(1)}
       onMouseLeave={() => setIsHover(0)}
     >
-      <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] dark:bg-[#282828] min-h-[403px]">
-        <div className="text-center px-4 py-7.5">
+      <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] bg-[url('/images/ramaden/ramadanpattern.png')]  bg-contain bg-no-repeat dark:bg-[#282828] min-h-[403px]">
+        {/* <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none absolute bg-contain bg-no-repeat  h-127.5 w-full"></div> */}
+
+        <div className="text-center px-4 py-7.5  z-1 ">
           <div className="flex items-center justify-center gap-2.5 mb-2">
             <div className="flex items-center gap-1">
               <Image
