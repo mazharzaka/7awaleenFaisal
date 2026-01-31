@@ -31,12 +31,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const images = useMemo(() => {
-    // const moon = new Image();
-    // moon.src = "/images/ramaden/moon.svg";
+    if (typeof window === "undefined") return [];
 
-    const ramez = new Image();
+    const ramez = new window.Image();
     ramez.src = "/images/ramaden/ramez.png";
-    const karam = new Image();
+
+    const karam = new window.Image();
     karam.src = "/images/ramaden/karam.jpg";
 
     return [ramez, karam];
