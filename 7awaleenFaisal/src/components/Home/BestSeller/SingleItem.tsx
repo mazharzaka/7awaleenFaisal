@@ -53,7 +53,6 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
           w-full
           pointer-events-none
           bg-[url('/images/ramaden/karam.jpg')]
-      
           bg-left
           bg-[length:48px_auto]
         "
