@@ -33,13 +33,10 @@ export default function RootLayout({
   const images = useMemo(() => {
     if (typeof window === "undefined") return [];
 
-    const ramez = new window.Image();
-    ramez.src = "/images/ramaden/ramez.png";
+    const moon = new window.Image();
+    moon.src = "/images/ramaden/moon.svg";
 
-    const karam = new window.Image();
-    karam.src = "/images/ramaden/karam.jpg";
-
-    return [ramez, karam];
+    return [moon];
   }, []);
   return (
     <html lang="en" dir="rtl" suppressHydrationWarning={true}>
@@ -79,7 +76,7 @@ export default function RootLayout({
           speed={[1, 3]} // حركة مستمرة
           wind={[-0.5, 1]}
           images={images}
-          radius={[60, 65]}
+          radius={[10, 15]}
         />
 
         <>

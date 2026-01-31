@@ -66,7 +66,7 @@ const Header = () => {
         stickyMenu && "shadow"
       }`}
     >
-      <div
+      {/* <div
         className="
           absolute
           h-full
@@ -77,8 +77,8 @@ const Header = () => {
           bg-left
           bg-[length:48px_auto]
         "
-      ></div>
-      {/* <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none z-1 absolute bg-contain bg-no-repeat  h-127.5 w-full"></div> */}
+      ></div> */}
+      <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none z-1 absolute bg-contain bg-no-repeat  h-127.5 w-full"></div>
       <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
         <div
           className={`flex flex-col lg:flex-row items-end lg:items-center xl:justify-between ease-out duration-200 ${
