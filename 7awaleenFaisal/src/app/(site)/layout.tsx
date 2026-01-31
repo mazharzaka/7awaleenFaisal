@@ -2,7 +2,7 @@
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "../css/euclid-circular-a-font.css";
 import "../css/style.css";
 import Header from "../../components/Header";
@@ -18,17 +18,29 @@ import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import PreLoader from "@/components/Common/PreLoader";
+
 import { Toaster } from "react-hot-toast";
 import BuyNowModal from "@/components/Common/BuyNowModal";
 import { BuyNowProvider } from "../context/BuyNowContext";
 import WhatsApp from "@/components/Common/WhatsApp";
-// import Snowfall from "react-snowfall";
+import Snowfall from "react-snowfall";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const images = useMemo(() => {
+    // const moon = new Image();
+    // moon.src = "/images/ramaden/moon.svg";
+
+    const ramez = new Image();
+    ramez.src = "/images/ramaden/ramez.png";
+    const karam = new Image();
+    karam.src = "/images/ramaden/karam.jpg";
+
+    return [ramez, karam];
+  }, []);
   return (
     <html lang="en" dir="rtl" suppressHydrationWarning={true}>
       <head>
@@ -54,7 +66,7 @@ export default function RootLayout({
         data-gr-ext-installed=""
         cz-shortcut-listen="true"
       >
-        {/* <Snowfall
+        <Snowfall
           style={{
             position: "fixed",
             width: "100vw",
@@ -62,12 +74,13 @@ export default function RootLayout({
             zIndex: 100,
             pointerEvents: "none",
           }}
-          snowflakeCount={400}
+          snowflakeCount={40}
           color="#cbd5e1" // رمادي فاتح واضح
           speed={[1, 3]} // حركة مستمرة
           wind={[-0.5, 1]}
-          radius={[1.5, 3]}
-        /> */}
+          images={images}
+          radius={[60, 65]}
+        />
 
         <>
           <ReduxProvider>

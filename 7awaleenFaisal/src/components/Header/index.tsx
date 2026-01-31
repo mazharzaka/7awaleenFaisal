@@ -62,11 +62,23 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 w-full z-9999 bg-white dark:bg-[#121212]    dark:!text-[#E0E0E0] transition-all ease-in-out duration-300 ${
+      className={`fixed left-0 top-0 w-full z-9999 bg-white dark:bg-[#121212]   dark:!text-[#E0E0E0] transition-all ease-in-out duration-300 ${
         stickyMenu && "shadow"
       }`}
     >
-      <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none z-1 absolute bg-contain bg-no-repeat  h-127.5 w-full"></div>
+      <div
+        className="
+          absolute
+          h-full
+          w-full
+          pointer-events-none
+          bg-[url('/images/ramaden/ramez.png')]
+      
+          bg-left
+          bg-[length:48px_auto]
+        "
+      ></div>
+      {/* <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none z-1 absolute bg-contain bg-no-repeat  h-127.5 w-full"></div> */}
       <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
         <div
           className={`flex flex-col lg:flex-row items-end lg:items-center xl:justify-between ease-out duration-200 ${

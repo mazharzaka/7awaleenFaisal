@@ -46,7 +46,18 @@ const SingleItem = ({ item }: { item: IProductDocument }) => {
       onMouseLeave={() => setIsHover(0)}
     >
       <div className="relative overflow-hidden rounded-lg bg-[#F6F7FB] bg-[url('/images/ramaden/ramadanpattern.png')]  bg-contain bg-no-repeat dark:bg-[#282828] min-h-[403px]">
-        {/* <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none absolute bg-contain bg-no-repeat  h-127.5 w-full"></div> */}
+        <div
+          className="
+          absolute
+          h-full
+          w-full
+          pointer-events-none
+          bg-[url('/images/ramaden/karam.jpg')]
+      
+          bg-left
+          bg-[length:48px_auto]
+        "
+        ></div>
 
         <div className="text-center px-4 py-7.5  z-1 ">
           <div className="flex items-center justify-center gap-2.5 mb-2">
