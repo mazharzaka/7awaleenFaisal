@@ -1,7 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
-const initialState = {
+interface UserState {
+  token: string | null;
+  refreshToken: string | null;
+  user: any | null;
+}
+
+const initialState: UserState = {
   token: null,
+  refreshToken: null,
   user: null,
 };
 
@@ -10,24 +19,51 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      state.token = action.payload;
-      state.user = action.payload.user;
-      console.log(action.payload);
+      const { accessToken, refreshToken } = action.payload;
+      state.token = accessToken;
+      state.refreshToken = refreshToken;
+      
+      try {
+        const decoded = jwtDecode(accessToken);
+        state.user = decoded;
+      } catch (error) {
+        state.user = null;
+      }
+      
       if (typeof window !== "undefined") {
-        localStorage.setItem("token", action.payload);
+        localStorage.setItem("token", accessToken);
+        if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
       }
     },
     logout: (state) => {
       state.token = null;
+      state.refreshToken = null;
       state.user = null;
       if (typeof window !== "undefined") {
         localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        Cookies.remove("token");
+        Cookies.remove("userType");
       }
     },
     loadToken: (state) => {
       if (typeof window !== "undefined") {
         const token = localStorage.getItem("token");
-        if (token) state.token = token;
+        const refreshToken = localStorage.getItem("refreshToken");
+        
+        if (token) {
+            state.token = token;
+            if (refreshToken) state.refreshToken = refreshToken;
+            
+            try {
+                const decoded = jwtDecode(token);
+                state.user = decoded;
+            } catch (error) {
+                state.user = null;
+                localStorage.removeItem("token");
+                localStorage.removeItem("refreshToken");
+            }
+        }
       }
     },
   },

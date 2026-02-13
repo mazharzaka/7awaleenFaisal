@@ -14,10 +14,14 @@ function ReduxWrapper({ children }) {
   return <>{children}</>;
 }
 
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 export function ReduxProvider({ children }: { children: React.ReactNode }) {
   return (
-    <Provider store={store}>
-      <ReduxWrapper>{children}</ReduxWrapper>
-    </Provider>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+      <Provider store={store}>
+        <ReduxWrapper>{children}</ReduxWrapper>
+      </Provider>
+    </GoogleOAuthProvider>
   );
 }

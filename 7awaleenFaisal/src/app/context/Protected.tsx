@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-export default function ProtectedComponent({ children }: any) {
+export default function ProtectedComponent({ children}: { children: React.ReactNode, adminOnly?: boolean }) {
   const router = useRouter();
-  const token = useSelector((state: any) => state.auth.token);
-
+  const { token, user } = useSelector((state: any) => state.auth);
   const [isClient, setIsClient] = useState(false);
 
   const isTokenExpired = (token: string) => {
@@ -22,6 +21,7 @@ export default function ProtectedComponent({ children }: any) {
       return true;
     }
   };
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -30,13 +30,24 @@ export default function ProtectedComponent({ children }: any) {
     if (isClient) {
       if (!token || isTokenExpired(token)) {
         router.push("/signin");
+        return;
+      }
+      
+      // Admin Check
+      // Token payload structure is { user: { ... } }
+      // So decoded token is { user: { userType: 'admin' }, iat..., exp... }
+      const currentUser = user?.user || user; // Handle nested or flat structure if it changes
+      if (currentUser?.userType !== "admin") {
+          router.push("/"); // Redirect non-admins to home
       }
     }
-  }, [isClient, token, router]);
+  }, [isClient, token, router, user, ]);
 
   if (!isClient) return null;
-
   if (!token) return null;
+  
+  const currentUser = user?.user || user;
+  if ( currentUser?.userType !== "admin") return null;
 
   return <>{children}</>;
 }

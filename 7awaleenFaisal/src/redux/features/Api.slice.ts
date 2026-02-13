@@ -2,18 +2,48 @@ import { Store } from "@/types/stores";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "@/redux/store";
 import { IProductDocument } from "@/types/product";
+import { setCredentials, logout } from "./Auth.slice";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 // "http://localhost:3000"
+const baseQuery = fetchBaseQuery({
+  baseUrl: "http://localhost:3000",
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.token;
+    if (token) headers.set("authorization", `Bearer ${token}`);
+    return headers;
+  },
+});
+
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error.status === 401) {
+    // try to get a new token
+    const refreshResult = await baseQuery(
+      {
+        url: "/user/refresh-token",
+        method: "POST",
+        body: { refreshToken: (api.getState() as RootState).auth.refreshToken },
+      },
+      api,
+      extraOptions
+    );
+
+    if (refreshResult.data) {
+      // store the new token
+      api.dispatch(setCredentials({ ...(refreshResult.data as any), refreshToken: (api.getState() as RootState).auth.refreshToken }));
+      // retry the initial query
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(logout());
+    }
+  }
+  return result;
+};
+
 export const apiSlice = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token;
-      if (token) headers.set("authorization", `Bearer ${token}`);
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ["Products", "GuestOrder"],
   endpoints: (builder) => ({
     getstores: builder.query<Store[], void>({
@@ -98,6 +128,34 @@ export const apiSlice = createApi({
         body: credentials,
       }),
     }),
+    register: builder.mutation({
+      query: (credentials) => ({
+        url: "/user",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
+    googleLogin: builder.mutation({
+      query: (credentials) => ({
+        url: "/user/google-login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
+    sendOtp: builder.mutation({
+      query: (data) => ({
+        url: "/user/send-otp",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    verifyOtp: builder.mutation({
+      query: (data) => ({
+        url: "/user/verify-otp",
+        method: "POST",
+        body: data,
+      }),
+    }),
     addstore: builder.mutation({
       query: (credentials) => ({
         url: "/store",
@@ -145,6 +203,10 @@ export const {
   useAdvertiseingMutation,
   useGetsubcategoriesQuery,
   useLoginMutation,
+  useRegisterMutation,
+  useGoogleLoginMutation,
+  useSendOtpMutation, 
+  useVerifyOtpMutation,
   useAddstoreMutation,
   useGetGeustOrderQuery,
   useAddProdectMutation,

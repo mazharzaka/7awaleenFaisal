@@ -1,8 +1,83 @@
+"use client"
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRegisterMutation, useGoogleLoginMutation } from "@/redux/features/Api.slice";
+import toast from "react-hot-toast";
+import { GoogleLogin } from "@react-oauth/google";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/redux/features/Auth.slice";
+import Cookies from "js-cookie";
 
 const Signup = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [register, { isLoading }] = useRegisterMutation();
+  const [googleLoginApi] = useGoogleLoginMutation();
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      const { credential } = credentialResponse;
+      const res = await googleLoginApi({ token: credential }).unwrap();
+      dispatch(setCredentials(res));
+      
+      // Set Cookies
+      Cookies.set("token", res.accessToken, { expires: 1 });
+      Cookies.set("userType", res.user?.userType || "customer", { expires: 1 });
+
+      toast.success("Logged in successfully with Google");
+      if (res.user?.userType === "admin") {
+          router.push("/admin/dashboard");
+      } else {
+          router.push("/");
+      }
+    } catch (error: any) {
+        console.error("Google login failed", error);
+        toast.error(error?.data?.error || "Google login failed");
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast.error("Google Login Failed");
+  };
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    formattedAddress: "",
+    userType: "customer",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    
+    try {
+        const { confirmPassword, ...registerData } = formData;
+         await register(registerData).unwrap();
+         toast.success("Account created successfully. Please login.");
+         router.push("/signin");
+    } catch (err: any) {
+        console.error("Registration validation failed:", err);
+        toast.error(err?.data?.error || "Registration failed");
+    }
+  };
+
+
+  
+
+
   return (
     <>
       <Breadcrumb title={"Signup"} pages={["Signup"]} />
@@ -16,91 +91,37 @@ const Signup = () => {
               <p>Enter your detail below</p>
             </div>
 
-            <div className="flex flex-col gap-4.5">
-              <button className="flex justify-center items-center gap-3.5 rounded-lg border border-gray-3 bg-gray-1 p-3 ease-out duration-200 hover:bg-gray-2">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g clipPath="url(#clip0_98_7461)">
-                    <mask
-                      id="mask0_98_7461"
-                      maskUnits="userSpaceOnUse"
-                      x="0"
-                      y="0"
-                      width="20"
-                      height="20"
-                    >
-                      <path d="M20 0H0V20H20V0Z" fill="white" />
-                    </mask>
-                    <g mask="url(#mask0_98_7461)">
-                      <path
-                        d="M19.999 10.2218C20.0111 9.53429 19.9387 8.84791 19.7834 8.17737H10.2031V11.8884H15.8267C15.7201 12.5391 15.4804 13.162 15.1219 13.7195C14.7634 14.2771 14.2935 14.7578 13.7405 15.1328L13.7209 15.2571L16.7502 17.5568L16.96 17.5774C18.8873 15.8329 19.999 13.2661 19.999 10.2218Z"
-                        fill="#4285F4"
-                      />
-                      <path
-                        d="M10.2036 20C12.9586 20 15.2715 19.1111 16.9609 17.5777L13.7409 15.1332C12.8793 15.7223 11.7229 16.1333 10.2036 16.1333C8.91317 16.126 7.65795 15.7206 6.61596 14.9746C5.57397 14.2287 4.79811 13.1802 4.39848 11.9777L4.2789 11.9877L1.12906 14.3766L1.08789 14.4888C1.93622 16.1457 3.23812 17.5386 4.84801 18.512C6.45791 19.4852 8.31194 20.0005 10.2036 20Z"
-                        fill="#34A853"
-                      />
-                      <path
-                        d="M4.39899 11.9776C4.1758 11.3411 4.06063 10.673 4.05807 9.9999C4.06218 9.3279 4.1731 8.66067 4.38684 8.02221L4.38115 7.88959L1.1927 5.46234L1.0884 5.51095C0.372762 6.90337 0 8.44075 0 9.99983C0 11.5589 0.372762 13.0962 1.0884 14.4887L4.39899 11.9776Z"
-                        fill="#FBBC05"
-                      />
-                      <path
-                        d="M10.2039 3.86663C11.6661 3.84438 13.0802 4.37803 14.1495 5.35558L17.0294 2.59997C15.1823 0.90185 12.7364 -0.0298855 10.2039 -3.67839e-05C8.31239 -0.000477835 6.45795 0.514733 4.84805 1.48799C3.23816 2.46123 1.93624 3.85417 1.08789 5.51101L4.38751 8.02225C4.79107 6.82005 5.5695 5.77231 6.61303 5.02675C7.65655 4.28119 8.91254 3.87541 10.2039 3.86663Z"
-                        fill="#EB4335"
-                      />
-                    </g>
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_98_7461">
-                      <rect width="20" height="20" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                Sign Up with Google
-              </button>
-
-              <button className="flex justify-center items-center gap-3.5 rounded-lg border border-gray-3 bg-gray-1 p-3 ease-out duration-200 hover:bg-gray-2">
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 22 22"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10.9997 1.83331C5.93773 1.83331 1.83301 6.04119 1.83301 11.232C1.83301 15.3847 4.45954 18.9077 8.10178 20.1505C8.55988 20.2375 8.72811 19.9466 8.72811 19.6983C8.72811 19.4743 8.71956 18.7338 8.71567 17.9485C6.16541 18.517 5.6273 16.8395 5.6273 16.8395C5.21032 15.7532 4.60951 15.4644 4.60951 15.4644C3.77785 14.8811 4.6722 14.893 4.6722 14.893C5.59272 14.9593 6.07742 15.8615 6.07742 15.8615C6.89499 17.2984 8.22184 16.883 8.74493 16.6429C8.82718 16.0353 9.06478 15.6208 9.32694 15.3861C7.2909 15.1484 5.15051 14.3425 5.15051 10.7412C5.15051 9.71509 5.5086 8.87661 6.09503 8.21844C5.99984 7.98167 5.68611 7.02577 6.18382 5.73115C6.18382 5.73115 6.95358 5.47855 8.70532 6.69458C9.43648 6.48627 10.2207 6.3819 10.9997 6.37836C11.7787 6.3819 12.5635 6.48627 13.2961 6.69458C15.0457 5.47855 15.8145 5.73115 15.8145 5.73115C16.3134 7.02577 15.9995 7.98167 15.9043 8.21844C16.4921 8.87661 16.8477 9.715 16.8477 10.7412C16.8477 14.351 14.7033 15.146 12.662 15.3786C12.9909 15.6702 13.2838 16.2423 13.2838 17.1191C13.2838 18.3766 13.2732 19.3888 13.2732 19.6983C13.2732 19.9485 13.4382 20.2415 13.9028 20.1492C17.5431 18.905 20.1663 15.3833 20.1663 11.232C20.1663 6.04119 16.0621 1.83331 10.9997 1.83331Z"
-                    fill="#15171A"
+            <div className="flex flex-col gap-4.5 mb-6">
+               <div className="flex justify-center w-full">
+                  <GoogleLogin
+                    onSuccess={handleGoogleSuccess}
+                    onError={handleGoogleError}
+                    useOneTap
                   />
-                </svg>
-                Sign Up with Github
-              </button>
+               </div>
+               <div className="relative z-1 block font-medium text-center mt-4.5">
+                  <span className="block absolute -z-1 left-0 top-1/2 h-px w-full bg-gray-3"></span>
+                  <span className="inline-block px-3 bg-white  dark:bg-[#121212]  ">
+                    Or
+                  </span>
+               </div>
             </div>
 
-            <span className="relative z-1 block font-medium text-center mt-4.5">
-              <span className="block absolute -z-1 left-0 top-1/2 h-px w-full bg-gray-3"></span>
-              <span className="inline-block px-3 bg-white  dark:bg-[#121212]  ">
-                Or
-              </span>
-            </span>
-
             <div className="mt-5.5">
-              <form>
+              <form onSubmit={onSubmit}>
                 <div className="mb-5">
                   <label htmlFor="name" className="block mb-2.5">
                     Full Name <span className="text-red">*</span>
                   </label>
-
                   <input
                     type="text"
                     name="name"
                     id="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="Enter your full name"
                     className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    required
                   />
                 </div>
 
@@ -108,51 +129,127 @@ const Signup = () => {
                   <label htmlFor="email" className="block mb-2.5">
                     Email Address <span className="text-red">*</span>
                   </label>
-
                   <input
                     type="email"
                     name="email"
                     id="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Enter your email address"
                     className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    required
                   />
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor="phone" className="block mb-2.5">
+                        Phone <span className="text-red">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="phone"
+                        id="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="Enter your phone number"
+                        className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        required
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor="formattedAddress" className="block mb-2.5">
+                        Address <span className="text-red">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        name="formattedAddress"
+                        id="formattedAddress"
+                        value={formData.formattedAddress}
+                        onChange={handleChange}
+                        placeholder="Enter your address"
+                        className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        required
+                    />
+                </div>
+                
+                <div className="mb-5">
+                    <label htmlFor="userType" className="block mb-2.5">
+                        Account Type <span className="text-red">*</span>
+                    </label>
+                    <div className="relative z-20 bg-transparent dark:bg-form-input">
+                        <select
+                            name="userType"
+                            value={formData.userType}
+                            onChange={handleChange}
+                            className={`relative z-20 w-full appearance-none rounded border border-gray-3 bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary text-black dark:text-white`}
+                        >
+                            <option value="customer" className="text-body dark:text-bodydark">Customer</option>
+                            <option value="vendor" className="text-body dark:text-bodydark">Vendor</option>
+                            <option value="delivery" className="text-body dark:text-bodydark">Delivery</option>
+                        </select>
+                        <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
+                            <svg
+                                className="fill-current"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g opacity="0.8">
+                                    <path
+                                        fillRule="evenodd"
+                                        clipRule="evenodd"
+                                        d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
+                                        fill=""
+                                    ></path>
+                                </g>
+                            </svg>
+                        </span>
+                    </div>
                 </div>
 
                 <div className="mb-5">
                   <label htmlFor="password" className="block mb-2.5">
                     Password <span className="text-red">*</span>
                   </label>
-
                   <input
                     type="password"
                     name="password"
                     id="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     placeholder="Enter your password"
-                    autoComplete="on"
+                    autoComplete="new-password"
                     className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    required
                   />
                 </div>
 
                 <div className="mb-5.5">
-                  <label htmlFor="re-type-password" className="block mb-2.5">
+                  <label htmlFor="confirmPassword" className="block mb-2.5">
                     Re-type Password <span className="text-red">*</span>
                   </label>
-
                   <input
                     type="password"
-                    name="re-type-password"
-                    id="re-type-password"
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                     placeholder="Re-type your password"
-                    autoComplete="on"
+                    autoComplete="new-password"
                     className="rounded-lg border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    required
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
+                  disabled={isLoading}
+                  className="w-full flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5 disabled:opacity-70"
                 >
-                  Create Account
+                  {isLoading ? "Creating Account..." : "Create Account"}
                 </button>
 
                 <p className="text-center mt-6">

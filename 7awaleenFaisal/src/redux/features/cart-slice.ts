@@ -73,6 +73,10 @@ export const selectTotalPrice = createSelector([selectCartItems], (items) => {
   }, 0);
 });
 
+export const selectCartItemCount = createSelector([selectCartItems], (items) => {
+  return items.reduce((count, item) => count + item.quantity, 0);
+});
+
 export const {
   addItemToCart,
   removeItemFromCart,
