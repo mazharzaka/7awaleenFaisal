@@ -103,7 +103,38 @@ export default function RootLayout({
             message="اهلا بيك في وصل معاك في اي استفسار"
           />
           <Footer />
-          <Toaster />
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 2500,
+              style: {
+                background: '#363636',
+                color: '#fff',
+                fontSize: '14px',
+                padding: '12px 20px',
+                borderRadius: '8px',
+              },
+              success: {
+                duration: 2500,
+                style: {
+                  background: '#10B981',
+                },
+                iconTheme: {
+                  primary: '#fff',
+                  secondary: '#10B981',
+                },
+              },
+              error: {
+                style: {
+                  background: '#EF4444',
+                },
+                iconTheme: {
+                  primary: '#fff',
+                  secondary: '#EF4444',
+                },
+              },
+            }}
+          />
         </>
       </body>
     </html>

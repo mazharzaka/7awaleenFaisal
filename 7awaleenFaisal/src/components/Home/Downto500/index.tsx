@@ -5,6 +5,7 @@ import { useGetFilteredProductsQuery } from "@/redux/features/Api.slice";
 import Error from "@/components/Error";
 import SingleItem from "../BestSeller/SingleItem";
 import PreLoader from "@/components/Common/PreLoader";
+import ProductItem from "@/components/Common/ProductItem";
 
 const Downto500 = () => {
   const {
@@ -45,7 +46,7 @@ const Downto500 = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7.5">
             {/* <!-- منتجاتنا item --> */}
             {products?.products?.map((item, key) => (
-              <SingleItem item={item} key={key} />
+              <ProductItem item={item} key={key} />
             ))}
           </div>
         )}

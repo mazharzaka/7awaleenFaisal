@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 import Image from "next/image";
@@ -9,7 +7,6 @@ import shopData from "@/components/Shop/shopData";
 import { useGetadvertisedproductsQuery } from "@/redux/features/Api.slice";
 import PreLoader from "@/components/Common/PreLoader";
 import Error from "@/components/Error";
-import SingleItem from "../BestSeller/SingleItem";
 
 const NewArrival = () => {
   const { data, error, isLoading } = useGetadvertisedproductsQuery();
@@ -60,9 +57,9 @@ const NewArrival = () => {
           <PreLoader />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-7.5 gap-y-9">
-            {/* <!-- New Arrivals item --> */}
+            {/* New Arrivals item */}
             {data?.map((item, key) => (
-              <SingleItem item={item} key={key} />
+              <ProductItem item={item} key={key} />
             ))}
           </div>
         )}

@@ -28,7 +28,7 @@ const Signup = () => {
 
       toast.success("Logged in successfully with Google");
       if (res.user?.userType === "admin") {
-          router.push("/admin/dashboard");
+          router.push("/AdminOrders");
       } else {
           router.push("/");
       }

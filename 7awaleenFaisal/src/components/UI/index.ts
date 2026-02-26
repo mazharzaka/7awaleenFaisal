@@ -16,3 +16,9 @@ export type { LoadingSkeletonProps, SkeletonVariant } from './LoadingSkeleton';
 
 export { default as EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';
+
+export { default as QuantitySelector } from './QuantitySelector';
+export type { QuantitySelectorProps } from './QuantitySelector';
+
+export { default as StockBadge } from './StockBadge';
+export type { StockBadgeProps } from './StockBadge';

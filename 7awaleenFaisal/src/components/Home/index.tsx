@@ -8,11 +8,13 @@ import CounDown from "./Countdown";
 import Testimonials from "./Testimonials";
 import Newsletter from "../Common/Newsletter";
 import Downto500 from "./Downto500";
+import LogoCarousel from "../UI/LogoCarousel";
 
 const Home = () => {
   return (
     <main>
       <Hero />
+      <LogoCarousel  logos={[{image:"/images/logo/valu.png",title:"logo",length:10,width:10,height:10},{image:"/images/logo/BTECH.png",title:"logo",length:10,width:10,height:10},{image:"/images/logo/logo-removebg-preview.png",title:"logo",length:10,width:10,height:10}]}/>  
       <Categories />
       <Testimonials />
       <NewArrival />

@@ -1,30 +1,81 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { Store } from "@/types/stores";
-import { useModalContext } from "@/app/context/QuickViewModalContext";
+import { IProductDocument } from "@/types/product";
 import Link from "next/link";
+import { useAppDispatch } from "@/redux/store";
+import { addItemToCart } from "@/redux/features/cart-slice";
+import { useAddToBackendCartMutation } from "@/redux/features/Api.slice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import toast from "react-hot-toast";
 
-const ProductItem = ({ item }: { item: Store }) => {
-  const { openModal } = useModalContext();
-  const [name, setName] = useState("");
-  const handleBuyNow = (e) => {
-    console.log(name);
+const ProductItem = ({ item }: { item: IProductDocument }) => {
+  const dispatch = useAppDispatch();
+  const { token } = useSelector((state: RootState) => state.auth);
+  const [addToBackendCart] = useAddToBackendCartMutation();
+
+  const handleAddToCart = async () => {
+    const cartItem = {
+      id: item.id || item._id,
+      title: item.name,
+      price: item.price || 0,
+      discountedPrice: item.finalPrice || item.price || 0,
+      quantity: 1,
+      imgs: {
+        thumbnails: item.imageURL || [],
+        previews: item.imageURL || [],
+      },
+    };
+
+    // Add item to local cart (optimistic)
+    dispatch(addItemToCart(cartItem));
+
+    // If authenticated, sync with backend
+    if (token) {
+      try {
+        await addToBackendCart({
+          productId: cartItem.id,
+          quantity: cartItem.quantity,
+          price: cartItem.price,
+          discountedPrice: cartItem.discountedPrice
+        }).unwrap();
+      } catch (err) {
+        console.error("Failed to add to backend cart:", err);
+        // We could revert the local update here if we wanted strong consistency
+      }
+    }
+
+    // Show success toast
+    toast.success("تمت الإضافة إلى السلة", {
+      duration: 2000,
+      position: "top-center",
+    });
   };
+
   return (
     <div className="group">
       <div className="relative overflow-hidden flex items-center justify-center h-64 rounded-lg bg-[#F6F7FB] dark:bg-[#282828] min-h-[270px] mb-4">
-        <Image src={item.imageURL} alt="" fill />
+        <Image
+          src={item.imageURL?.[0] || "/images/default-product.png"}
+          alt={item.name || "Product"}
+          fill
+          className="object-contain"
+        />
 
-        {/* <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
-          <button
-            // onClick={() => {
-            //   openModal();
-            //   handleQuickViewUpdate();
-            // }}
-            id="newOne"
-            aria-label="button for quick view"
-            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  bg-white  dark:bg-[#121212]   hover:text-blue"
+        {/* Sale Badge */}
+        {item.sale && item.sale > 0 && (
+          <div className="absolute top-3 left-3 bg-red-dark text-white text-xs font-bold px-2 py-1 rounded-md shadow-md">
+            {Math.floor(item.sale)}% خصم
+          </div>
+        )}
+
+        {/* Hover Actions */}
+        <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
+          <Link
+            href={`/shop-details/${item.id || item._id}`}
+            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200 text-dark dark:text-[#E0E0E0] bg-white dark:bg-[#121212] hover:text-blue"
+            aria-label="View product details"
           >
             <svg
               className="fill-current"
@@ -47,23 +98,13 @@ const ProductItem = ({ item }: { item: Store }) => {
                 fill=""
               />
             </svg>
-          </button>
+          </Link>
 
           <button
-            // onClick={() => handleAddToCart()}
-            className="inline-flex font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
-          >
-            اشتري الان
-          </button>
-
-          <button
-            // onClick={() => handleItemToWishList()}
-            aria-label="button for favorite select"
-            id="favOne"
-            className="flex items-center justify-center w-9 h-9 rounded-[5px] shadow-1 ease-out duration-200  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  bg-white  dark:bg-[#121212]   hover:text-blue"
+            onClick={handleAddToCart}
+            className="inline-flex items-center gap-2 font-medium text-custom-sm py-[7px] px-5 rounded-[5px] bg-blue text-white ease-out duration-200 hover:bg-blue-dark"
           >
             <svg
-              className="fill-current"
               width="16"
               height="16"
               viewBox="0 0 16 16"
@@ -71,64 +112,50 @@ const ProductItem = ({ item }: { item: Store }) => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M3.74949 2.94946C2.6435 3.45502 1.83325 4.65749 1.83325 6.0914C1.83325 7.55633 2.43273 8.68549 3.29211 9.65318C4.0004 10.4507 4.85781 11.1118 5.694 11.7564C5.89261 11.9095 6.09002 12.0617 6.28395 12.2146C6.63464 12.491 6.94747 12.7337 7.24899 12.9099C7.55068 13.0862 7.79352 13.1667 7.99992 13.1667C8.20632 13.1667 8.44916 13.0862 8.75085 12.9099C9.05237 12.7337 9.3652 12.491 9.71589 12.2146C9.90982 12.0617 10.1072 11.9095 10.3058 11.7564C11.142 11.1118 11.9994 10.4507 12.7077 9.65318C13.5671 8.68549 14.1666 7.55633 14.1666 6.0914C14.1666 4.65749 13.3563 3.45502 12.2503 2.94946C11.1759 2.45832 9.73214 2.58839 8.36016 4.01382C8.2659 4.11175 8.13584 4.16709 7.99992 4.16709C7.864 4.16709 7.73393 4.11175 7.63967 4.01382C6.26769 2.58839 4.82396 2.45832 3.74949 2.94946ZM7.99992 2.97255C6.45855 1.5935 4.73256 1.40058 3.33376 2.03998C1.85639 2.71528 0.833252 4.28336 0.833252 6.0914C0.833252 7.86842 1.57358 9.22404 2.5444 10.3172C3.32183 11.1926 4.2734 11.9253 5.1138 12.5724C5.30431 12.7191 5.48911 12.8614 5.66486 12.9999C6.00636 13.2691 6.37295 13.5562 6.74447 13.7733C7.11582 13.9903 7.53965 14.1667 7.99992 14.1667C8.46018 14.1667 8.88401 13.9903 9.25537 13.7733C9.62689 13.5562 9.99348 13.2691 10.335 12.9999C10.5107 12.8614 10.6955 12.7191 10.886 12.5724C11.7264 11.9253 12.678 11.1926 13.4554 10.3172C14.4263 9.22404 15.1666 7.86842 15.1666 6.0914C15.1666 4.28336 14.1434 2.71528 12.6661 2.03998C11.2673 1.40058 9.54129 1.5935 7.99992 2.97255Z"
-                fill=""
+                d="M5.33333 14.6667C5.97333 14.6667 6.5 14.14 6.5 13.5C6.5 12.86 5.97333 12.3333 5.33333 12.3333C4.69333 12.3333 4.16667 12.86 4.16667 13.5C4.16667 14.14 4.69333 14.6667 5.33333 14.6667ZM12.3333 14.6667C12.9733 14.6667 13.5 14.14 13.5 13.5C13.5 12.86 12.9733 12.3333 12.3333 12.3333C11.6933 12.3333 11.1667 12.86 11.1667 13.5C11.1667 14.14 11.6933 14.6667 12.3333 14.6667Z"
+                fill="white"
+              />
+              <path
+                d="M5.33333 11.1667H12.3333C13.0667 11.1667 13.7133 10.6933 13.9533 10.0133L15.86 4.78004C15.94 4.58004 15.7267 4.33337 15.52 4.33337H3.66L3.24 2.80004C3.14667 2.36671 2.76 2.00004 2.32 2.00004H1.16667C0.706667 2.00004 0.333333 2.37337 0.333333 2.83337C0.333333 3.29337 0.706667 3.66671 1.16667 3.66671H2.32L4.6 12.46C4.26667 12.9067 4.16667 13.5267 4.42 14.06C4.67333 14.6 5.24 14.9667 5.86 14.9667H13.5C13.96 14.9667 14.3333 14.5934 14.3333 14.1334C14.3333 13.6734 13.96 13.3 13.5 13.3H5.86L5.33333 11.1667Z"
+                fill="white"
               />
             </svg>
+            أضف للسلة
           </button>
-        </div> */}
+        </div>
       </div>
 
       <div className="flex items-center gap-2.5 mb-2">
         <div className="flex items-center gap-1">
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={14}
-            height={14}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={14}
-            height={14}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={14}
-            height={14}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={14}
-            height={14}
-          />
-          <Image
-            src="/images/icons/icon-star.svg"
-            alt="star icon"
-            width={14}
-            height={14}
-          />
+          {[...Array(5)].map((_, i) => (
+            <Image
+              key={i}
+              src="/images/icons/icon-star.svg"
+              alt="star icon"
+              width={14}
+              height={14}
+            />
+          ))}
         </div>
-
-        <p className="text-custom-sm">({item.rateview})</p>
+        <p className="text-custom-sm">(0)</p>
       </div>
 
-      <h3
-        className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue mb-1.5"
-        // onClick={() => handleProductDetails()}
-      >
-        <Link href="/shop-details"> {item.name} </Link>
+      <h3 className="font-medium text-dark dark:text-[#E0E0E0] ease-out duration-200 hover:text-blue mb-1.5">
+        <Link href={`/shop-details/${item.id || item._id}`}>
+          {item.name.length > 60 ? item.name.substring(0, 60) + "..." : item.name}
+        </Link>
       </h3>
 
-      {/* <span className="flex items-center gap-2 font-medium text-lg">
-        <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">${item.discountedPrice}</span>
-        <span className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4 line-through">${item.price}</span>
-      </span> */}
+      <span className="flex items-center gap-2 font-medium text-lg">
+        <span className="text-dark dark:text-[#E0E0E0]">
+          <span className="text-xs">EGP</span> {item.finalPrice?.toLocaleString("en-US") || item.price?.toLocaleString("en-US")}
+        </span>
+        {item.sale && item.sale > 0 && (
+          <span className="text-gray-400 line-through text-xs">
+            <span className="text-xs">EGP</span> {item.price?.toLocaleString("en-US")}
+          </span>
+        )}
+      </span>
     </div>
   );
 };

@@ -2,14 +2,59 @@
 import React from "react";
 import Discount from "./Discount";
 import OrderSummary from "./OrderSummary";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { useEffect } from "react";
+import { useGetUserCartQuery, useClearBackendCartMutation } from "@/redux/features/Api.slice";
+import { syncCartWithBackend, removeAllItemsFromCart } from "@/redux/features/cart-slice";
 import SingleItem from "./SingleItem";
 import Breadcrumb from "../Common/Breadcrumb";
 import Link from "next/link";
 import EmptyState from "../UI/EmptyState";
+import toast from "react-hot-toast";
 
 const Cart = () => {
+  const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartReducer.items);
+  const { token } = useAppSelector((state) => state.auth);
+
+  // Fetch cart if authenticated
+  const { data: backendCart, isLoading } = useGetUserCartQuery(undefined, {
+    skip: !token,
+  });
+
+  const [clearBackendCart] = useClearBackendCartMutation();
+
+  // Sync backend cart with Redux
+  useEffect(() => {
+    if (backendCart?.success && backendCart.data?.items) {
+      const formattedItems = backendCart.data.items.map((item: any) => ({
+        id: item.productId._id || item.productId,
+        title: item.productId.name,
+        price: item.price,
+        discountedPrice: item.discountedPrice,
+        quantity: item.quantity,
+        imgs: {
+          thumbnails: item.productId.imageURL || [],
+          previews: item.productId.imageURL || [],
+        },
+      }));
+      dispatch(syncCartWithBackend(formattedItems));
+    }
+  }, [backendCart, dispatch]);
+
+  const handleClearCart = async () => {
+    dispatch(removeAllItemsFromCart());
+    if (token) {
+      try {
+        await clearBackendCart().unwrap();
+        toast.success("تم تفريغ السلة بنجاح");
+      } catch (err) {
+        console.error("Failed to clear backend cart:", err);
+      }
+    } else {
+      toast.success("تم تفريغ السلة بنجاح");
+    }
+  };
 
   return (
     <>
@@ -25,7 +70,12 @@ const Cart = () => {
               <h2 className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  text-2xl">
                 Your Cart
               </h2>
-              <button className="text-blue">Clear Shopping Cart</button>
+              <button 
+                onClick={handleClearCart}
+                className="text-blue hover:underline"
+              >
+                Clear Shopping Cart
+              </button>
             </div>
 
             <div className="bg-white  dark:bg-[#121212]   rounded-[10px] shadow-1">

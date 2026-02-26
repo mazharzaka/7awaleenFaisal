@@ -3,10 +3,17 @@ import React, { useState } from "react";
 
 export type PaymentMethodType = "whatsapp" | "cash" | "card" | "wallet";
 
+export interface PaymentMethodDetails {
+  cardNumber?: string;
+  expiry?: string;
+  cvv?: string;
+  walletNumber?: string;
+}
+
 export interface PaymentMethodSelectionProps {
   selectedMethod?: PaymentMethodType;
-  onSelect: (method: PaymentMethodType) => void;
-  onNext: () => void;
+  onSelect: (method: PaymentMethodType, details?: PaymentMethodDetails) => void;
+  onNext: (details?: PaymentMethodDetails) => void;
   onBack?: () => void;
 }
 
@@ -17,10 +24,17 @@ const PaymentMethodSelection: React.FC<PaymentMethodSelectionProps> = ({
   onBack,
 }) => {
   const [selected, setSelected] = useState<PaymentMethodType>(initialMethod || "whatsapp");
+  const [details, setDetails] = useState<PaymentMethodDetails>({});
 
   const handleSelect = (method: PaymentMethodType) => {
     setSelected(method);
-    onSelect(method);
+    onSelect(method, details);
+  };
+
+  const handleDetailChange = (field: keyof PaymentMethodDetails, value: string) => {
+    const updatedDetails = { ...details, [field]: value };
+    setDetails(updatedDetails);
+    onSelect(selected, updatedDetails);
   };
 
   const paymentOptions = [
@@ -142,6 +156,51 @@ const PaymentMethodSelection: React.FC<PaymentMethodSelectionProps> = ({
         ))}
       </div>
 
+      {/* Conditional Payment Fields */}
+      {selected === "card" && (
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 space-y-4 animate-fadeIn">
+          <h4 className="font-medium text-gray-900 dark:text-white mb-2">معلومات البطاقة</h4>
+          <div className="grid grid-cols-1 gap-4">
+            <input
+              type="text"
+              placeholder="رقم البطاقة"
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:border-gray-600"
+              value={details.cardNumber || ""}
+              onChange={(e) => handleDetailChange("cardNumber", e.target.value)}
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="MM/YY"
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:border-gray-600"
+                value={details.expiry || ""}
+                onChange={(e) => handleDetailChange("expiry", e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="CVV"
+                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:border-gray-600"
+                value={details.cvv || ""}
+                onChange={(e) => handleDetailChange("cvv", e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {selected === "wallet" && (
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 space-y-4 animate-fadeIn">
+          <h4 className="font-medium text-gray-900 dark:text-white mb-2">رقم المحفظة</h4>
+          <input
+            type="text"
+            placeholder="أدخل رقم المحفظة (مثال: 010xxxxxxxx)"
+            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-900 dark:border-gray-600"
+            value={details.walletNumber || ""}
+            onChange={(e) => handleDetailChange("walletNumber", e.target.value)}
+          />
+        </div>
+      )}
+
       {/* Trust Indicators */}
       <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 flex items-start gap-3">
         <svg
@@ -178,7 +237,7 @@ const PaymentMethodSelection: React.FC<PaymentMethodSelectionProps> = ({
         )}
         <button
           type="button"
-          onClick={onNext}
+          onClick={() => onNext(details)}
           className="w-full sm:flex-1 px-6 py-3 rounded-md bg-[#3C50E0] text-white font-medium hover:bg-[#2633A8] transition-colors shadow-md hover:shadow-lg"
         >
           التالي

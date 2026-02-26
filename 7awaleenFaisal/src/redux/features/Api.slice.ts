@@ -8,7 +8,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:3000",
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.token;
+    const token = (getState() as RootState).auth.refreshToken;
     if (token) headers.set("authorization", `Bearer ${token}`);
     return headers;
   },
@@ -44,7 +44,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Products", "GuestOrder"],
+  tagTypes: ["Products", "GuestOrder", "Cart", "Order", "User"],
   endpoints: (builder) => ({
     getstores: builder.query<Store[], void>({
       query: () => "/store",
@@ -187,10 +187,117 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["GuestOrder"],
     }),
+    
+    // Create order (checkout)
+    createOrder: builder.mutation({
+      query: (orderData) => ({
+        url: "/order/checkout",
+        method: "POST",
+        body: orderData,
+      }),
+    }),
+    
+    // Get single order by ID
+    getOrderById: builder.query<any, string>({
+      query: (orderId) => `/order/${orderId}`,
+      providesTags: (result, error, id) => [{ type: "Order", id }],
+    }),
+    
+    // Get user orders
+    getUserOrders: builder.query<any[], void>({
+      query: () => "/order/my-orders",
+      providesTags: ["Order"],
+    }),
+
+    // --- Cart Endpoints ---
+    getUserCart: builder.query<any, void>({
+      query: () => "/cart",
+      providesTags: ["Cart"],
+    }),
+    addToBackendCart: builder.mutation<any, any>({
+      query: (itemData) => ({
+        url: "/cart/add",
+        method: "POST",
+        body: itemData,
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+    updateBackendCartQuantity: builder.mutation<any, any>({
+      query: (updateData) => ({
+        url: "/cart/update",
+        method: "POST",
+        body: updateData,
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+    removeFromBackendCart: builder.mutation<any, string>({
+      query: (productId) => ({
+        url: "/cart/remove",
+        method: "POST",
+        body: { productId },
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+    clearBackendCart: builder.mutation<any, void>({
+      query: () => ({
+        url: "/cart/clear",
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+    syncBackendCart: builder.mutation<any, { items: any[] }>({
+      query: (syncData) => ({
+        url: "/cart/sync",
+        method: "POST",
+        body: syncData,
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+    // Admin Orders
+    getAllOrders: builder.query<any[], void>({
+      query: () => "/order/Allorders",
+      providesTags: ["Order"],
+    }),
+    updateOrderStatus: builder.mutation<any, { orderId: string; status: string }>({
+      query: (data) => ({
+        url: "/order/status",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Order"],
+    }),
+    getMe: builder.query<any, void>({
+      query: () => "/user/me",
+      providesTags: ["User"],
+    }),
+    updateProfile: builder.mutation<any, any>({
+      query: (data) => ({
+        url: "/user/update-profile",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    updatePassword: builder.mutation<any, any>({
+      query: (data) => ({
+        url: "/user/update-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getDashboardStats: builder.query<any, { days?: string; paymentMethod?: string }>({
+      query: ({ days, paymentMethod }) => {
+        const params = new URLSearchParams();
+        if (days) params.append("days", days);
+        if (paymentMethod) params.append("paymentMethod", paymentMethod);
+        return `/dashboard/stats?${params.toString()}`;
+      },
+    }),
   }),
 });
 
 export const {
+  useGetDashboardStatsQuery,
   useGetstoresQuery,
   useGetFilteredProductsQuery,
   useGetadvertisedproductsQuery,
@@ -211,4 +318,19 @@ export const {
   useGetGeustOrderQuery,
   useAddProdectMutation,
   useGeustOrderMutation,
+  useCreateOrderMutation,
+  useGetOrderByIdQuery,
+  useGetUserOrdersQuery,
+  // Cart hooks
+  useGetUserCartQuery,
+  useAddToBackendCartMutation,
+  useUpdateBackendCartQuantityMutation,
+  useRemoveFromBackendCartMutation,
+  useClearBackendCartMutation,
+  useSyncBackendCartMutation,
+  useGetAllOrdersQuery,
+  useUpdateOrderStatusMutation,
+  useGetMeQuery,
+  useUpdateProfileMutation,
+  useUpdatePasswordMutation,
 } = apiSlice;

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function ProtectedComponent({ children}: { children: React.ReactNode, adminOnly?: boolean }) {
   const router = useRouter();
-  const { token, user } = useSelector((state: any) => state.auth);
+  const { refreshToken, user } = useSelector((state: any) => state.auth);
   const [isClient, setIsClient] = useState(false);
 
   const isTokenExpired = (token: string) => {
@@ -28,7 +28,7 @@ export default function ProtectedComponent({ children}: { children: React.ReactN
 
   useEffect(() => {
     if (isClient) {
-      if (!token || isTokenExpired(token)) {
+      if (!refreshToken || isTokenExpired(refreshToken)) {
         router.push("/signin");
         return;
       }
@@ -41,10 +41,10 @@ export default function ProtectedComponent({ children}: { children: React.ReactN
           router.push("/"); // Redirect non-admins to home
       }
     }
-  }, [isClient, token, router, user, ]);
+  }, [isClient, refreshToken, router, user, ]);
 
   if (!isClient) return null;
-  if (!token) return null;
+  if (!refreshToken) return null;
   
   const currentUser = user?.user || user;
   if ( currentUser?.userType !== "admin") return null;

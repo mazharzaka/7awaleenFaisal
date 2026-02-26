@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors } from '@/styles/design-tokens';
 
-export type BadgeVariant = 'sale' | 'success' | 'warning' | 'error' | 'info' | 'neutral';
+export type BadgeVariant = 'sale' | 'success' | 'warning' | 'error' | 'info' | 'neutral' | 'danger';
 export type BadgeSize = 'sm' | 'md' | 'lg';
 
 export interface BadgeProps {
@@ -30,6 +30,7 @@ const Badge: React.FC<BadgeProps> = ({
     error: `bg-[${colors.error[500]}] text-white`,
     info: `bg-[${colors.primary[500]}] text-white`,
     neutral: `bg-[${colors.neutral[200]}] text-[${colors.neutral[700]}]`,
+    danger: `bg-[${colors.error[500]}] text-white`,
   };
 
   const sizeStyles = {

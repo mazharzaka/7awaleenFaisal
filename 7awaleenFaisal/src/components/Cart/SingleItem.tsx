@@ -1,33 +1,58 @@
 import React, { useState } from "react";
-import { AppDispatch } from "@/redux/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeItemFromCart,
   updateCartItemQuantity,
 } from "@/redux/features/cart-slice";
+import { useRemoveFromBackendCartMutation, useUpdateBackendCartQuantityMutation } from "@/redux/features/Api.slice";
 
 import Image from "next/image";
 
 const SingleItem = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity);
+  const { token } = useSelector((state: RootState) => state.auth);
 
   const dispatch = useDispatch<AppDispatch>();
+  const [removeFromBackend] = useRemoveFromBackendCartMutation();
+  const [updateQuantityBackend] = useUpdateBackendCartQuantityMutation();
 
-  const handleRemoveFromCart = () => {
+  const handleRemoveFromCart = async () => {
     dispatch(removeItemFromCart(item.id));
+    if (token) {
+      try {
+        await removeFromBackend(item.id as string).unwrap();
+      } catch (err) {
+        console.error("Failed to remove from backend cart:", err);
+      }
+    }
   };
 
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
-    dispatch(updateCartItemQuantity({ id: item.id, quantity: quantity + 1 }));
+  const handleIncreaseQuantity = async () => {
+    const newQty = quantity + 1;
+    setQuantity(newQty);
+    dispatch(updateCartItemQuantity({ id: item.id, quantity: newQty }));
+    if (token) {
+      try {
+        await updateQuantityBackend({ productId: item.id, quantity: newQty }).unwrap();
+      } catch (err) {
+        console.error("Failed to update backend quantity:", err);
+      }
+    }
   };
 
-  const handleDecreaseQuantity = () => {
+  const handleDecreaseQuantity = async () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
-      dispatch(updateCartItemQuantity({ id: item.id, quantity: quantity - 1 }));
-    } else {
-      return;
+      const newQty = quantity - 1;
+      setQuantity(newQty);
+      dispatch(updateCartItemQuantity({ id: item.id, quantity: newQty }));
+      if (token) {
+        try {
+          await updateQuantityBackend({ productId: item.id, quantity: newQty }).unwrap();
+        } catch (err) {
+          console.error("Failed to update backend quantity:", err);
+        }
+      }
     }
   };
 

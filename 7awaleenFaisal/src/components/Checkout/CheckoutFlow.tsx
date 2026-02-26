@@ -1,24 +1,28 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/redux/store";
-import { selectCartItems, selectTotalPrice } from "@/redux/features/cart-slice";
+import { useAppSelector, useAppDispatch } from "@/redux/store";
+import { selectCartItems, selectTotalPrice, removeAllItemsFromCart } from "@/redux/features/cart-slice";
+import { useCreateOrderMutation, useClearBackendCartMutation } from "@/redux/features/Api.slice";
 import Breadcrumb from "../Common/Breadcrumb";
 import ProgressBar from "../UI/ProgressBar";
 import CustomerInfo, { type CustomerInfoData } from "./CustomerInfo";
-import PaymentMethodSelection, { type PaymentMethodType } from "./PaymentMethodSelection";
+import PaymentMethodSelection, { type PaymentMethodType, type PaymentMethodDetails } from "./PaymentMethodSelection";
 import OrderReview from "./OrderReview";
 import EmptyState from "../UI/EmptyState";
 
 const CheckoutFlow = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const cartItems = useAppSelector(selectCartItems);
   const totalPrice = useAppSelector(selectTotalPrice);
+  
+  const [createOrder, { isLoading: isCreatingOrder }] = useCreateOrderMutation();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [customerInfo, setCustomerInfo] = useState<CustomerInfoData | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>("whatsapp");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [paymentDetails, setPaymentDetails] = useState<PaymentMethodDetails | null>(null);
 
   const steps = ["معلومات التوصيل", "طريقة الدفع", "مراجعة الطلب"];
 
@@ -46,15 +50,17 @@ const CheckoutFlow = () => {
     setCurrentStep(2);
   };
 
-  const handlePaymentMethodNext = () => {
+  const handlePaymentMethodNext = (details?: PaymentMethodDetails) => {
+    if (details) setPaymentDetails(details);
     setCurrentStep(3);
   };
+
+  const { token } = useAppSelector((state) => state.auth);
+  const [clearBackendCart] = useClearBackendCartMutation();
 
   const handleSubmitOrder = async () => {
     if (!customerInfo) return;
 
-    setIsSubmitting(true);
-    
     try {
       // Prepare order data
       const orderData = {
@@ -62,7 +68,6 @@ const CheckoutFlow = () => {
           productId: item.id,
           qty: item.quantity,
           price: item.discountedPrice,
-          productName: item.title,
         })),
         total: totalPrice,
         customerInfo: {
@@ -71,22 +76,33 @@ const CheckoutFlow = () => {
           address: customerInfo.address,
         },
         paymentMethod,
+        paymentDetails: paymentDetails || {},
         note: customerInfo.notes || "",
+        storeId: "000000000000000000000000", // Default store ID, update as needed
       };
 
-      // TODO: Make API call to create order
-      // const response = await createOrder(orderData);
+      // Create order via API
+      const response = await createOrder(orderData).unwrap();
       
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Clear cart after successful order
+      dispatch(removeAllItemsFromCart());
 
-      // Redirect to success page
-      router.push(`/order-success?method=${paymentMethod}`);
+      // If authenticated, clear backend cart too
+      if (token) {
+        try {
+          await clearBackendCart().unwrap();
+        } catch (err) {
+          console.error("Failed to clear backend cart after order:", err);
+        }
+      }
+
+      // Redirect to success page with order ID and WhatsApp link
+      const orderId = response.order?._id || "unknown";
+      router.push(`/order-success?orderId=${orderId}&method=${paymentMethod}`);
     } catch (error) {
       console.error("Order creation failed:", error);
-      router.push("/order-failed");
-    } finally {
-      setIsSubmitting(false);
+      const errorMessage = error?.data?.error || "حدث خطأ أثناء معالجة طلبك";
+      router.push(`/order-failed?error=${encodeURIComponent(errorMessage)}`);
     }
   };
 
@@ -112,7 +128,10 @@ const CheckoutFlow = () => {
             {currentStep === 2 && (
               <PaymentMethodSelection
                 selectedMethod={paymentMethod}
-                onSelect={setPaymentMethod}
+                onSelect={(method, details) => {
+                  setPaymentMethod(method);
+                  if (details) setPaymentDetails(details);
+                }}
                 onNext={handlePaymentMethodNext}
                 onBack={() => setCurrentStep(1)}
               />
@@ -124,7 +143,7 @@ const CheckoutFlow = () => {
                 paymentMethod={paymentMethod}
                 onSubmit={handleSubmitOrder}
                 onBack={() => setCurrentStep(2)}
-                isLoading={isSubmitting}
+                isLoading={isCreatingOrder}
               />
             )}
           </div>

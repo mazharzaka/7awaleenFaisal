@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 const CartPage = () => {
   return (
-    <ProtectedComponent>
+    <>
       <Cart />
-    </ProtectedComponent>
+    </>
   );
 };
 

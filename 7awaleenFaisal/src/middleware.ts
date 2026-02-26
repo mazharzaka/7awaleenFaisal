@@ -21,12 +21,12 @@ export function middleware(request: NextRequest) {
   // e.g. /profile, /orders
   
   // If user is already logged in and tries to access public auth paths
-  if (isPublicPath && token) {
-      if (userType === "admin") {
-          return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
-      }
-      // return NextResponse.redirect(new URL("/", request.nextUrl));
-  }
+  // if (isPublicPath && token) {
+  //     if (userType === "admin") {
+  //         return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
+  //     }
+  //     // return NextResponse.redirect(new URL("/", request.nextUrl));
+  // }
 }
 
 export const config = {

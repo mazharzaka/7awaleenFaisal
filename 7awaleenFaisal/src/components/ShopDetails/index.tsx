@@ -4,14 +4,22 @@ import Breadcrumb from "../Common/Breadcrumb";
 import Image from "next/image";
 import Newsletter from "../Common/Newsletter";
 import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
-import { useGetproductQuery } from "@/redux/features/Api.slice";
+import { useGetproductQuery, useAddToBackendCartMutation } from "@/redux/features/Api.slice";
 import { useParams } from "next/navigation";
 import Error from "../Error";
 import { useBuyNowContext } from "@/app/context/BuyNowContext";
+import { useAppDispatch } from "@/redux/store";
+import { addItemToCart } from "@/redux/features/cart-slice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import toast from "react-hot-toast";
 
 const ShopDetails = ({ width = 400, height = 400 }) => {
   const { id } = useParams<{ id: string }>();
   const { openBuyNow } = useBuyNowContext();
+  const dispatch = useAppDispatch();
+  const { token } = useSelector((state: RootState) => state.auth);
+  const [addToBackendCart] = useAddToBackendCartMutation();
 
   const { openPreviewModal } = usePreviewSlider();
   const [previewImg, setPreviewImg] = useState("");
@@ -50,6 +58,41 @@ const ShopDetails = ({ width = 400, height = 400 }) => {
   };
   const handleAddToCart = () => {
     openBuyNow(id);
+  };
+
+  const handleRealAddToCart = async () => {
+    if (!product) return;
+
+    const cartItem = {
+      id: product.id || product._id,
+      title: product.name,
+      price: product.price || 0,
+      discountedPrice: product.finalPrice || product.price || 0,
+      quantity: 1,
+      imgs: {
+        thumbnails: product.imageURL || [],
+        previews: product.imageURL || [],
+      },
+    };
+
+    // Add to local cart
+    dispatch(addItemToCart(cartItem));
+
+    // If authenticated, sync with backend
+    if (token) {
+      try {
+        await addToBackendCart({
+          productId: cartItem.id,
+          quantity: cartItem.quantity,
+          price: cartItem.price,
+          discountedPrice: cartItem.discountedPrice
+        }).unwrap();
+      } catch (err) {
+        console.error("Failed to add to backend cart from details:", err);
+      }
+    }
+
+    toast.success("تمت الإضافة إلى السلة");
   };
   if (isLoading) {
     return (
@@ -515,8 +558,31 @@ const ShopDetails = ({ width = 400, height = 400 }) => {
 
                   <div className="flex flex-col sm:flex-row items-center gap-4">
                     <button
+                      onClick={() => handleRealAddToCart()}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark hover:shadow-lg transition-all min-h-[44px]"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5.33333 14.6667C5.97333 14.6667 6.5 14.14 6.5 13.5C6.5 12.86 5.97333 12.3333 5.33333 12.3333C4.69333 12.3333 4.16667 12.86 4.16667 13.5C4.16667 14.14 4.69333 14.6667 5.33333 14.6667ZM12.3333 14.6667C12.9733 14.6667 13.5 14.14 13.5 13.5C13.5 12.86 12.9733 12.3333 12.3333 12.3333C11.6933 12.3333 11.1667 12.86 11.1667 13.5C11.1667 14.14 11.6933 14.6667 12.3333 14.6667Z"
+                          fill="white"
+                        />
+                        <path
+                          d="M5.33333 11.1667H12.3333C13.0667 11.1667 13.7133 10.6933 13.9533 10.0133L15.86 4.78004C15.94 4.58004 15.7267 4.33337 15.52 4.33337H3.66L3.24 2.80004C3.14667 2.36671 2.76 2.00004 2.32 2.00004H1.16667C0.706667 2.00004 0.333333 2.37337 0.333333 2.83337C0.333333 3.29337 0.706667 3.66671 1.16667 3.66671H2.32L4.6 12.46C4.26667 12.9067 4.16667 13.5267 4.42 14.06C4.67333 14.6 5.24 14.9667 5.86 14.9667H13.5C13.96 14.9667 14.3333 14.5934 14.3333 14.1334C14.3333 13.6734 13.96 13.3 13.5 13.3H5.86L5.33333 11.1667Z"
+                          fill="white"
+                        />
+                      </svg>
+                      أضف للسلة
+                    </button>
+
+                    <button
                       onClick={() => handleAddToCart()}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-medium text-white bg-[#3C50E0] py-3 px-7 rounded-md ease-out duration-200 hover:bg-[#2633A8] hover:shadow-lg transition-all min-h-[44px]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-medium text-white bg-dark py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue hover:shadow-lg transition-all min-h-[44px]"
                     >
                       <svg
                         className="w-5 h-5"
@@ -528,10 +594,10 @@ const ShopDetails = ({ width = 400, height = 400 }) => {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                          d="M13 10V3L4 14h7v7l9-11h-7z"
                         />
                       </svg>
-                      اشتري الان
+                      شراء سريع
                     </button>
 
                     <button
@@ -549,7 +615,7 @@ const ShopDetails = ({ width = 400, height = 400 }) => {
                       >
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                       </svg>
-                      اطلب عبر واتساب
+                      واتساب
                     </button>
                   </div>
                 </form>

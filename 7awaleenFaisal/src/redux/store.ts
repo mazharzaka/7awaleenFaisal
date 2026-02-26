@@ -6,7 +6,7 @@ import wishlistReducer from "./features/wishlist-slice";
 import authReducer from "./features/Auth.slice";
 import productDetailsReducer from "./features/product-details";
 
-import { TypedUseSelectorHook, useSelector } from "react-redux";
+import { TypedUseSelectorHook, useSelector, useDispatch } from "react-redux";
 import { apiSlice } from "./features/Api.slice";
 
 export const store = configureStore({
@@ -26,3 +26,4 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppDispatch: () => AppDispatch = useDispatch;

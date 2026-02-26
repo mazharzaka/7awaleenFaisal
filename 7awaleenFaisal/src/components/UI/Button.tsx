@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors, borderRadius, spacing, transitions } from '@/styles/design-tokens';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'whatsapp' | 'ghost';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'whatsapp' | 'ghost' | 'success';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -44,6 +44,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         bg-[${colors.primary[500]}] text-white
         hover:bg-[${colors.primary[600]}] active:bg-[${colors.primary[700]}]
         focus:ring-[${colors.primary[500]}]
+        shadow-md hover:shadow-lg
+      `,
+      success: `
+        bg-[${colors.success[500]}] text-white
+        hover:bg-[${colors.success[600]}] active:bg-[${colors.success[700]}]
+        focus:ring-[${colors.success[500]}]
         shadow-md hover:shadow-lg
       `,
       secondary: `

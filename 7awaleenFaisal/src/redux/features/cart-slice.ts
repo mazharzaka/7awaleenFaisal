@@ -6,7 +6,7 @@ type InitialState = {
 };
 
 type CartItem = {
-  id: number;
+  id: number | string;
   title: string;
   price: number;
   discountedPrice: number;
@@ -28,6 +28,7 @@ export const cart = createSlice({
     addItemToCart: (state, action: PayloadAction<CartItem>) => {
       const { id, title, price, quantity, discountedPrice, imgs } =
         action.payload;
+        
       const existingItem = state.items.find((item) => item.id === id);
 
       if (existingItem) {
@@ -43,13 +44,13 @@ export const cart = createSlice({
         });
       }
     },
-    removeItemFromCart: (state, action: PayloadAction<number>) => {
+    removeItemFromCart: (state, action: PayloadAction<number | string>) => {
       const itemId = action.payload;
       state.items = state.items.filter((item) => item.id !== itemId);
     },
     updateCartItemQuantity: (
       state,
-      action: PayloadAction<{ id: number; quantity: number }>
+      action: PayloadAction<{ id: number | string; quantity: number }>
     ) => {
       const { id, quantity } = action.payload;
       const existingItem = state.items.find((item) => item.id === id);
@@ -61,6 +62,10 @@ export const cart = createSlice({
 
     removeAllItemsFromCart: (state) => {
       state.items = [];
+    },
+
+    syncCartWithBackend: (state, action: PayloadAction<CartItem[]>) => {
+      state.items = action.payload;
     },
   },
 });
@@ -82,5 +87,6 @@ export const {
   removeItemFromCart,
   updateCartItemQuantity,
   removeAllItemsFromCart,
+  syncCartWithBackend,
 } = cart.actions;
 export default cart.reducer;

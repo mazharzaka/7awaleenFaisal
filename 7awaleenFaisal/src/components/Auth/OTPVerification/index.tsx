@@ -40,7 +40,7 @@ const OTPVerification = () => {
 
       toast.success("OTP Verified! Logged in successfully.");
       if (res.user?.userType === "admin") {
-          router.push("/admin/dashboard");
+          router.push("/AdminOrders");
       } else {
           router.push("/");
       }

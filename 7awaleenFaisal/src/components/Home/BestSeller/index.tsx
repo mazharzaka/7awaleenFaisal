@@ -7,6 +7,7 @@ import shopData from "@/components/Shop/shopData";
 import { useGetproductsQuery } from "@/redux/features/Api.slice";
 import Error from "@/components/Error";
 import PreLoader from "@/components/Common/PreLoader";
+import ProductItem from "@/components/Common/ProductItem";
 
 const BestSeller = () => {
   const { data: products, error, isLoading } = useGetproductsQuery();
@@ -39,7 +40,7 @@ const BestSeller = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7.5">
             {/* <!-- منتجاتنا item --> */}
             {products?.products?.map((item, key) => (
-              <SingleItem item={item} key={key} />
+              <ProductItem item={item} key={key} />
             ))}
           </div>
         )}

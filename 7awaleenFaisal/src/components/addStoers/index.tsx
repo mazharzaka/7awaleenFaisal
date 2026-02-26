@@ -22,7 +22,7 @@ const AddStores = () => {
     error,
   } = useGetsubcategoriesQuery(sub);
   const [selectedOption, setSelectedOption] = useState({
-    label: "المحلات",
+    label: "إضافة متجر",
     value: "1",
   });
   const [display, setDisplay] = useState(false);
@@ -67,16 +67,16 @@ const AddStores = () => {
       console.log(fd);
       const res = await addstore(fd);
       if (res.error) {
-        toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
+        toast.error("حدث خطأ أثناء إضافة المتجر، يرجى المحاولة مرة أخرى.");
         setDisplay(false);
       } else {
         e.currentTarget?.reset();
         setDisplay(false);
-        toast.success("كده اتضاف يسطا ربنا يقويك 💪!");
+        toast.success("تم إضافة المتجر بنجاح!");
       }
     } catch (err) {
       console.log("Error:", err);
-      toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
+      toast.error("حدث خطأ غير متوقع.");
     }
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -88,8 +88,10 @@ const AddStores = () => {
     }
     try {
       const formData = new FormData();
-      for (let i = 0; i < data.productImage.length; i++) {
-        formData.append("productImage", data.productImage[i]);
+      if (data.productImage) {
+        for (let i = 0; i < data.productImage.length; i++) {
+          formData.append("productImage", data.productImage[i]);
+        }
       }
       formData.append("name", data.name);
       formData.append("desc", data.desc);
@@ -99,172 +101,169 @@ const AddStores = () => {
       formData.append("category", data.category);
       formData.append("subCategory", data.subCategory);
       formData.append("storeId", data.storeId);
-      // console.log(sale);
-      // console.log(data);
+
       const res = await addProdect(formData);
       console.log(res);
 
       if (res.error) {
-        toast.error("حصل خطأ يخول  حاول تاني 🖕 او قولي 🤬💥!");
+        toast.error("حدث خطأ أثناء إضافة المنتج.");
         setDisplay(false);
       } else {
         setDisplay(false);
-
-        toast.success("كده اتضاف يسطا ربنا يقويك 💪!");
+        toast.success("تم إضافة المنتج بنجاح!");
       }
     } catch (err) {
       console.log("Error:", err);
-      toast.error("حصل خطأ يخول حاول تاني 🖕 او قولي 🤬💥!");
+      toast.error("حدث خطأ غير متوقع.");
     }
   };
 
   const options = [
-    { label: "المحلات", value: "1" },
-    { label: "المنتجات", value: "2" },
+    { label: "إضافة متجر", value: "1" },
+    { label: "إضافة منتج", value: "2" },
   ];
   return (
     <>
-      <Breadcrumb title={"add stores "} pages={["add stores"]} />
+      <Breadcrumb title={"إضافة متجر ومنتج"} pages={["إضافة متجر ومنتج"]} />
 
-      <section className="overflow-hidden py-20 bg-gray-2">
+      <section className="overflow-hidden py-20 bg-[#F4F7FF] dark:bg-black/90">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-          <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
-            <CustomSelect
-              onChange={(option) => {
-                setSelectedOption(option);
-              }}
-              options={options}
-              width="100%"
-            />
+          <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-8 justify-center">
+            <div className="w-full max-w-md">
+              <CustomSelect
+                onChange={(option) => {
+                  setSelectedOption(option);
+                }}
+                options={options}
+                width="100%"
+              />
+            </div>
           </div>
-          <div className="flex flex-col xl:flex-row gap-7.5">
-            <div className="w-full bg-white  dark:bg-[#121212]   rounded-xl shadow-1 p-4 sm:p-7.5 xl:p-10">
-              {selectedOption.value === "1" ? (
-                <form onSubmit={onSubmit}>
-                  <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
-                    <div className="w-full">
-                      <label htmlFor="firstName" className="block mb-2.5">
-                        الاسم <span className="text-red">*</span>
-                      </label>
+          
+          <div className="flex flex-col xl:flex-row gap-7.5 justify-center">
+            <div className="w-full max-w-[800px] bg-white dark:bg-dark-2 rounded-2xl shadow-premium p-6 sm:p-10 xl:p-12 border border-gray-200 dark:border-white/10">
+              <h2 className="text-2xl font-bold mb-8 text-dark dark:text-white text-center">
+                {selectedOption.value === "1" ? "تفاصيل المتجر الجديد" : "تفاصيل المنتج الجديد"}
+              </h2>
 
+              {selectedOption.value === "1" ? (
+                <form onSubmit={onSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="w-full">
+                      <label htmlFor="name" className="block mb-2.5 font-medium text-dark dark:text-white">
+                        اسم المتجر <span className="text-red-500">*</span>
+                      </label>
                       <input
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="الاسم المحل يخول عربي او انجليزي "
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        required
+                        placeholder="أدخل اسم المتجر"
+                        className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
                     </div>
 
                     <div className="w-full">
-                      <label htmlFor="category" className="block mb-2.5">
-                        قسم <span className="text-red">*</span>
+                      <label htmlFor="category" className="block mb-2.5 font-medium text-dark dark:text-white">
+                        نوع المتجر <span className="text-red-500">*</span>
                       </label>
-
                       <input
                         type="text"
                         name="category"
                         id="category"
-                        placeholder="النوع يسطا فوق حاول يبقا نفس الحاجه عشان الدتا بيز متشخرش "
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        required
+                        placeholder="مثال: ملابس، إلكترونيات"
+                        className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
-                    <div className="w-full">
-                      <label htmlFor="address" className="block mb-2.5">
-                        العنوان
-                      </label>
 
-                      <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        placeholder="اكتب العنوان بحاجه مميزه عشان نعرف نوصله"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                      />
-                    </div>
+                  <div className="w-full">
+                    <label htmlFor="address" className="block mb-2.5 font-medium text-dark dark:text-white">
+                      العنوان
+                    </label>
+                    <input
+                      type="text"
+                      name="address"
+                      id="address"
+                      placeholder="العنوان التفصيلي للمتجر"
+                      className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                    />
                   </div>
-                  <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
-                    <div className="w-full">
-                      <label
-                        className="block mb-2.5 text-sm font-medium text-heading"
-                        htmlFor="file_input"
-                      >
-                        ارفع الصور
-                      </label>
+
+                  <div className="w-full">
+                    <label className="block mb-2.5 font-medium text-dark dark:text-white">
+                      شعار المتجر (Logo)
+                    </label>
+                    <div className="relative group">
                       <input
-                        className="cursor-pointer bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs placeholder:text-body"
-                        aria-describedby="file_input_help"
+                        className="w-full cursor-pointer rounded-xl border border-dashed border-gray-400 bg-gray-50 py-10 px-5 text-center text-sm transition hover:bg-gray-100 dark:border-white/20 dark:bg-white/5 dark:hover:bg-white/10"
                         id="storeImage"
                         name="storeImage"
                         type="file"
+                        accept="image/*"
                       />
-                      <p
-                        className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                        id="file_input_help"
-                      >
-                        صوره المنتج عدله بمقاس كويس عشان هيطلع ميتين امي
-                        فالتعديل
-                      </p>
+                      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center space-y-2">
+                        <svg className="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-gray-500">انقر أو اسحب الشعار هنا</span>
+                      </div>
                     </div>
+                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                      يفضل أن يكون الشعار بخلفية شفافة وبمقاسات مربعة للعرض في شريط الشعارات.
+                    </p>
                   </div>
-                  <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
-                    <div className="w-full">
-                      <label htmlFor="phone" className="block mb-2.5">
-                        رقم هاتف
-                      </label>
 
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="w-full">
+                      <label htmlFor="phone" className="block mb-2.5 font-medium text-dark dark:text-white">
+                        رقم الهاتف
+                      </label>
                       <input
-                        type="text"
+                        type="tel"
                         name="phone"
                         id="phone"
-                        placeholder="اهم حاجه يبقي شغال افكرك ان حوار ده هيقشخني بعديدن لو عايزين نعمل otp"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        placeholder="رقم التواصل (واتساب)"
+                        className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
                     </div>
                     <div className="w-full">
-                      <label htmlFor="rateview" className="block mb-2.5">
-                        تقييم
+                      <label htmlFor="rateview" className="block mb-2.5 font-medium text-dark dark:text-white">
+                        التقييم الأولي
                       </label>
-
                       <input
                         type="number"
                         name="rateview"
                         id="rateview"
-                        placeholder="من 1الي خمسه بالله عليك "
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        min="1"
+                        max="5"
+                        placeholder="من 1 إلى 5"
+                        className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
                     </div>
                   </div>
-                  {/* 
-                <div className="mb-7.5">
-                  <label htmlFor="message" className="block mb-2.5">
-                    Message
-                  </label>
 
-                  <textarea
-                    name="message"
-                    id="message"
-                    rows={5}
-                    placeholder="Type your message"
-                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                  ></textarea>
-                </div> */}
                   <button
                     type="submit"
                     disabled={display}
-                    className="inline-flex font-medium w-full  justify-center text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-blue py-4 px-10 font-bold text-white transition hover:bg-blue-dark active:scale-95 disabled:opacity-70"
                   >
-                    {display ? "Processing..." : "انقري ايتها العاهره"}
+                    {display ? (
+                      <>
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                        جاري الإضافة...
+                      </>
+                    ) : (
+                      "حفظ وإضافة المتجر"
+                    )}
                   </button>
                 </form>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Store ID */}
-                  <div>
-                    <label htmlFor="storeId" className="block mb-2">
-                      ربط المحل <span className="text-red-500">*</span>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="w-full">
+                    <label htmlFor="storeId" className="block mb-2.5 font-medium text-dark dark:text-white">
+                      المتجر المرتبط <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -273,140 +272,126 @@ const AddStores = () => {
                       onChange={(e) =>
                         setData({ ...data, storeId: e.target.value })
                       }
-                      placeholder="ده لو عايزين نربط المنتج بالمحل يغني فكك دلوقتي بعدين واقعد ساكت ياض يرامز عشان انا مبضون اصلا  "
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                      placeholder="أدخل معرف المتجر لربط المنتج به"
+                      className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                     />
                   </div>
 
-                  {/* Name */}
-                  <div>
-                    <label htmlFor="name" className="block mb-2">
-                      الاسم <span className="text-red-500">*</span>
+                  <div className="w-full">
+                    <label htmlFor="name" className="block mb-2.5 font-medium text-dark dark:text-white">
+                      اسم المنتج <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
+                      required
                       onChange={(e) =>
                         setData({ ...data, name: e.target.value })
                       }
-                      placeholder="الاسم المنتج  يخول عربي او انجليزي"
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                      placeholder="أدخل اسم المنتج"
+                      className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                     />
                   </div>
 
-                  {/* Description */}
-                  <div>
-                    <label htmlFor="desc" className="block mb-2">
-                      الوصف <span className="text-red-500">*</span>
+                  <div className="w-full">
+                    <label htmlFor="desc" className="block mb-2.5 font-medium text-dark dark:text-white">
+                      وصف المنتج <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       name="desc"
                       rows={4}
+                      required
                       onChange={(e) =>
                         setData({ ...data, desc: e.target.value })
                       }
-                      placeholder="اكتب وصف للمحل"
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                      placeholder="اكتب وصفاً جذاباً للمنتج ومواصفاته"
+                      className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                     ></textarea>
                   </div>
 
-                  {/* Price */}
-                  <div>
-                    <label htmlFor="price" className="block mb-2">
-                      السعر قبل الخصم <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="price"
-                      onChange={(e) =>
-                        setData({ ...data, price: e.target.value })
-                      }
-                      placeholder="ادخل السعر"
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="price" className="block mb-2">
-                      السعر النهائي <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="finalPrice"
-                      onChange={(e) =>
-                        setData({ ...data, finalPrice: e.target.value })
-                      }
-                      placeholder="ادخل السعر"
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
-                    />
-                  </div>
-                  {/* Sale */}
-                  <div>
-                    <label htmlFor="sale" className="block mb-2">
-                      خصم %
-                    </label>
-                    <input
-                      type="text"
-                      name="sale"
-                      value={100 - (data.finalPrice / data.price) * 100}
-                      placeholder="0-100%"
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
-                    />
-                  </div>
-
-                  {/* Category */}
-                  <div>
-                    <label htmlFor="category" className="block mb-2">
-                      فئه <span className="text-red-500">*</span>
-                    </label>
-
-                    {categories && (
-                      <CustomSelect
-                        onChange={(option) => {
-                          console.log(option);
-                          setsub(option.value);
-
-                          setData({ ...data, category: option.value });
-                        }}
-                        options={categories}
-                        width="100%"
-                      />
-                    )}
-                  </div>
-                  <div>
-                    <label htmlFor="category" className="block mb-2">
-                      فئه الفرعيه <span className="text-red-500">*</span>
-                    </label>
-
-                    {subcategories && (
-                      <CustomSelect
-                        onChange={(option) => {
-                          console.log(option);
-                          setData({ ...data, subCategory: option.value });
-                        }}
-                        options={subcategories}
-                        width="100%"
-                      />
-                    )}
-                  </div>
-                  {/* Advertising */}
-                  <div>
-                    <label className="inline-flex items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="w-full">
+                      <label htmlFor="price" className="block mb-2.5 font-medium text-dark dark:text-white">
+                        السعر الأصلي <span className="text-red-500">*</span>
+                      </label>
                       <input
-                        type="checkbox"
-                        name="Isadvertising"
+                        type="number"
+                        name="price"
+                        required
                         onChange={(e) =>
-                          setData({ ...data, Isadvertising: e.target.checked })
+                          setData({ ...data, price: e.target.value })
                         }
-                        className="mr-2"
+                        placeholder="0.00"
+                        className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                       />
-                      ترويج للمنتج
+                    </div>
+                    <div className="w-full">
+                      <label htmlFor="finalPrice" className="block mb-2.5 font-medium text-dark dark:text-white">
+                        السعر بعد الخصم <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="number"
+                        name="finalPrice"
+                        required
+                        onChange={(e) =>
+                          setData({ ...data, finalPrice: e.target.value })
+                        }
+                        placeholder="أتركه مساوياً للسعر الأصلي إذا لا يوجد خصم"
+                        className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="w-full">
+                      <label className="block mb-2.5 font-medium text-dark dark:text-white">
+                        الفئة الرئيسية <span className="text-red-500">*</span>
+                      </label>
+                      {categories && (
+                        <CustomSelect
+                          onChange={(option) => {
+                            setsub(option.value);
+                            setData({ ...data, category: option.value });
+                          }}
+                          options={categories}
+                          width="100%"
+                        />
+                      )}
+                    </div>
+                    <div className="w-full">
+                      <label className="block mb-2.5 font-medium text-dark dark:text-white">
+                        الفئة الفرعية <span className="text-red-500">*</span>
+                      </label>
+                      {subcategories && (
+                        <CustomSelect
+                          onChange={(option) => {
+                            setData({ ...data, subCategory: option.value });
+                          }}
+                          options={subcategories}
+                          width="100%"
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 py-2">
+                    <input
+                      type="checkbox"
+                      id="Isadvertising"
+                      name="Isadvertising"
+                      onChange={(e) =>
+                        setData({ ...data, Isadvertising: e.target.checked })
+                      }
+                      className="h-5 w-5 rounded border-gray-300 text-blue focus:ring-blue"
+                    />
+                    <label htmlFor="Isadvertising" className="font-medium text-dark dark:text-white cursor-pointer transition hover:text-blue">
+                      ترويج هذا المنتج في الصفحة الرئيسية
                     </label>
                   </div>
 
-                  {/* Stock */}
-                  <div>
-                    <label htmlFor="stock" className="block mb-2">
-                      Stock
+                  <div className="w-full">
+                    <label htmlFor="stock" className="block mb-2.5 font-medium text-dark dark:text-white">
+                      المخزون المتوفر
                     </label>
                     <input
                       type="number"
@@ -414,32 +399,41 @@ const AddStores = () => {
                       onChange={(e) =>
                         setData({ ...data, stock: e.target.value })
                       }
-                      placeholder="عدد المخزون"
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                      placeholder="أدخل الكمية المتاحة"
+                      className="w-full rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                     />
                   </div>
 
-                  {/* Image */}
-                  <div>
-                    <label htmlFor="imageURL" className="block mb-2">
-                      ارفع الصور <span className="text-red-500">*</span>
+                  <div className="w-full">
+                    <label className="block mb-2.5 font-medium text-dark dark:text-white">
+                      صور المنتج <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="file"
                       name="productImage"
+                      required
                       onChange={(e) =>
                         setData({ ...data, productImage: e.target.files })
                       }
                       multiple
-                      className="w-full border rounded-md px-4 py-2 focus:ring-2 focus:ring-blue-300"
+                      className="w-full cursor-pointer rounded-xl border border-gray-300 bg-white py-3 px-5 text-dark outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 dark:border-white/10 dark:bg-white/5 dark:text-white"
                     />
+                    <p className="mt-2 text-xs text-gray-500">يمكنك اختيار أكثر من صورة للمنتج.</p>
                   </div>
+
                   <button
                     type="submit"
                     disabled={display}
-                    className="inline-flex font-medium w-full  justify-center text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-blue py-4 px-10 font-bold text-white transition hover:bg-blue-dark active:scale-95 disabled:opacity-70"
                   >
-                    {display ? "Processing..." : "انقري ايتها العاهره"}
+                    {display ? (
+                      <>
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                        جاري الإضافة...
+                      </>
+                    ) : (
+                      "حفظ وإضافة المنتج"
+                    )}
                   </button>
                 </form>
               )}
@@ -450,5 +444,6 @@ const AddStores = () => {
     </>
   );
 };
+
 
 export default AddStores;

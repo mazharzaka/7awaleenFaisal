@@ -4,9 +4,10 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useLoginMutation, useGoogleLoginMutation, useVerifyOtpMutation } from "@/redux/features/Api.slice";
-import { useDispatch } from "react-redux";
+import { useLoginMutation, useGoogleLoginMutation, useVerifyOtpMutation, useSyncBackendCartMutation } from "@/redux/features/Api.slice";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "@/redux/features/Auth.slice";
+import { selectCartItems, syncCartWithBackend } from "@/redux/features/cart-slice";
 import toast from "react-hot-toast";
 import { GoogleLogin } from "@react-oauth/google";
 import Cookies from "js-cookie";
@@ -14,6 +15,8 @@ import Cookies from "js-cookie";
 const Signin = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  
   const [login, { isLoading: isLoginLoading }] = useLoginMutation();
   const [googleLoginApi] = useGoogleLoginMutation();
   const [verifyOtp, { isLoading: isVerifyLoading }] = useVerifyOtpMutation();
@@ -28,6 +31,9 @@ const Signin = () => {
       const { credential } = credentialResponse;
       const res = await googleLoginApi({ token: credential }).unwrap();
       dispatch(setCredentials(res));
+      
+      // Sync cart
+      await syncCartWithBackend(res.accessToken);
       
       // Set Cookies for Middleware
       Cookies.set("token", res.accessToken, { expires: 1 }); // 1 day
@@ -67,6 +73,9 @@ const Signin = () => {
            // Fallback
            dispatch(setCredentials(res));
            
+           // Sync cart
+           await syncCartWithBackend(res.accessToken);
+           
            // Set Cookies
            Cookies.set("token", res.accessToken, { expires: 1 });
            Cookies.set("userType", res.user?.userType || "customer", { expires: 1 });
@@ -92,13 +101,16 @@ const Signin = () => {
           const res = await verifyOtp({ email, otp }).unwrap();
           dispatch(setCredentials(res));
 
+          // Sync cart
+          await syncCartWithBackend(res.accessToken);
+
           // Set Cookies
           Cookies.set("token", res.accessToken, { expires: 1 });
           Cookies.set("userType", res.user?.userType || "customer", { expires: 1 });
 
           toast.success("OTP Verified! Logged in successfully.");
           if (res.user?.userType === "admin") {
-               router.push("/Addstores");
+               router.push("/AddStores");
           } else {
                router.push("/");
           }

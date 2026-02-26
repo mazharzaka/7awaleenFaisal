@@ -3,9 +3,9 @@ import Orders from "@/components/Orders";
 
 const OrdersPage = () => {
   return (
-    <ProtectedComponent>
+    <>
       <Orders />
-    </ProtectedComponent>
+    </>
   );
 };
 
