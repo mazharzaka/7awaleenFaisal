@@ -19,9 +19,10 @@ const CustomSelect = ({ options, onChange, width = "200px" }) => {
 
   useEffect(() => {
     // closing modal while clicking outside
-    function handleClickOutside(event) {
-      if (!event.target.closest(".dropdown-content")) {
-        toggleDropdown();
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".dropdown-content")) {
+        setIsOpen(false);
       }
     }
 
@@ -32,7 +33,7 @@ const CustomSelect = ({ options, onChange, width = "200px" }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [isOpen]);
 
   return (
     <div

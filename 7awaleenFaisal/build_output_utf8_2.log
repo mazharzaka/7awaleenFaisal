@@ -1,0 +1,65 @@
+﻿
+> next-commerce-community@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env
+
+   Creating an optimized production build ...
+node.exe : 
+[baseline-browser-mapping] 
+The data in this module is 
+over two months old.  To 
+ensure accurate Baseline 
+data, please update: `npm i b
+aseline-browser-mapping@lates
+t -D`
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ([baseli  
+  ne-brows...ping@latest -   
+ D`:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/redux/features/order-ap
+i-additions.ts:8:25
+Type error: Cannot find name 
+'api'.
+
+[0m [90m  6 |[39m [90m// 
+Add these mutations to your 
+existing 
+Api.slice.ts[39m[0m
+[0m [90m  7 |[39m[0m
+[0m[31m[1m>[22m[39m[90m
+  8 |[39m [36mexport[39m 
+[36mconst[39m orderApi 
+[33m=[39m api[33m.[39minj
+ectEndpoints({[0m
+[0m [90m    |[39m         
+                
+[31m[1m^[22m[39m[0m
+[0m [90m  9 |[39m   
+endpoints[33m:[39m (build) 
+[33m=>[39m ({[0m
+[0m [90m 10 |[39m     
+[90m// Create order for 
+authenticated users[39m[0m
+[0m [90m 11 |[39m     
+createOrder[33m:[39m build
+[33m.[39mmutation({[0m
+Next.js build worker exited 
+with code: 1 and signal: null

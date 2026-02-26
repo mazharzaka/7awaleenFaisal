@@ -40,12 +40,11 @@ const EditProdeuctForm = () => {
     storeId: "",
   });
   useEffect(() => {
-    setData({
-      ...data,
+    setData((prev: any) => ({
+      ...prev,
       subCategory: subcategories ? subcategories[0].value : "",
-    });
-    console.log(data);
-  }, [sub]);
+    }));
+  }, [sub, subcategories]);
   useEffect(() => {
     setData(product);
     product?.category && setsub(product?.category);

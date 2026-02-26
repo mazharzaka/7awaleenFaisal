@@ -26,19 +26,10 @@ const ShopDetails = ({ width = 400, height = 400 }) => {
 
   const { data: product, isLoading, error } = useGetproductQuery(id);
   useEffect(() => {
-    if (
-      isLoading ||
-      !product ||
-      !Array.isArray(product.imageURL) ||
-      product.imageURL.length === 0
-    ) {
-      return;
+    if (product?.imageURL?.[0] && !previewImg) {
+      setPreviewImg(product.imageURL[0]);
     }
-
-    const imgSrc = product.imageURL[previewImg] ?? product.imageURL[0];
-
-    setPreviewImg(imgSrc);
-  }, [product, isLoading]);
+  }, [product, previewImg]);
   const imgRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [show, setShow] = useState(false);

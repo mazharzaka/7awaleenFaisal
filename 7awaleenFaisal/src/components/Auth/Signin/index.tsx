@@ -189,7 +189,7 @@ const Signin = () => {
                 </button>
 
                 <p className="text-center mt-6">
-                    Don't have an account?
+                    Don&apos;t have an account?
                     <Link
                     href="/signup"
                     className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue pl-2"

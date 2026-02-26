@@ -1,0 +1,183 @@
+﻿
+> next-commerce-community@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env
+
+   Creating an optimized production build ...
+node.exe : 
+[baseline-browser-mapping] 
+The data in this module is 
+over two months old.  To 
+ensure accurate Baseline 
+data, please update: `npm i b
+aseline-browser-mapping@lates
+t -D`
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ([baseli  
+  ne-brows...ping@latest -   
+ D`:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/27) ...
+ ⨯ useSearchParams() should 
+be wrapped in a suspense 
+boundary at page 
+"/order-success". Read more: 
+https://nextjs.org/docs/messa
+ges/missing-suspense-with-csr
+-bailout
+    at o (C:\Users\mazha\Down
+loads\nextjs-ecommerce-templa
+te-main\7awaleenFaisal\.next\
+server\chunks\471.js:1:10500)
+    at d (C:\Users\mazha\Down
+loads\nextjs-ecommerce-templa
+te-main\7awaleenFaisal\.next\
+server\chunks\471.js:1:21392)
+    at l (C:\Users\mazha\Down
+loads\nextjs-ecommerce-templa
+te-main\7awaleenFaisal\.next\
+server\app\(site)\(pages)\ord
+er-success\page.js:1:6508)
+    at nj (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:46252)
+    at nM (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47572)
+    at nN (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:64547)
+    at nI (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47011)
+    at nM (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47718)
+    at nN (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:64547)
+    at nI (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47011)
+
+Error occurred prerendering 
+page "/order-success". Read 
+more: https://nextjs.org/docs
+/messages/prerender-error
+
+   Generating static pages (6/27) 
+   Generating static pages (13/27) 
+   Generating static pages (20/27) 
+ ⨯ useSearchParams() should 
+be wrapped in a suspense 
+boundary at page 
+"/order-failed". Read more: h
+ttps://nextjs.org/docs/messag
+es/missing-suspense-with-csr-
+bailout
+    at o (C:\Users\mazha\Down
+loads\nextjs-ecommerce-templa
+te-main\7awaleenFaisal\.next\
+server\chunks\471.js:1:10500)
+    at d (C:\Users\mazha\Down
+loads\nextjs-ecommerce-templa
+te-main\7awaleenFaisal\.next\
+server\chunks\471.js:1:21392)
+    at i (C:\Users\mazha\Down
+loads\nextjs-ecommerce-templa
+te-main\7awaleenFaisal\.next\
+server\app\(site)\(pages)\ord
+er-failed\page.js:1:2814)
+    at nj (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:46252)
+    at nM (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47572)
+    at nN (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:64547)
+    at nI (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47011)
+    at nM (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47718)
+    at nN (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:64547)
+    at nI (C:\Users\mazha\Dow
+nloads\nextjs-ecommerce-templ
+ate-main\7awaleenFaisal\node_
+modules\next\dist\compiled\ne
+xt-server\app-page.runtime.pr
+od.js:12:47011)
+
+Error occurred prerendering 
+page "/order-failed". Read 
+more: https://nextjs.org/docs
+/messages/prerender-error
+
+ ✓ Generating static pages (27/27)
+
+> Export encountered errors 
+on following paths:
+	/(site)/(pages)/order-failed
+/page: /order-failed
+	/(site)/(pages)/order-succes
+s/page: /order-success

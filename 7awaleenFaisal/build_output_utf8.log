@@ -1,0 +1,104 @@
+﻿
+> next-commerce-community@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+node.exe : 
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (:String  
+  ) [], RemoteException
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+Failed to compile.
+
+./src/components/addStoers/in
+dex.tsx
+45:6  Warning: React Hook 
+useEffect has missing 
+dependencies: 'data' and 
+'subcategories'. Either 
+include them or remove the 
+dependency array. You can 
+also do a functional update 
+'setData(d => ...)' if you 
+only need 'data' in the 
+'setData' call.  
+react-hooks/exhaustive-deps
+
+./src/components/Auth/Signin/
+index.tsx
+192:24  Error: `'` can be 
+escaped with `&apos;`, 
+`&lsquo;`, `&#39;`, 
+`&rsquo;`.  
+react/no-unescaped-entities
+
+./src/components/Checkout/Che
+ckoutFlow.tsx
+58:21  Error: React Hook 
+"useAppSelector" is called 
+conditionally. React Hooks 
+must be called in the exact 
+same order in every 
+component render.  
+react-hooks/rules-of-hooks
+59:30  Error: React Hook "use
+ClearBackendCartMutation" is 
+called conditionally. React 
+Hooks must be called in the 
+exact same order in every 
+component render.  
+react-hooks/rules-of-hooks
+
+./src/components/EditProdeuct
+Form/index.tsx
+48:6  Warning: React Hook 
+useEffect has missing 
+dependencies: 'data' and 
+'subcategories'. Either 
+include them or remove the 
+dependency array. You can 
+also do a functional update 
+'setData(d => ...)' if you 
+only need 'data' in the 
+'setData' call.  
+react-hooks/exhaustive-deps
+
+./src/components/Header/Custo
+mSelect.tsx
+35:6  Warning: React Hook 
+useEffect has missing 
+dependencies: 'isOpen' and 
+'toggleDropdown'. Either 
+include them or remove the 
+dependency array.  
+react-hooks/exhaustive-deps
+
+./src/components/ShopDetails/
+index.tsx
+41:6  Warning: React Hook 
+useEffect has a missing 
+dependency: 'previewImg'. 
+Either include it or remove 
+the dependency array.  
+react-hooks/exhaustive-deps
+
+info  - Need to disable some 
+ESLint rules? Learn more 
+here: https://nextjs.org/docs
+/basic-features/eslint#disabl
+ing-rules

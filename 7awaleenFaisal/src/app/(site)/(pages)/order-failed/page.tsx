@@ -1,6 +1,10 @@
-"use client";
+import { Suspense } from "react";
 import OrderFailed from "@/components/OrderFailed";
 
 export default function OrderFailedPage() {
-  return <OrderFailed />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OrderFailed />
+    </Suspense>
+  );
 }

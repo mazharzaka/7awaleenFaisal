@@ -37,12 +37,11 @@ const AddStores = () => {
     storeId: "",
   });
   useEffect(() => {
-    setData({
-      ...data,
+    setData((prev: any) => ({
+      ...prev,
       subCategory: subcategories ? subcategories[0].value : "",
-    });
-    console.log(data);
-  }, [sub]);
+    }));
+  }, [sub, subcategories]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,0 +1,82 @@
+﻿
+> next-commerce-community@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.33
+  - Environments: .env
+
+   Creating an optimized production build ...
+node.exe : 
+[baseline-browser-mapping] 
+The data in this module is 
+over two months old.  To 
+ensure accurate Baseline 
+data, please update: `npm i b
+aseline-browser-mapping@lates
+t -D`
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: ([baseli  
+  ne-brows...ping@latest -   
+ D`:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/27) ...
+   Generating static pages (6/27) 
+   Generating static pages (13/27) 
+   Generating static pages (20/27) 
+ ✓ Generating static pages (27/27)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    14 kB           174 kB
+├ ○ /_not-found                          880 B          88.4 kB
+├ ○ /AddStores                           6.08 kB         136 kB
+├ ○ /AdminOrders                         3.3 kB          140 kB
+├ ○ /blogs/blog-details                  205 B           102 kB
+├ ○ /blogs/blog-details-with-sidebar     205 B           102 kB
+├ ○ /blogs/blog-grid                     205 B           102 kB
+├ ○ /blogs/blog-grid-with-sidebar        205 B           102 kB
+├ ○ /cart                                9.07 kB         144 kB
+├ ○ /checkout                            10.5 kB         140 kB
+├ ƒ /EditProdeuctForm/[id]               3.46 kB         141 kB
+├ ○ /EditProdeucts                       2.43 kB         140 kB
+├ ○ /error                               205 B           102 kB
+├ ○ /my-account                          15.5 kB         156 kB
+├ ○ /order-failed                        2.23 kB        98.5 kB
+├ ○ /order-success                       5.84 kB         102 kB
+├ ○ /Orders                              195 B           140 kB
+├ ƒ /Orders/[id]                         7.36 kB         143 kB
+├ ○ /OrdersAnalytics                     163 kB          288 kB
+├ ○ /Sales                               3.46 kB         135 kB
+├ ƒ /shop-details/[id]                   5.47 kB         143 kB
+├ ○ /shop-with-sidebar                   23.4 kB         160 kB
+├ ○ /shop-without-sidebar                4.96 kB         141 kB
+├ ○ /signin                              5.54 kB         135 kB
+├ ○ /signup                              5.53 kB         135 kB
+├ ○ /verify-email                        3.25 kB         133 kB
+└ ○ /wishlist                            5.15 kB         130 kB
++ First Load JS shared by all            87.5 kB
+  ├ chunks/2117-ce19c43dec6c03ac.js      31.9 kB
+  ├ chunks/fd9d1056-227738a5939882a9.js  53.6 kB
+  └ other shared chunks (total)          2.01 kB
+
+
+ƒ Middleware                             26.6 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

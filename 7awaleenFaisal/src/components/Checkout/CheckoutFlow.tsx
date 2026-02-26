@@ -24,6 +24,9 @@ const CheckoutFlow = () => {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>("whatsapp");
   const [paymentDetails, setPaymentDetails] = useState<PaymentMethodDetails | null>(null);
 
+  const { token } = useAppSelector((state) => state.auth);
+  const [clearBackendCart] = useClearBackendCartMutation();
+
   const steps = ["معلومات التوصيل", "طريقة الدفع", "مراجعة الطلب"];
 
   // If cart is empty, show empty state
@@ -55,8 +58,6 @@ const CheckoutFlow = () => {
     setCurrentStep(3);
   };
 
-  const { token } = useAppSelector((state) => state.auth);
-  const [clearBackendCart] = useClearBackendCartMutation();
 
   const handleSubmitOrder = async () => {
     if (!customerInfo) return;
