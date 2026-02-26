@@ -6,7 +6,7 @@ import { setCredentials, logout } from "./Auth.slice";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 // "http://localhost:3000"
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3000",
+  baseUrl: baseUrl,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.refreshToken;
     if (token) headers.set("authorization", `Bearer ${token}`);
