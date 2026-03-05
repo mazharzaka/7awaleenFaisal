@@ -58,8 +58,10 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed left-0 top-0 w-full z-9999 bg-white dark:bg-[#121212]   dark:!text-[#E0E0E0] transition-all ease-in-out duration-300 ${
-        stickyMenu && "shadow"
+      className={`fixed left-0 top-0 w-full z-9999 transition-all ease-in-out duration-300 ${
+        stickyMenu 
+          ? "bg-white/80 dark:bg-[#121212]/80 backdrop-blur-lg shadow-sm py-3" 
+          : "bg-white dark:bg-[#121212] py-5"
       }`}
     >
       {/* <div
@@ -76,97 +78,110 @@ const Header = () => {
       ></div> */}
       <div className="bg-[url('/images/ramaden/ramadanpattern.png')] pointer-events-none z-1 absolute bg-contain bg-no-repeat  h-127.5 w-full"></div>
       <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
-        <div
-          className={`flex flex-col lg:flex-row items-end lg:items-center xl:justify-between ease-out duration-200 ${
-            stickyMenu ? "py-4 gap-0" : "py-6 gap-5 "
-          }`}
-        >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-8">
           <div className="xl:w-auto flex-col sm:flex-row w-full  flex justify-between  items-center gap-5 sm:gap-10">
             <Link
-              className="flex-shrink-0  relative rounded-full w-24 h-24 md:w-33 md:h-33 overflow-hidden  "
+              className="flex-shrink-0 relative w-16 h-16 md:w-20 md:h-20 transition-transform hover:scale-105"
               href="/"
             >
-              <Image src="/images/logo/logo.jpg" fill alt="Logo" />
+              <Image src="/images/logo/logo.jpg" fill alt="Logo" className="rounded-full object-cover" />
             </Link>
 
 
-              <div className="flex w-full lg:w-auto justify-between items-center gap-5">
-                {isAdmin && (
-                  <div className="flex items-center gap-4">
-                    <Link href="/AdminOrders" className="flex items-center gap-2.5 group">
-                      <div className="w-10 h-10 rounded-full bg-blue/10 flex items-center justify-center group-hover:bg-blue/20 transition-all">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke="#3C50E0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <div className="hidden sm:block">
-                        <span className="block text-2xs text-dark dark:text-[#8b8b8b] uppercase">الإدارة</span>
-                        <p className="font-bold text-xs text-blue-600">الطلبات</p>
-                      </div>
-                    </Link>
-                    <Link href="/Sales" className="flex items-center gap-2.5 group">
-                      <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-all">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                      <div className="hidden sm:block">
-                        <span className="block text-2xs text-dark dark:text-[#8b8b8b] uppercase">التقارير</span>
-                        <p className="font-bold text-xs text-emerald-600">المبيعات</p>
-                      </div>
-                    </Link>
-                    <Link href="/AddStores" className="flex items-center gap-2.5 group">
-                      <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-all">
-                         <ShapesIcon size={20} color="#10b981"/>
-                      </div>
-                      <div className="hidden sm:block">
-                        <span className="block text-2xs text-dark dark:text-[#8b8b8b] uppercase">اضافة </span>
-                        <p className="font-bold text-xs text-emerald-600">المنتجات </p>
-                      </div>
-                    </Link>
-                     <Link href="/EditProdeucts" className="flex items-center gap-2.5 group">
-                      <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-all">
-                         <EditIcon size={20} color="#10b981"/>
-                      </div>
-                      <div className="hidden sm:block">
-                        <span className="block text-2xs text-dark dark:text-[#8b8b8b] uppercase">تعديل </span>
-                        <p className="font-bold text-xs text-emerald-600">المنتجات </p>
-                      </div>
-                    </Link>
-                  </div>
-                )}
-
-                <div className="flex items-center gap-5">
-                  {token ? (
-                    <div className="flex items-center gap-5">
-                      <Link href="/my-account" className="flex items-center gap-2.5">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fillRule="evenodd" clipRule="evenodd" d="M12 1.25C9.37666 1.25 7.25001 3.37665 7.25001 6C7.25001 8.62335 9.37666 10.75 12 10.75C14.6234 10.75 16.75 8.62335 16.75 6C16.75 3.37665 14.6234 1.25 12 1.25ZM8.75001 6C8.75001 4.20507 10.2051 2.75 12 2.75C13.7949 2.75 15.25 4.20507 15.25 6C15.25 7.79493 13.7949 9.25 12 9.25C10.2051 9.25 8.75001 7.79493 8.75001 6Z" fill="#3C50E0" />
-                          <path fillRule="evenodd" clipRule="evenodd" d="M12 12.25C9.68646 12.25 7.55494 12.7759 5.97546 13.6643C4.4195 14.5396 3.25001 15.8661 3.25001 17.5L3.24995 17.602C3.24882 18.7638 3.2474 20.222 4.52642 21.2635C5.15589 21.7761 6.03649 22.1406 7.22622 22.3815C8.41927 22.6229 9.97424 22.75 12 22.75C14.0258 22.75 15.5808 22.6229 16.7738 22.3815C17.9635 22.1406 18.8441 21.7761 19.4736 21.2635C20.7526 20.222 20.7512 18.7638 20.7501 17.602L20.75 17.5C20.75 15.8661 19.5805 14.5396 18.0246 13.6643C16.4451 12.7759 14.3136 12.25 12 12.25ZM4.75001 17.5C4.75001 16.6487 5.37139 15.7251 6.71085 14.9717C8.02681 14.2315 9.89529 13.75 12 13.75C14.1047 13.75 15.9732 14.2315 17.2892 14.9717C18.6286 15.7251 19.25 16.6487 19.25 17.5C19.25 18.8078 19.2097 19.544 18.5264 20.1004C18.1559 20.4022 17.5365 20.6967 16.4762 20.9113C15.4193 21.1252 13.9742 21.25 12 21.25C10.0258 21.25 8.58075 21.1252 7.5238 20.9113C6.46354 20.6967 5.84413 20.4022 5.4736 20.1004C4.79033 19.544 4.75001 18.8078 4.75001 17.5Z" fill="#3C50E0" />
-                        </svg>
-                        <div className="hidden sm:block">
-                          <span className="block text-2xs text-dark dark:text-[#8b8b8b] uppercase">الحساب</span>
-                          <p className="font-medium text-custom-sm text-dark dark:text-[#8b8b8b]">حسابي</p>
-                        </div>
-                      </Link>
-                      <button onClick={() => usedispatch(logout())} className="text-red-500 font-bold text-xs hover:underline">
-                        خروج
-                      </button>
-                    </div>
-                  ) : (
-                    <Link href="/signin" className="flex items-center gap-2.5">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M12 1.25C9.37666 1.25 7.25001 3.37665 7.25001 6C7.25001 8.62335 9.37666 10.75 12 10.75C14.6234 10.75 16.75 8.62335 16.75 6C16.75 3.37665 14.6234 1.25 12 1.25ZM8.75001 6C8.75001 4.20507 10.2051 2.75 12 2.75C13.7949 2.75 15.25 4.20507 15.25 6C15.25 7.79493 13.7949 9.25 12 9.25C10.2051 9.25 8.75001 7.79493 8.75001 6Z" fill="#3C50E0" />
-                      </svg>
-                      <div>
-                        <span className="block text-2xs text-dark dark:text-[#8b8b8b] uppercase">الحساب</span>
-                        <p className="font-medium text-custom-sm text-dark dark:text-[#8b8b8b]">تسجيل الدخول</p>
-                      </div>
-                    </Link>
-                  )}
-                </div>
+              <div className="hidden lg:flex items-center gap-8">
+                <nav>
+                  <ul className="flex items-center gap-6">
+                    {menuData.map((menuItem, i) =>
+                      menuItem.submenu ? (
+                        <Dropdown
+                          key={i}
+                          menuItem={menuItem}
+                          stickyMenu={stickyMenu}
+                        />
+                      ) : (
+                        <li key={i} className="relative group">
+                          <Link
+                            href={menuItem.path}
+                            className={`text-sm font-medium transition-colors hover:text-blue ${
+                              stickyMenu ? "text-dark/80 dark:text-[#E0E0E0]/80" : "text-dark dark:text-[#E0E0E0]"
+                            }`}
+                          >
+                            {menuItem.title}
+                          </Link>
+                          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue transition-all group-hover:w-full"></span>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </nav>
               </div>
+            </div>
+
+            <div className="flex items-center gap-4 md:gap-6">
+              {isAdmin && (
+                <div className="hidden xl:flex items-center gap-4">
+                  <Link href="/AdminOrders" title="Orders" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue">
+                      <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                  </Link>
+                  <Link href="/Sales" title="Sales" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                  </Link>
+                </div>
+              )}
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleOpenCartModal}
+                  className="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4Z" />
+                    <path d="M3 6h18" />
+                    <path d="M16 10a4 4 0 01-8 0" />
+                  </svg>
+                  {product.length > 0 && (
+                    <span className="absolute top-0 right-0 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-blue rounded-full">
+                      {product.length}
+                    </span>
+                  )}
+                </button>
+
+                {token ? (
+                  <div className="flex items-center gap-2">
+                    <Link href="/my-account" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                    </Link>
+                    <button onClick={() => usedispatch(logout())} className="text-xs font-semibold text-red-500 hover:text-red-600 transition-colors">
+                      خروج
+                    </button>
+                  </div>
+                ) : (
+                  <Link href="/signin" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
+                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                  </Link>
+                )}
+              </div>
+
+              <button
+                className="lg:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
+                onClick={() => setNavigationOpen(!navigationOpen)}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  {navigationOpen ? <path d="M18 6L6 18M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+                </svg>
+              </button>
+            </div>
 
             {/* <button
               onClick={toggleTheme}
@@ -354,98 +369,56 @@ const Header = () => {
         </div>
       </div>
 
-      {/* <div className="border-t border-gray-3">
-        <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
-          <div className="flex items-center justify-between">
-            <div
-              className={`w-[288px] absolute right-4 top-full xl:static xl:w-auto h-0 xl:h-auto invisible xl:visible xl:flex items-center justify-between ${
-                navigationOpen &&
-                `!visible bg-white  dark:bg-[#121212]  dark:!text-[#E0E0E0] shadow-lg border border-gray-3 !h-auto max-h-[400px] overflow-y-scroll rounded-md p-5`
-              }`}
-            >
-              <nav>
-                <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
-                  {menuData.map((menuItem, i) =>
-                    menuItem.submenu ? (
-                      <Dropdown
-                        key={i}
-                        menuItem={menuItem}
-                        stickyMenu={stickyMenu}
-                      />
+      {/* Mobile Navigation */}
+      <div
+        className={`fixed inset-0 z-99999 lg:hidden transition-all duration-300 ${
+          navigationOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        }`}
+      >
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setNavigationOpen(false)}></div>
+        <div className={`absolute right-0 top-0 h-full w-[280px] bg-white dark:bg-[#121212] transition-transform duration-300 ${
+          navigationOpen ? "translate-x-0" : "translate-x-full"
+        }`}>
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-8">
+               <Link href="/" className="relative w-12 h-12">
+                 <Image src="/images/logo/logo.jpg" fill alt="Logo" className="rounded-full object-cover" />
+               </Link>
+               <button onClick={() => setNavigationOpen(false)} className="p-2">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                   <path d="M18 6L6 18M6 6l12 12" />
+                 </svg>
+               </button>
+            </div>
+            <nav>
+              <ul className="flex flex-col gap-4">
+                {menuData.map((menuItem, i) => (
+                  <li key={i}>
+                    {menuItem.submenu ? (
+                      <div className="space-y-4">
+                        <span className="text-sm font-semibold uppercase text-gray-400">{menuItem.title}</span>
+                        <ul className="pl-4 border-l border-gray-100 dark:border-white/10 space-y-3">
+                          {menuItem.submenu.map((sub, j) => (
+                            <li key={j}>
+                              <Link href={sub.path} onClick={() => setNavigationOpen(false)} className="text-sm hover:text-blue transition-colors">
+                                {sub.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ) : (
-                      <li
-                        key={i}
-                        className="group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full "
-                      >
-                        <Link
-                          href={menuItem.path}
-                          className={`hover:text-blue text-custom-sm font-medium text-dark dark:text-[#8b8b8b] flex ${
-                            stickyMenu ? "xl:py-4" : "xl:py-6"
-                          }`}
-                        >
-                          {menuItem.title}
-                        </Link>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </nav>
-            </div>
-
-            <div className="hidden xl:block">
-              <ul className="flex items-center gap-5.5">
-                <li className="py-4">
-                  <a
-                    href="#"
-                    className="flex items-center gap-1.5 font-medium text-custom-sm text-dark dark:text-[#8b8b8b] hover:text-blue"
-                  >
-                    <svg
-                      className="fill-current"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2.45313 7.55556H1.70313V7.55556L2.45313 7.55556ZM2.45313 8.66667L1.92488 9.19908C2.21729 9.4892 2.68896 9.4892 2.98137 9.19908L2.45313 8.66667ZM4.10124 8.08797C4.39528 7.79623 4.39715 7.32135 4.10541 7.02731C3.81367 6.73327 3.3388 6.73141 3.04476 7.02315L4.10124 8.08797ZM1.86149 7.02315C1.56745 6.73141 1.09258 6.73327 0.800843 7.02731C0.509102 7.32135 0.510968 7.79623 0.805009 8.08797L1.86149 7.02315ZM12.1973 5.05946C12.4143 5.41232 12.8762 5.52252 13.229 5.30558C13.5819 5.08865 13.6921 4.62674 13.4752 4.27388L12.1973 5.05946ZM8.0525 1.25C4.5514 1.25 1.70313 4.06755 1.70313 7.55556H3.20313C3.20313 4.90706 5.3687 2.75 8.0525 2.75V1.25ZM1.70313 7.55556L1.70313 8.66667L3.20313 8.66667L3.20313 7.55556L1.70313 7.55556ZM2.98137 9.19908L4.10124 8.08797L3.04476 7.02315L1.92488 8.13426L2.98137 9.19908ZM2.98137 8.13426L1.86149 7.02315L0.805009 8.08797L1.92488 9.19908L2.98137 8.13426ZM13.4752 4.27388C12.3603 2.46049 10.3479 1.25 8.0525 1.25V2.75C9.80904 2.75 11.346 3.67466 12.1973 5.05946L13.4752 4.27388Z"
-                        fill=""
-                      />
-                      <path
-                        d="M13.5427 7.33337L14.0699 6.79996C13.7777 6.51118 13.3076 6.51118 13.0155 6.79996L13.5427 7.33337ZM11.8913 7.91107C11.5967 8.20225 11.5939 8.67711 11.8851 8.97171C12.1763 9.26631 12.6512 9.26908 12.9458 8.9779L11.8913 7.91107ZM14.1396 8.9779C14.4342 9.26908 14.9091 9.26631 15.2003 8.97171C15.4914 8.67711 15.4887 8.20225 15.1941 7.91107L14.1396 8.9779ZM3.75812 10.9395C3.54059 10.587 3.07849 10.4776 2.72599 10.6951C2.3735 10.9127 2.26409 11.3748 2.48163 11.7273L3.75812 10.9395ZM7.9219 14.75C11.4321 14.75 14.2927 11.9352 14.2927 8.44449H12.7927C12.7927 11.0903 10.6202 13.25 7.9219 13.25V14.75ZM14.2927 8.44449V7.33337H12.7927V8.44449H14.2927ZM13.0155 6.79996L11.8913 7.91107L12.9458 8.9779L14.0699 7.86679L13.0155 6.79996ZM13.0155 7.86679L14.1396 8.9779L15.1941 7.91107L14.0699 6.79996L13.0155 7.86679ZM2.48163 11.7273C3.60082 13.5408 5.62007 14.75 7.9219 14.75V13.25C6.15627 13.25 4.61261 12.3241 3.75812 10.9395L2.48163 11.7273Z"
-                        fill=""
-                      />
-                    </svg>
-                    Recently Viewed
-                  </a>
-                </li>
-
-                <li className="py-4">
-                  <Link
-                    href="/wishlist"
-                    className="flex items-center gap-1.5 font-medium text-custom-sm text-dark dark:text-[#8b8b8b] hover:text-blue"
-                  >
-                    <svg
-                      className="fill-current"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M5.97441 12.6073L6.43872 12.0183L5.97441 12.6073ZM7.99992 3.66709L7.45955 4.18719C7.60094 4.33408 7.79604 4.41709 7.99992 4.41709C8.2038 4.41709 8.3989 4.33408 8.54028 4.18719L7.99992 3.66709ZM10.0254 12.6073L10.4897 13.1962L10.0254 12.6073ZM6.43872 12.0183C5.41345 11.21 4.33627 10.4524 3.47904 9.48717C2.64752 8.55085 2.08325 7.47831 2.08325 6.0914H0.583252C0.583252 7.94644 1.3588 9.35867 2.35747 10.4832C3.33043 11.5788 4.57383 12.4582 5.51009 13.1962L6.43872 12.0183ZM2.08325 6.0914C2.08325 4.75102 2.84027 3.63995 3.85342 3.17683C4.81929 2.73533 6.15155 2.82823 7.45955 4.18719L8.54028 3.14699C6.84839 1.38917 4.84732 1.07324 3.22983 1.8126C1.65962 2.53035 0.583252 4.18982 0.583252 6.0914H2.08325ZM5.51009 13.1962C5.84928 13.4636 6.22932 13.7618 6.61834 13.9891C7.00711 14.2163 7.47619 14.4167 7.99992 14.4167V12.9167C7.85698 12.9167 7.65939 12.8601 7.37512 12.694C7.0911 12.5281 6.79171 12.2965 6.43872 12.0183L5.51009 13.1962ZM10.4897 13.1962C11.426 12.4582 12.6694 11.5788 13.6424 10.4832C14.641 9.35867 15.4166 7.94644 15.4166 6.0914H13.9166C13.9166 7.47831 13.3523 8.55085 12.5208 9.48717C11.6636 10.4524 10.5864 11.21 9.56112 12.0183L10.4897 13.1962ZM15.4166 6.0914C15.4166 4.18982 14.3402 2.53035 12.77 1.8126C11.1525 1.07324 9.15145 1.38917 7.45955 3.14699L8.54028 4.18719C9.84828 2.82823 11.1805 2.73533 12.1464 3.17683C13.1596 3.63995 13.9166 4.75102 13.9166 6.0914H15.4166ZM9.56112 12.0183C9.20813 12.2965 8.90874 12.5281 8.62471 12.694C8.34044 12.8601 8.14285 12.9167 7.99992 12.9167V14.4167C8.52365 14.4167 8.99273 14.2163 9.3815 13.9891C9.77052 13.7618 10.1506 13.4636 10.4897 13.1962L9.56112 12.0183Z"
-                        fill=""
-                      />
-                    </svg>
-                    Wishlist
-                  </Link>
-                </li>
+                      <Link href={menuItem.path} onClick={() => setNavigationOpen(false)} className="text-lg font-medium hover:text-blue transition-colors">
+                        {menuItem.title}
+                      </Link>
+                    )}
+                  </li>
+                ))}
               </ul>
-            </div>
+            </nav>
           </div>
         </div>
-      </div> */}
+      </div>
     </header>
   );
 };

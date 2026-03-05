@@ -6,7 +6,7 @@ import { setCredentials, logout } from "./Auth.slice";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 // "http://localhost:3000"
 const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl,
+  baseUrl: "http://localhost:3000",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.refreshToken;
     if (token) headers.set("authorization", `Bearer ${token}`);
@@ -26,12 +26,17 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         body: { refreshToken: (api.getState() as RootState).auth.refreshToken },
       },
       api,
-      extraOptions
+      extraOptions,
     );
 
     if (refreshResult.data) {
       // store the new token
-      api.dispatch(setCredentials({ ...(refreshResult.data as any), refreshToken: (api.getState() as RootState).auth.refreshToken }));
+      api.dispatch(
+        setCredentials({
+          ...(refreshResult.data as any),
+          refreshToken: (api.getState() as RootState).auth.refreshToken,
+        }),
+      );
       // retry the initial query
       result = await baseQuery(args, api, extraOptions);
     } else {
@@ -187,7 +192,7 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["GuestOrder"],
     }),
-    
+
     // Create order (checkout)
     createOrder: builder.mutation({
       query: (orderData) => ({
@@ -196,13 +201,13 @@ export const apiSlice = createApi({
         body: orderData,
       }),
     }),
-    
+
     // Get single order by ID
     getOrderById: builder.query<any, string>({
       query: (orderId) => `/order/${orderId}`,
       providesTags: (result, error, id) => [{ type: "Order", id }],
     }),
-    
+
     // Get user orders
     getUserOrders: builder.query<any[], void>({
       query: () => "/order/my-orders",
@@ -258,7 +263,10 @@ export const apiSlice = createApi({
       query: () => "/order/Allorders",
       providesTags: ["Order"],
     }),
-    updateOrderStatus: builder.mutation<any, { orderId: string; status: string }>({
+    updateOrderStatus: builder.mutation<
+      any,
+      { orderId: string; status: string }
+    >({
       query: (data) => ({
         url: "/order/status",
         method: "POST",
@@ -285,13 +293,29 @@ export const apiSlice = createApi({
         body: data,
       }),
     }),
-    getDashboardStats: builder.query<any, { days?: string; paymentMethod?: string }>({
+    getDashboardStats: builder.query<
+      any,
+      { days?: string; paymentMethod?: string }
+    >({
       query: ({ days, paymentMethod }) => {
         const params = new URLSearchParams();
         if (days) params.append("days", days);
         if (paymentMethod) params.append("paymentMethod", paymentMethod);
         return `/dashboard/stats?${params.toString()}`;
       },
+    }),
+    getDrivers: builder.query<any[], void>({
+      query: () => "/admin/drivers",
+    }),
+    updateDriverStatus: builder.mutation<
+      any,
+      { driverId: string; status: string }
+    >({
+      query: (data) => ({
+        url: "/admin/drivers",
+        method: "POST",
+        body: data,
+      }),
     }),
   }),
 });
@@ -312,7 +336,7 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useGoogleLoginMutation,
-  useSendOtpMutation, 
+  useSendOtpMutation,
   useVerifyOtpMutation,
   useAddstoreMutation,
   useGetGeustOrderQuery,
@@ -333,4 +357,6 @@ export const {
   useGetMeQuery,
   useUpdateProfileMutation,
   useUpdatePasswordMutation,
+  useGetDriversQuery,
+  useUpdateDriverStatusMutation,
 } = apiSlice;

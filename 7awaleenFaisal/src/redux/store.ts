@@ -19,11 +19,11 @@ export const store = configureStore({
     productDetailsReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware), // ⚠️ Middleware هنا
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();

@@ -8,55 +8,51 @@ const Dropdown = ({ menuItem, stickyMenu }) => {
 
   return (
     <li
-      onClick={() => setDropdownToggler(!dropdownToggler)}
-      className={`group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full ${
-        pathUrl.includes(menuItem.title) && "before:!w-full"
-      }`}
+      onMouseEnter={() => setDropdownToggler(true)}
+      onMouseLeave={() => setDropdownToggler(false)}
+      className="group relative"
     >
-      <a
-        href="#"
-        className={`hover:text-blue text-custom-sm font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  flex items-center gap-1.5 capitalize ${
-          stickyMenu ? "xl:py-4" : "xl:py-6"
-        } ${pathUrl.includes(menuItem.title) && "!text-blue"}`}
+      <button
+        className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-blue capitalize ${
+          pathUrl.includes(menuItem.path) ? "text-blue" : "text-dark dark:text-[#E0E0E0]"
+        }`}
       >
         {menuItem.title}
         <svg
-          className="fill-current cursor-pointer"
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
+          className={`w-4 h-4 transition-transform duration-200 ${dropdownToggler ? "rotate-180" : ""}`}
+          viewBox="0 0 24 24"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M2.95363 5.67461C3.13334 5.46495 3.44899 5.44067 3.65866 5.62038L7.99993 9.34147L12.3412 5.62038C12.5509 5.44067 12.8665 5.46495 13.0462 5.67461C13.2259 5.88428 13.2017 6.19993 12.992 6.37964L8.32532 10.3796C8.13808 10.5401 7.86178 10.5401 7.67453 10.3796L3.00787 6.37964C2.7982 6.19993 2.77392 5.88428 2.95363 5.67461Z"
-            fill=""
-          />
+          <path d="m6 9 6 6 6-6" />
         </svg>
-      </a>
+      </button>
 
-      {/* <!-- Dropdown Start --> */}
+      {/* Dropdown Menu */}
       <ul
-        className={`dropdown ${dropdownToggler && "flex"} ${
-          stickyMenu
-            ? "xl:group-hover:translate-y-0"
-            : "xl:group-hover:translate-y-0"
+        className={`absolute left-0 top-full pt-4 min-w-[200px] transition-all duration-300 ${
+          dropdownToggler 
+            ? "opacity-100 visible translate-y-0" 
+            : "opacity-0 invisible translate-y-2"
         }`}
       >
-        {menuItem.submenu.map((item, i) => (
-          <li key={i}>
-            <Link
-              href={item.path}
-              className={`flex text-custom-sm hover:text-blue hover:bg-gray-1 py-[7px] px-4.5 ${
-                pathUrl === item.path && "text-blue bg-gray-1"
-              } `}
-            >
-              {item.title}
-            </Link>
-          </li>
-        ))}
+        <div className="bg-white/90 dark:bg-[#121212]/90 backdrop-blur-xl border border-gray-100 dark:border-white/10 rounded-xl shadow-xl overflow-hidden py-2">
+          {menuItem.submenu.map((item, i) => (
+            <li key={i}>
+              <Link
+                href={item.path}
+                className={`block px-5 py-2.5 text-sm transition-all hover:bg-blue/5 hover:text-blue ${
+                  pathUrl === item.path ? "text-blue bg-blue/5 font-semibold" : "text-gray-600 dark:text-gray-400"
+                }`}
+              >
+                {item.title}
+              </Link>
+            </li>
+          ))}
+        </div>
       </ul>
     </li>
   );

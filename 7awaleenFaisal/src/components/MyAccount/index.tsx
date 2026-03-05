@@ -1,13 +1,80 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Image from "next/image";
 import AddressModal from "./AddressModal";
 import Orders from "../Orders";
+import { useGetMeQuery, useUpdateProfileMutation, useUpdatePasswordMutation } from "@/redux/features/Api.slice";
+import { useDispatch } from "react-redux";
+import { logout } from "@/redux/features/Auth.slice";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const MyAccount = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [addressModal, setAddressModal] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { data: user, isLoading: userLoading } = useGetMeQuery();
+  const [updateProfile, { isLoading: isUpdatingProfile }] = useUpdateProfileMutation();
+  const [updatePassword, { isLoading: isUpdatingPassword }] = useUpdatePasswordMutation();
+
+  // Form states
+  const [profileData, setProfileData] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+
+  const [passwordData, setPasswordData] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+
+  useEffect(() => {
+    if (user) {
+      setProfileData({
+        name: user.name || "",
+        phone: user.phone || "",
+        address: user.address || "",
+      });
+    }
+  }, [user]);
+
+  const handleProfileUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await updateProfile(profileData).unwrap();
+      toast.success("Profile updated successfully!");
+    } catch (err: any) {
+      toast.error(err?.data?.error || "Failed to update profile");
+    }
+  };
+
+  const handlePasswordUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordData.newPassword !== passwordData.confirmNewPassword) {
+      toast.error("New passwords do not match");
+      return;
+    }
+    try {
+      await updatePassword({
+        oldPassword: passwordData.oldPassword,
+        newPassword: passwordData.newPassword,
+      }).unwrap();
+      toast.success("Password updated successfully!");
+      setPasswordData({ oldPassword: "", newPassword: "", confirmNewPassword: "" });
+    } catch (err: any) {
+      toast.error(err?.data?.error || "Failed to update password");
+    }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/signin");
+  };
 
   const openAddressModal = () => {
     setAddressModal(true);
@@ -38,10 +105,10 @@ const MyAccount = () => {
                   </div>
 
                   <div>
-                    <p className="font-medium  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-0.5">
-                      James Septimus
+                    <p className="font-medium  text-dark dark:text-[#E0E0E0]  mb-0.5">
+                      {userLoading ? "Loading..." : user?.name}
                     </p>
-                    <p className="text-custom-xs">Member Since Sep 2020</p>
+                    <p className="text-custom-xs">Member Since {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "..."}</p>
                   </div>
                 </div>
 
@@ -52,7 +119,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "dashboard"
                           ? "text-white bg-blue"
-                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
+                          : " text-dark dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -95,7 +162,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "orders"
                           ? "text-white bg-blue"
-                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
+                          : " text-dark dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -133,7 +200,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "downloads"
                           ? "text-white bg-blue"
-                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
+                          : " text-dark dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -161,7 +228,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "addresses"
                           ? "text-white bg-blue"
-                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
+                          : " text-dark dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -191,7 +258,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "account-details"
                           ? "text-white bg-blue"
-                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
+                          : " text-dark dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -223,7 +290,7 @@ const MyAccount = () => {
                       className={`flex items-center rounded-md gap-2.5 py-3 px-4.5 ease-out duration-200 hover:bg-blue hover:text-white ${
                         activeTab === "logout"
                           ? "text-white bg-blue"
-                          : " text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -2 bg-gray-1"
+                          : " text-dark dark:text-[#E0E0E0] -2 bg-gray-1"
                       }`}
                     >
                       <svg
@@ -260,14 +327,14 @@ const MyAccount = () => {
                 activeTab === "dashboard" ? "block" : "hidden"
               }`}
             >
-              <p className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
-                Hello Annie (not Annie?
-                <a
-                  href="#"
-                  className="text-red ease-out duration-200 hover:underline"
+              <p className=" text-dark dark:text-[#E0E0E0] ">
+                Hello {user?.name} (not {user?.name}?
+                <button
+                  onClick={handleLogout}
+                  className="text-red ease-out duration-200 hover:underline mx-1"
                 >
                   Log Out
-                </a>
+                </button>
                 )
               </p>
 
@@ -307,12 +374,12 @@ const MyAccount = () => {
             >
               <div className="xl:max-w-[370px] w-full bg-white  dark:bg-[#121212]   shadow-1 rounded-xl">
                 <div className="flex items-center justify-between py-5 px-4 sm:pl-7.5 sm:pr-6 border-b border-gray-3">
-                  <p className="font-medium text-xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                  <p className="font-medium text-xl  text-dark dark:text-[#E0E0E0] ">
                     Shipping Address
                   </p>
 
                   <button
-                    className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue"
+                    className=" text-dark dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue"
                     onClick={openAddressModal}
                   >
                     <svg
@@ -357,7 +424,7 @@ const MyAccount = () => {
                           fill=""
                         />
                       </svg>
-                      Name: James Septimus
+                      Name: {user?.name}
                     </p>
 
                     <p className="flex items-center gap-2.5 text-custom-sm">
@@ -376,7 +443,7 @@ const MyAccount = () => {
                           fill=""
                         />
                       </svg>
-                      Email: jamse@example.com
+                      Email: {user?.email}
                     </p>
 
                     <p className="flex items-center gap-2.5 text-custom-sm">
@@ -405,7 +472,7 @@ const MyAccount = () => {
                           fill=""
                         />
                       </svg>
-                      Phone: 1234 567890
+                      Phone: {user?.phone || "N/A"}
                     </p>
 
                     <p className="flex gap-2.5 text-custom-sm">
@@ -431,7 +498,7 @@ const MyAccount = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                      Address: 7398 Smoke Ranch RoadLas Vegas, Nevada 89128
+                      Address: {user?.address || "N/A"}
                     </p>
                   </div>
                 </div>
@@ -439,12 +506,12 @@ const MyAccount = () => {
 
               <div className="xl:max-w-[370px] w-full bg-white  dark:bg-[#121212]   shadow-1 rounded-xl">
                 <div className="flex items-center justify-between py-5 px-4 sm:pl-7.5 sm:pr-6 border-b border-gray-3">
-                  <p className="font-medium text-xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] ">
+                  <p className="font-medium text-xl  text-dark dark:text-[#E0E0E0] ">
                     Billing Address
                   </p>
 
                   <button
-                    className=" text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue"
+                    className=" text-dark dark:text-[#E0E0E0]  ease-out duration-200 hover:text-blue"
                     onClick={openAddressModal}
                   >
                     <svg
@@ -489,7 +556,7 @@ const MyAccount = () => {
                           fill=""
                         />
                       </svg>
-                      Name: James Septimus
+                      Name: {user?.name}
                     </p>
 
                     <p className="flex items-center gap-2.5 text-custom-sm">
@@ -508,7 +575,7 @@ const MyAccount = () => {
                           fill=""
                         />
                       </svg>
-                      Email: jamse@example.com
+                      Email: {user?.email}
                     </p>
 
                     <p className="flex items-center gap-2.5 text-custom-sm">
@@ -537,7 +604,7 @@ const MyAccount = () => {
                           fill=""
                         />
                       </svg>
-                      Phone: 1234 567890
+                      Phone: {user?.phone || "N/A"}
                     </p>
 
                     <p className="flex gap-2.5 text-custom-sm">
@@ -563,7 +630,7 @@ const MyAccount = () => {
                           </clipPath>
                         </defs>
                       </svg>
-                      Address: 7398 Smoke Ranch RoadLas Vegas, Nevada 89128
+                      Address: {user?.address || "N/A"}
                     </p>
                   </div>
                 </div>
@@ -577,86 +644,73 @@ const MyAccount = () => {
                 activeTab === "account-details" ? "block" : "hidden"
               }`}
             >
-              <form>
+              <form onSubmit={handleProfileUpdate}>
                 <div className="bg-white  dark:bg-[#121212]   shadow-1 rounded-xl p-4 sm:p-8.5">
-                  <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
+                  <div className="mb-5">
                     <div className="w-full">
-                      <label htmlFor="firstName" className="block mb-2.5">
-                        First Name <span className="text-red">*</span>
+                      <label htmlFor="name" className="block mb-2.5">
+                        Full Name <span className="text-red">*</span>
                       </label>
 
                       <input
                         type="text"
-                        name="firstName"
-                        id="firstName"
-                        placeholder="Jhon"
-                        value="Jhon"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                      />
-                    </div>
-
-                    <div className="w-full">
-                      <label htmlFor="lastName" className="block mb-2.5">
-                        Last Name <span className="text-red">*</span>
-                      </label>
-
-                      <input
-                        type="text"
-                        name="lastName"
-                        id="lastName"
-                        placeholder="Deo"
-                        value="Deo"
-                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        name="name"
+                        id="name"
+                        placeholder="John Doe"
+                        value={profileData.name}
+                        onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
+                        required
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                       />
                     </div>
                   </div>
 
                   <div className="mb-5">
-                    <label htmlFor="countryName" className="block mb-2.5">
-                      Country/ Region <span className="text-red">*</span>
+                    <label htmlFor="phone" className="block mb-2.5">
+                      Phone Number
                     </label>
+                    <input
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      placeholder="+1 234 567 890"
+                      value={profileData.phone}
+                      onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    />
+                  </div>
 
-                    <div className="relative">
-                      <select className="w-full bg-gray-1 rounded-md border border-gray-3  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4 py-3 pl-5 pr-9 duration-200 appearance-none outline-none focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20">
-                        <option value="0">Australia</option>
-                        <option value="1">America</option>
-                        <option value="2">England</option>
-                      </select>
-
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -4">
-                        <svg
-                          className="fill-current"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2.41469 5.03569L2.41467 5.03571L2.41749 5.03846L7.76749 10.2635L8.0015 10.492L8.23442 10.2623L13.5844 4.98735L13.5844 4.98735L13.5861 4.98569C13.6809 4.89086 13.8199 4.89087 13.9147 4.98569C14.0092 5.08024 14.0095 5.21864 13.9155 5.31345C13.9152 5.31373 13.915 5.31401 13.9147 5.31429L8.16676 10.9622L8.16676 10.9622L8.16469 10.9643C8.06838 11.0606 8.02352 11.0667 8.00039 11.0667C7.94147 11.0667 7.89042 11.0522 7.82064 10.9991L2.08526 5.36345C1.99127 5.26865 1.99154 5.13024 2.08609 5.03569C2.18092 4.94086 2.31986 4.94086 2.41469 5.03569Z"
-                            fill=""
-                            stroke=""
-                            stroke-width="0.666667"
-                          />
-                        </svg>
-                      </span>
-                    </div>
+                  <div className="mb-5">
+                    <label htmlFor="address" className="block mb-2.5">
+                      Address
+                    </label>
+                    <input
+                      type="text"
+                      name="address"
+                      id="address"
+                      placeholder="123 Street, City, Country"
+                      value={profileData.address}
+                      onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    />
                   </div>
 
                   <button
                     type="submit"
-                    className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                    disabled={isUpdatingProfile}
+                    className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark disabled:opacity-50"
                   >
-                    Save Changes
+                    {isUpdatingProfile ? "Saving..." : "Save Changes"}
                   </button>
                 </div>
+
 
                 <p className="text-custom-sm mt-5 mb-9">
                   This will be how your name will be displayed in the account
                   section and in reviews
                 </p>
 
-                <p className="font-medium text-xl sm:text-2xl  text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0]  mb-7">
+                <p className="font-medium text-xl sm:text-2xl  text-dark dark:text-[#E0E0E0]  mb-7">
                   Password Change
                 </p>
 
@@ -670,8 +724,11 @@ const MyAccount = () => {
                       type="password"
                       name="oldPassword"
                       id="oldPassword"
-                      autoComplete="on"
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                      autoComplete="current-password"
+                      value={passwordData.oldPassword}
+                      onChange={(e) => setPasswordData({ ...passwordData, oldPassword: e.target.value })}
+                      required
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                   </div>
 
@@ -684,8 +741,11 @@ const MyAccount = () => {
                       type="password"
                       name="newPassword"
                       id="newPassword"
-                      autoComplete="on"
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                      autoComplete="new-password"
+                      value={passwordData.newPassword}
+                      onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                      required
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                   </div>
 
@@ -701,16 +761,21 @@ const MyAccount = () => {
                       type="password"
                       name="confirmNewPassword"
                       id="confirmNewPassword"
-                      autoComplete="on"
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                      autoComplete="new-password"
+                      value={passwordData.confirmNewPassword}
+                      onChange={(e) => setPasswordData({ ...passwordData, confirmNewPassword: e.target.value })}
+                      required
+                      className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                    onClick={handlePasswordUpdate}
+                    disabled={isUpdatingPassword}
+                    className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark disabled:opacity-50"
                   >
-                    Change Password
+                    {isUpdatingPassword ? "Changing..." : "Change Password"}
                   </button>
                 </div>
               </form>

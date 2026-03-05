@@ -1,0 +1,113 @@
+"use client";
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
+import { useState, useEffect, useMemo } from "react";
+import "../css/euclid-circular-a-font.css";
+import "../css/style.css";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
+import { ModalProvider } from "../context/QuickViewModalContext";
+import { CartModalProvider } from "../context/CartSidebarModalContext";
+import { ReduxProvider } from "@/redux/provider";
+import QuickViewModal from "@/components/Common/[id]/QuickViewModal";
+import CartSidebarModal from "@/components/Common/CartSidebarModal";
+import { PreviewSliderProvider } from "../context/PreviewSliderContext";
+import PreviewSliderModal from "@/components/Common/PreviewSlider";
+
+import ScrollToTop from "@/components/Common/ScrollToTop";
+import PreLoader from "@/components/Common/PreLoader";
+
+import { Toaster } from "react-hot-toast";
+import BuyNowModal from "@/components/Common/BuyNowModal";
+import { BuyNowProvider } from "../context/BuyNowContext";
+import WhatsApp from "@/components/Common/WhatsApp";
+import Snowfall from "react-snowfall";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const images = useMemo(() => {
+    if (typeof window === "undefined") return [];
+
+    const moon = new window.Image();
+    moon.src = "/images/ramaden/moon.svg";
+
+    return [moon];
+  }, []);
+  return (
+    <html lang="en" dir="rtl" suppressHydrationWarning={true}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        if (
+          localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      `,
+          }}
+        />
+      </head>
+
+      <body
+        data-new-gr-c-s-check-loaded="14.1261.0"
+        data-gr-ext-installed=""
+        cz-shortcut-listen="true"
+      >
+   
+        <>
+          <ReduxProvider>
+            
+                    
+
+                    {children}
+               
+          </ReduxProvider>
+          <ScrollToTop />
+     
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 2500,
+              style: {
+                background: '#363636',
+                color: '#fff',
+                fontSize: '14px',
+                padding: '12px 20px',
+                borderRadius: '8px',
+              },
+              success: {
+                duration: 2500,
+                style: {
+                  background: '#10B981',
+                },
+                iconTheme: {
+                  primary: '#fff',
+                  secondary: '#10B981',
+                },
+              },
+              error: {
+                style: {
+                  background: '#EF4444',
+                },
+                iconTheme: {
+                  primary: '#fff',
+                  secondary: '#EF4444',
+                },
+              },
+            }}
+          />
+        </>
+      </body>
+    </html>
+  );
+}

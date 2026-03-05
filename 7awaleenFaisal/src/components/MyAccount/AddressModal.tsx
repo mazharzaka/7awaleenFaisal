@@ -1,10 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useGetMeQuery, useUpdateProfileMutation } from "@/redux/features/Api.slice";
+import toast from "react-hot-toast";
 
 const AddressModal = ({ isOpen, closeModal }) => {
+  const { data: user } = useGetMeQuery();
+  const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || "",
+        phone: user.phone || "",
+        address: user.address || "",
+      });
+    }
+  }, [user]);
+
   useEffect(() => {
     // closing modal while clicking outside
-    function handleClickOutside(event) {
-      if (!event.target.closest(".modal-content")) {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".modal-content")) {
         closeModal();
       }
     }
@@ -18,6 +40,17 @@ const AddressModal = ({ isOpen, closeModal }) => {
     };
   }, [isOpen, closeModal]);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await updateProfile(formData).unwrap();
+      toast.success("Address updated successfully!");
+      closeModal();
+    } catch (err: any) {
+      toast.error(err?.data?.error || "Failed to update address");
+    }
+  };
+
   return (
     <div
       className={`fixed top-0 left-0 overflow-y-auto no-scrollbar w-full h-screen sm:py-20 xl:py-25 2xl:py-[230px] bg-dark/70 sm:px-8 px-4 py-5 ${
@@ -26,13 +59,12 @@ const AddressModal = ({ isOpen, closeModal }) => {
     >
       <div className="flex items-center justify-center ">
         <div
-          x-show="addressModal"
           className="w-full max-w-[1100px] rounded-xl shadow-3 bg-white  dark:bg-[#121212]   p-7.5 relative modal-content"
         >
           <button
             onClick={closeModal}
             aria-label="button for close modal"
-            className="absolute top-0 right-0 sm:top-3 sm:right-3 flex items-center justify-center w-10 h-10 rounded-full ease-in duration-150 bg-meta text-body hover: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] "
+            className="absolute top-0 right-0 sm:top-3 sm:right-3 flex items-center justify-center w-10 h-10 rounded-full ease-in duration-150 bg-meta text-body hover: dark:text-[#E0E0E0] "
           >
             <svg
               className="fill-current"
@@ -52,7 +84,7 @@ const AddressModal = ({ isOpen, closeModal }) => {
           </button>
 
           <div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="flex flex-col lg:flex-row gap-5 sm:gap-8 mb-5">
                 <div className="w-full">
                   <label htmlFor="name" className="block mb-2.5">
@@ -62,8 +94,9 @@ const AddressModal = ({ isOpen, closeModal }) => {
                   <input
                     type="text"
                     name="name"
-                    value="James Septimus"
-                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
 
@@ -75,8 +108,9 @@ const AddressModal = ({ isOpen, closeModal }) => {
                   <input
                     type="email"
                     name="email"
-                    value="jamse@example.com"
-                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    value={user?.email || ""}
+                    disabled
+                    className="rounded-md border border-gray-3 bg-gray-2 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 opacity-70"
                   />
                 </div>
               </div>
@@ -90,8 +124,9 @@ const AddressModal = ({ isOpen, closeModal }) => {
                   <input
                     type="text"
                     name="phone"
-                    value="1234 567890"
-                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
 
@@ -103,17 +138,19 @@ const AddressModal = ({ isOpen, closeModal }) => {
                   <input
                     type="text"
                     name="address"
-                    value="7398 Smoke Ranch RoadLas Vegas, Nevada 89128"
-                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#8b8b8b] dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    className="rounded-md border border-gray-3 bg-gray-1 placeholder: text-dark dark:text-[#E0E0E0] -5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                disabled={isUpdating}
+                className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark disabled:opacity-50"
               >
-                Save Changes
+                {isUpdating ? "Updating..." : "Save Changes"}
               </button>
             </form>
           </div>
